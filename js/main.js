@@ -136,6 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Scroll Down Indicator Logic ---
+    const scrollIndicator = document.createElement('div');
+    scrollIndicator.classList.add('scroll-indicator');
+    scrollIndicator.innerHTML = '<i class="fas fa-chevron-down"></i>';
+    document.body.appendChild(scrollIndicator);
+
+    const updateScrollIndicator = () => {
+        // Distance from bottom of the page
+        const scrollBottom = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+        
+        // If we are near the bottom (less than 100px), hide it
+        if (scrollBottom < 100) {
+            scrollIndicator.classList.add('hidden');
+        } else {
+            scrollIndicator.classList.remove('hidden');
+        }
+    };
+
+    // Initialize and listen to scroll
+    updateScrollIndicator();
+    window.addEventListener('scroll', updateScrollIndicator);
+    window.addEventListener('resize', updateScrollIndicator);
 });
 
 // === Vehicle Gallery Logic (Global Scope) ===
