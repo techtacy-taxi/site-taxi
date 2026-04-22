@@ -2,16 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reveal animations on scroll
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     const revealOptions = {
-        threshold: 0.15,
+        threshold: 0.1,
         rootMargin: "0px 0px -50px 0px"
     };
 
     if ('IntersectionObserver' in window) {
         const revealOnScroll = new IntersectionObserver(function (entries, observer) {
             entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
+                if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                     observer.unobserve(entry.target);
                 }
@@ -25,6 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('active'));
     }
+
+    // Force check for elements already in view
+    setTimeout(() => {
+        revealElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('active');
+            }
+        });
+    }, 500);
 
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
