@@ -28,6 +28,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -250,6 +251,18 @@ h2 {
     align-items: center;
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 .nav-links a:not(.btn-primary) {
     color: var(--white);
     text-decoration: none;
@@ -291,8 +304,8 @@ h2 {
     gap: 10px !important;
     font-family: 'Outfit', sans-serif;
     transition: all 0.3s ease;
-    padding: 8px 15px;
-    min-width: 110px;
+    padding: 8px 0;
+    min-width: auto;
 }
 
 .dropbtn img {
@@ -311,6 +324,7 @@ h2 {
 
 
 .lang-switcher:hover .dropbtn {
+    color: var(--primary-color);
     transform: translateY(-2px) scale(1.05);
 }
 
@@ -318,17 +332,17 @@ h2 {
     display: none;
     position: absolute;
     right: 0;
-    top: 100%;
+    top: calc(100% + 10px);
     background-color: var(--white);
-    min-width: 140px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.25);
+    min-width: 150px;
+    box-shadow: 0px 10px 40px rgba(0,0,0,0.3);
     z-index: 1000;
     border-radius: var(--radius-md);
-    margin-top: 0px;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    padding: 5px 0;
+    padding: 8px 0;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Invisible bridge to maintain hover */
@@ -348,14 +362,14 @@ h2 {
     display: block;
 }
 
-.nav-links .dropdown-content a {
+.dropdown-content a {
     color: var(--dark-bg) !important;
     padding: 12px 20px !important;
-    text-decoration: none;
+    text-decoration: none !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 15px !important;
+    gap: 12px !important;
     width: 100%;
     font-size: 15px;
     font-weight: 700;
@@ -363,19 +377,20 @@ h2 {
     position: relative;
 }
 
-.nav-links .dropdown-content a img {
-    width: 22px !important;
+.dropdown-content a img {
+    width: 20px !important;
     height: auto;
     margin-right: 0 !important;
     border-radius: 2px;
     flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.nav-links .dropdown-content a::after {
+.dropdown-content a::after {
     content: '';
     position: absolute;
     bottom: 8px;
-    left: 16px;
+    left: 20px;
     width: 0%;
     height: 2px;
     background-color: var(--primary-color);
@@ -383,16 +398,12 @@ h2 {
     display: block;
 }
 
-.nav-links .dropdown-content a:hover {
-    background-color: transparent !important;
-}
-
-.nav-links .dropdown-content a:hover {
+.dropdown-content a:hover {
     background-color: #f8f9fa;
-    color: var(--primary-color) !important;
+    color: var(--dark-bg) !important;
 }
 
-.nav-links .dropdown-content a:hover::after {
+.dropdown-content a:hover::after {
     width: calc(100% - 40px);
 }
 
@@ -407,6 +418,12 @@ h2 {
     color: var(--white);
     font-size: 1.5rem;
     cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--primary-color);
 }
 
 /* Hero Section */
@@ -1221,44 +1238,52 @@ footer {
         transform: translateY(0);
     }
 
+    .nav-right {
+        gap: 0.5rem;
+    }
+
     .lang-switcher {
-        width: 100%;
-        margin-top: 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 15px;
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
     }
 
     .dropbtn {
-        width: 100%;
-        justify-content: center;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 30px;
+        padding: 5px 10px;
+        font-size: 13px;
+        background-color: transparent;
+        border: none;
+    }
+
+    .dropbtn i.fa-globe {
+        font-size: 16px;
+    }
+
+    .dropbtn img {
+        margin: 0 2px !important;
     }
 
     .dropdown-content {
-        left: 50%;
-        right: auto;
-        top: auto; /* Remove top positioning */
-        bottom: calc(100% + 10px); /* Open upwards */
-        transform: translateX(-50%) translateY(-10px);
-        min-width: 280px; /* Wider for 2 columns */
-        max-height: 320px; /* Slightly taller is fine now */
-        overflow-y: auto; /* Scroll if too many languages */
-        padding: 10px;
+        left: auto;
+        right: 0;
+        top: calc(100% + 12px);
+        bottom: auto;
+        transform: translateY(10px);
+        min-width: 240px;
         grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-        box-shadow: 0px -10px 30px rgba(0,0,0,0.25); /* Shadow on top */
+        padding: 10px;
+        gap: 2px;
     }
 
     .lang-switcher:hover .dropdown-content {
-        display: grid !important; /* Show as grid on mobile */
-        transform: translateX(-50%) translateY(0);
+        display: grid !important;
+        transform: translateY(0);
     }
 
-    .nav-links .dropdown-content a {
-        padding: 10px !important;
+    .dropdown-content a {
+        padding: 10px 15px !important;
         border-radius: 8px;
-        background: rgba(0, 0, 0, 0.03);
+        background: transparent;
     }
 
     .nav-links a:not(.btn-primary) {
@@ -1276,7 +1301,56 @@ footer {
     .mobile-menu-toggle {
         display: block;
     }
+}
 
+@media (max-width: 480px) {
+    .navbar {
+        padding: 8px 3%;
+    }
+
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    .brand-logo {
+        height: 32px;
+    }
+
+    .nav-actions {
+        gap: 0.4rem;
+    }
+    
+    .dropbtn {
+        padding: 4px 8px;
+        font-size: 12px;
+        gap: 5px !important;
+        border: none;
+    }
+    
+    .dropbtn i.fa-globe {
+        font-size: 14px;
+    }
+
+    .gr-widget-link {
+        padding: 8px 15px;
+    }
+
+    .gr-logo-container {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    .gr-text {
+        font-size: 11px;
+    }
+
+    .gr-rating-number {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
     .hero {
         padding-top: 110px;
         padding-bottom: 60px;
