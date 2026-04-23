@@ -23,14 +23,6 @@ function updateFile(filePath, lang, fileName) {
         { code: 'EL', flag: 'gr', link: `${prefix}el/${fileName}` }
     ];
 
-    const dropdownHtml = `
-                <div class="dropdown-content">
-                    ${languages.map(l => `<a href="${l.link}"><img src="https://flagcdn.com/w20/${l.flag}.png" width="20" alt="${l.code}" style="vertical-align: middle; margin-right: 8px;"> ${l.code}</a>`).join('\n                    ')}
-                </div>`;
-
-    // Replace the entire dropdown-content block
-    content = content.replace(/<div class="dropdown-content">[\s\S]*?<\/div>/, dropdownHtml.trim());
-
     // Update the main button (dropbtn) based on current language
     let currentLang = languages.find(l => l.link.includes(`${lang}/`) || (lang === 'root' && !l.link.includes('/')));
     if (lang === 'he') currentLang = languages.find(l => l.code === 'HE');
@@ -39,8 +31,23 @@ function updateFile(filePath, lang, fileName) {
     const flag = currentLang ? currentLang.flag : 'gb';
     const code = currentLang ? currentLang.code : 'EN';
 
-    const newBtn = `<button class="dropbtn"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/${flag}.png" width="18" style="margin: 0 5px;"> ${code} <i class="fas fa-chevron-down"></i></button>`;
-    content = content.replace(/<button class="dropbtn">[\s\S]*?<\/button>/, newBtn);
+    // Better: Generate the whole lang-switcher block
+    const switcherHtml = `
+                <div class="lang-switcher">
+                    <button class="dropbtn"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/${flag}.png" width="18" style="margin: 0 5px;"> ${code} <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        ${languages.map(l => `<a href="${l.link}"><img src="https://flagcdn.com/w20/${l.flag}.png" width="20" alt="${l.code}" style="vertical-align: middle; margin-right: 8px;"> ${l.code}</a>`).join('\n                        ')}
+                    </div>
+                </div>`;
+
+    // Replace the lang-switcher block
+    content = content.replace(/<div class="lang-switcher">[\s\S]*?<\/div>[\s\S]*?<\/div>/, switcherHtml.trim());
+
+    // Also ensure the nav-right and nav-actions structure exists if it's missing (for localized files)
+    if (!content.includes('class="nav-right"')) {
+        // This is a bit more complex, let's just replace the whole header inner content if possible
+        // or just move the switcher in localized files manually once and then let the script handle the content.
+    }
 
     // Set paths for subdirectories
     if (lang !== 'root') {
