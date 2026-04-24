@@ -71,6 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Save manual language choice when user clicks language switcher
+    document.querySelectorAll('.dropdown-content a').forEach(link => {
+        link.addEventListener('click', () => {
+            sessionStorage.setItem('lang_chosen', 'manual');
+        });
+    });
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -194,14 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScrollIndicator();
     window.addEventListener('scroll', updateScrollIndicator);
     window.addEventListener('resize', updateScrollIndicator);
-
-    // Track manual language selection from the language switcher
-    const langLinks = document.querySelectorAll('.dropdown-content a');
-    langLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            localStorage.setItem('tvt_lang_manual', '1');
-        });
-    });
 });
 
 // === Vehicle Gallery Logic (Global Scope) ===
