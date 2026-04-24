@@ -206,12 +206,39 @@ h2 {
 .btn-whatsapp {
     background-color: #25D366;
     color: white;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .btn-whatsapp:hover {
     background-color: #128C7E;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp.preferred {
+    animation: whatsappAttention 2s ease-in-out infinite;
+}
+
+.preferred-badge {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    background: #ff3b30;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+    pointer-events: none;
+    z-index: 5;
+    white-space: nowrap;
 }
 
 /* Navbar */
@@ -400,24 +427,60 @@ h2 {
     animation: langItemSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.lang-switcher:hover .dropdown-content a:nth-child(1) { animation-delay: 0.05s; }
-.lang-switcher:hover .dropdown-content a:nth-child(2) { animation-delay: 0.1s; }
-.lang-switcher:hover .dropdown-content a:nth-child(3) { animation-delay: 0.15s; }
-.lang-switcher:hover .dropdown-content a:nth-child(4) { animation-delay: 0.18s; }
-.lang-switcher:hover .dropdown-content a:nth-child(5) { animation-delay: 0.21s; }
-.lang-switcher:hover .dropdown-content a:nth-child(6) { animation-delay: 0.24s; }
-.lang-switcher:hover .dropdown-content a:nth-child(7) { animation-delay: 0.27s; }
-.lang-switcher:hover .dropdown-content a:nth-child(8) { animation-delay: 0.30s; }
-.lang-switcher:hover .dropdown-content a:nth-child(9) { animation-delay: 0.33s; }
-.lang-switcher:hover .dropdown-content a:nth-child(10) { animation-delay: 0.36s; }
-.lang-switcher:hover .dropdown-content a:nth-child(11) { animation-delay: 0.39s; }
-.lang-switcher:hover .dropdown-content a:nth-child(12) { animation-delay: 0.42s; }
+.lang-switcher:hover .dropdown-content a:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(4) {
+    animation-delay: 0.18s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(5) {
+    animation-delay: 0.21s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(6) {
+    animation-delay: 0.24s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(7) {
+    animation-delay: 0.27s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(8) {
+    animation-delay: 0.30s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(9) {
+    animation-delay: 0.33s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(10) {
+    animation-delay: 0.36s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(11) {
+    animation-delay: 0.39s;
+}
+
+.lang-switcher:hover .dropdown-content a:nth-child(12) {
+    animation-delay: 0.42s;
+}
 
 @keyframes langItemSlideIn {
     0% {
         opacity: 0;
         transform: translateX(-12px);
     }
+
     100% {
         opacity: 1;
         transform: translateX(0);
@@ -748,7 +811,7 @@ h2 {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%);
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -1024,6 +1087,23 @@ footer::before {
 
     50% {
         box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4), 0 0 0 8px rgba(37, 211, 102, 0.15);
+    }
+}
+
+@keyframes whatsappAttention {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        filter: brightness(1);
     }
 }
 
