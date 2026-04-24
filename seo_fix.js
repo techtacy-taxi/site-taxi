@@ -1,10 +1,10 @@
 const fs=require('fs'),path=require('path');
 const base='https://taxiathenstransfers.com';
-const langs=['en','de','fr','es','it','pt','pl','el','he','no'];
-const dirs=['','de','fr','es','it','pt','pl','el','he','no'];
-const hreflangs=['en','de','fr','es','it','pt','pl','el','he','nb'];
+const langs=['en','de','fr','es','it','pt','pl','el','he','no','zh','ja'];
+const dirs=['','de','fr','es','it','pt','pl','el','he','no','zh','ja'];
+const hreflangs=['en','de','fr','es','it','pt','pl','el','he','nb','zh','ja'];
 const pages=['index.html','acropolis-tour.html','argolis-tour.html','delphi-tour.html','meteora-tour.html','sounio-tour.html'];
-const locales={en:'en_GB',de:'de_DE',fr:'fr_FR',es:'es_ES',it:'it_IT',pt:'pt_PT',pl:'pl_PL',el:'el_GR',he:'he_IL',no:'nb_NO'};
+const locales={en:'en_GB',de:'de_DE',fr:'fr_FR',es:'es_ES',it:'it_IT',pt:'pt_PT',pl:'pl_PL',el:'el_GR',he:'he_IL',no:'nb_NO',zh:'zh_CN',ja:'ja_JP'};
 
 const titles={
   en:{
@@ -86,6 +86,22 @@ const titles={
     'delphi-tour.html':'Privat Tur Delfi & Det Gamle Orakelet | Taxi & Van Transfers',
     'meteora-tour.html':'Privat Tur Meteora-klostrene | Taxi & Van Transfers',
     'sounio-tour.html':'Tur Kapp Sounion & Poseidons Tempel | Taxi & Van Transfers'
+  },
+  zh:{
+    'index.html':'雅典出租车和面包车接送 | 拉夫里奥、拉戈尼西、科拉蒂亚机场接送',
+    'acropolis-tour.html':'雅典和卫城私人游览 | 雅典出租车和面包车接送',
+    'argolis-tour.html':'迈锡尼和埃皮达鲁斯私人游览 | 雅典出租车和面包车接送',
+    'delphi-tour.html':'德尔斐和古老神谕私人游览 | 雅典出租车和面包车接送',
+    'meteora-tour.html':'梅黛奥拉修道院私人游览 | 雅典出租车和面包车接送',
+    'sounio-tour.html':'苏尼翁角和波塞冬神庙游览 | 雅典出租车和面包车接送'
+  },
+  ja:{
+    'index.html':'アテネのタクシー＆バン送迎 | ラブリオ、ラゴニシ、ケラテアの空港送迎',
+    'acropolis-tour.html':'アテネとアクロポリス プライベートツアー | タクシー＆バン送迎',
+    'argolis-tour.html':'ミケーネとエピダウロス プライベートツアー | タクシー＆バン送迎',
+    'delphi-tour.html':'デルフィと古代の神託 プライベートツアー | タクシー＆バン送迎',
+    'meteora-tour.html':'メテオラ修道院 プライベートツアー | タクシー＆バン送迎',
+    'sounio-tour.html':'スニオン岬とポセイドン神殿ツアー | タクシー＆バン送迎'
   }
 };
 
@@ -169,6 +185,22 @@ const descs={
     'delphi-tour.html':'Privat tur Delfi til Orakelet & UNESCO-stedet. Apollons tempel, Delfi-museet, Arachova. Hel dag fra Athen.',
     'meteora-tour.html':'Privat tur Meteora-klostre. Klostre på klipper, fantastiske fjellformasjoner. Hel dag eller 2 dager fra Athen.',
     'sounio-tour.html':'Privat tur solnedgang Kapp Sounion. Poseidons tempel, Athen-rivieraen, Vouliagmeni-sjøen. Halv dag fra Athen.'
+  },
+  zh:{
+    'index.html':'雅典、拉夫里奥、拉戈尼西及科拉蒂亚的优质出租车和面包车接送服务。提供全天候雅典机场接机、港口接送以及卫城、苏尼翁、德尔斐、梅黛奥拉的私人游览。',
+    'acropolis-tour.html':'豪华出租车或面包车雅典卫城私人游览。参观帕特农神庙、普拉卡、泛雅典体育场。',
+    'argolis-tour.html':'迈锡尼和埃皮达鲁斯私人游览。参观阿伽门农墓、狮子门、纳夫普利奥和古剧院。',
+    'delphi-tour.html':'德尔斐神谕及联合国教科文组织世界遗产私人游览。阿波罗神庙、德尔斐博物馆、阿拉霍瓦。',
+    'meteora-tour.html':'梅黛奥拉修道院私人游览。参观悬崖顶上的修道院和令人惊叹的岩层。',
+    'sounio-tour.html':'苏尼翁角日落私人游览。波塞冬神庙、雅典海滨、武利亚格梅尼湖。'
+  },
+  ja:{
+    'index.html':'アテネ、ラブリオ、ラゴニシ、ケラテアでのプレミアムなタクシー＆バン送迎サービス。24時間年中無休のアテネ空港お迎え、港送迎、アクロポリス、スニオン岬、デルフィ、メテオラへのプライベートツアー。',
+    'acropolis-tour.html':'高級タクシーまたはバンでのアテネ＆アクロポリス プライベートツアー。パルテノン神殿、プラカ、パナシナイコ・スタジアムを見学。',
+    'argolis-tour.html':'ミケーネ＆エピダウロス プライベートツアー。アガメムノンの墓、獅子門、ナフプリオ、古代劇場を見学。',
+    'delphi-tour.html':'神託とユネスコ世界遺産へのデルフィ プライベートツアー。アポロン神殿、デルフィ博物館、アラホバ。',
+    'meteora-tour.html':'メテオラ修道院 プライベートツアー。崖の上の修道院、見事な奇岩を見学。',
+    'sounio-tour.html':'スニオン岬 夕日プライベートツアー。ポセイドン神殿、アテニアン・リビエラ、ヴォウリアグメニ湖。'
   }
 };
 
