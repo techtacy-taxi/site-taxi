@@ -194,6 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScrollIndicator();
     window.addEventListener('scroll', updateScrollIndicator);
     window.addEventListener('resize', updateScrollIndicator);
+
+    // Track manual language selection from the language switcher
+    const langLinks = document.querySelectorAll('.dropdown-content a');
+    langLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            localStorage.setItem('tvt_lang_manual', '1');
+        });
+    });
 });
 
 // === Vehicle Gallery Logic (Global Scope) ===

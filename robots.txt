@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://taxiathenstransfers.com/sitemap.xml
+
+# Disallow build/dev files
+Disallow: /js/
+Disallow: /css/
+Disallow: /*.js$
+Disallow: /seo_fix.js
+Disallow: /sync_langs.js
