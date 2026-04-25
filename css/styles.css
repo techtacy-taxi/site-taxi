@@ -1,4 +1,5 @@
 /* Variables & Core Design System */
+/* Ορισμός μεταβλητών και χρωματικής παλέτας (Design System) */
 :root {
     --primary-color: #ffd700;
     --primary-hover: #e6c200;
@@ -23,19 +24,25 @@
     --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
     --shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
     --shadow-gold: 0 10px 30px -5px rgba(255, 215, 0, 0.25);
+
+    /* Prevent forced dark mode issues in browsers like Samsung Internet */
+    color-scheme: light;
 }
 
+/* Καθολικό reset για περιθώρια και padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Ρυθμίσεις για την κύρια δομή της σελίδας και ομαλό scrolling */
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
 
+/* Κύριες ρυθμίσεις γραμματοσειράς και φόντου του ιστότοπου */
 body {
     font-family: var(--font-main);
     color: var(--text-dark);
@@ -51,23 +58,27 @@ body {
 h1,
 h2,
 h3,
+/* Ρυθμίσεις για το στοιχείο: h4 */
 h4 {
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: -0.02em;
 }
 
+/* Ρυθμίσεις για το στοιχείο: h2 */
 h2 {
     font-size: 2.8rem;
     margin-bottom: 1rem;
 }
 
 /* Google Reviews Widget */
+/* Πλαίσιο για το widget των κριτικών Google */
 .google-review-widget {
     margin: 25px 0;
     display: inline-block;
 }
 
+/* Στυλ κλάσης: .gr-widget-link */
 .gr-widget-link {
     display: flex;
     align-items: center;
@@ -81,11 +92,13 @@ h2 {
     backdrop-filter: blur(10px);
 }
 
+/* Στυλ κλάσης: .gr-widget-link:hover */
 .gr-widget-link:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* Στυλ κλάσης: .gr-logo-container */
 .gr-logo-container {
     background: #fff;
     width: 38px;
@@ -98,17 +111,20 @@ h2 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Στυλ κλάσης: .gr-google-g */
 .gr-google-g {
     width: 20px;
     height: 20px;
 }
 
+/* Στυλ κλάσης: .gr-content */
 .gr-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
+/* Στυλ κλάσης: .gr-top-row */
 .gr-top-row {
     display: flex;
     align-items: center;
@@ -116,6 +132,7 @@ h2 {
     margin-bottom: 2px;
 }
 
+/* Στυλ κλάσης: .gr-rating-number */
 .gr-rating-number {
     color: #202124 !important;
     font-weight: 800;
@@ -124,6 +141,7 @@ h2 {
     line-height: 1;
 }
 
+/* Στυλ κλάσης: .gr-stars */
 .gr-stars {
     color: #FBBC04 !important;
     font-size: 15px;
@@ -131,6 +149,7 @@ h2 {
     gap: 2px;
 }
 
+/* Στυλ κλάσης: .gr-text */
 .gr-text {
     color: #5f6368 !important;
     font-size: 13px;
@@ -142,6 +161,7 @@ h2 {
 .btn-primary,
 .btn-secondary,
 .btn-outline,
+/* Στυλ κλάσης: .btn-whatsapp */
 .btn-whatsapp {
     display: inline-block;
     padding: 12px 28px;
@@ -153,6 +173,7 @@ h2 {
     text-align: center;
 }
 
+/* Κύριο κουμπί με χρυσή διαβάθμιση */
 .btn-primary {
     background: var(--gold-gradient);
     color: var(--dark-bg);
@@ -161,48 +182,57 @@ h2 {
     border: none;
 }
 
+/* Στυλ κλάσης: .btn-primary:hover */
 .btn-primary:hover {
     background: linear-gradient(135deg, #ffe44d 0%, #ffc107 50%, #ffe44d 100%);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(255, 215, 0, 0.45);
 }
 
+/* Στυλ κλάσης: .btn-secondary */
 .btn-secondary {
     background-color: var(--dark-bg);
     color: var(--white);
 }
 
+/* Στυλ κλάσης: .btn-secondary:hover */
 .btn-secondary:hover {
     background-color: var(--dark-secondary);
     transform: translateY(-2px);
 }
 
+/* Στυλ κλάσης: .btn-outline */
 .btn-outline {
     border: 2px solid var(--white);
     color: var(--white);
     background: transparent;
 }
 
+/* Στυλ κλάσης: .btn-outline:hover */
 .btn-outline:hover {
     background-color: var(--white);
     color: var(--dark-bg);
 }
 
+/* Στυλ κλάσης: .btn-outline.dark-btn */
 .btn-outline.dark-btn {
     border-color: var(--dark-bg);
     color: var(--dark-bg);
 }
 
+/* Στυλ κλάσης: .btn-outline.dark-btn:hover */
 .btn-outline.dark-btn:hover {
     background-color: var(--dark-bg);
     color: var(--white);
 }
 
+/* Στυλ κλάσης: .btn-large */
 .btn-large {
     padding: 16px 36px;
     font-size: 1.1rem;
 }
 
+/* Στυλ κλάσης: .btn-whatsapp */
 .btn-whatsapp {
     background-color: #25D366;
     color: white;
@@ -213,16 +243,19 @@ h2 {
     gap: 8px;
 }
 
+/* Στυλ κλάσης: .btn-whatsapp:hover */
 .btn-whatsapp:hover {
     background-color: #128C7E;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
 }
 
+/* Στυλ κλάσης: .btn-whatsapp.preferred */
 .btn-whatsapp.preferred {
     animation: whatsappAttention 2s ease-in-out infinite;
 }
 
+/* Στυλ κλάσης: .preferred-badge */
 .preferred-badge {
     position: absolute;
     top: -12px;
@@ -242,6 +275,7 @@ h2 {
 }
 
 /* Navbar */
+/* Στυλ για τη γραμμή πλοήγησης (header) */
 .navbar {
     position: fixed;
     top: 0;
@@ -253,8 +287,11 @@ h2 {
     align-items: center;
     z-index: 1000;
     transition: background 0.3s ease, padding 0.3s ease;
+    /* Prevent browser from overriding transparent background in dark modes */
+    forced-color-adjust: none;
 }
 
+/* Στυλ κλάσης: .navbar.scrolled */
 .navbar.scrolled {
     background: rgba(10, 25, 47, 0.97);
     backdrop-filter: blur(20px);
@@ -264,6 +301,7 @@ h2 {
     border-bottom: 1px solid rgba(255, 215, 0, 0.08);
 }
 
+/* Στυλ κλάσης: .logo */
 .logo {
     font-size: 1.8rem;
     font-weight: 800;
@@ -274,10 +312,12 @@ h2 {
     text-decoration: none;
 }
 
+/* Στυλ κλάσης: .logo-text span */
 .logo-text span {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .brand-logo */
 .brand-logo {
     height: 50px;
     width: auto;
@@ -286,24 +326,28 @@ h2 {
     /* Slight rounding for a nicer look if desired */
 }
 
+/* Στυλ κλάσης: .nav-links */
 .nav-links {
     display: flex;
     gap: 2rem;
     align-items: center;
 }
 
+/* Στυλ κλάσης: .nav-right */
 .nav-right {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
+/* Στυλ κλάσης: .nav-actions */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
+/* Στυλ κλάσης: .nav-links a:not(.btn-primary) */
 .nav-links a:not(.btn-primary) {
     color: var(--white);
     text-decoration: none;
@@ -311,6 +355,7 @@ h2 {
     position: relative;
 }
 
+/* Στυλ κλάσης: .nav-links a:not(.btn-primary)::after */
 .nav-links a:not(.btn-primary)::after {
     content: '';
     position: absolute;
@@ -322,16 +367,19 @@ h2 {
     transition: width 0.3s ease;
 }
 
+/* Στυλ κλάσης: .nav-links a:not(.btn-primary):hover::after */
 .nav-links a:not(.btn-primary):hover::after {
     width: 100%;
 }
 
 /* Language Switcher */
+/* Στυλ κλάσης: .lang-switcher */
 .lang-switcher {
     position: relative;
     display: inline-block;
 }
 
+/* Στυλ κλάσης: .dropbtn */
 .dropbtn {
     background-color: transparent;
     color: var(--white);
@@ -349,26 +397,31 @@ h2 {
     min-width: auto;
 }
 
+/* Στυλ κλάσης: .dropbtn img */
 .dropbtn img {
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* Στυλ κλάσης: .dropbtn i.fa-globe */
 .dropbtn i.fa-globe {
     font-size: 18px;
 }
 
+/* Στυλ κλάσης: .dropbtn i.fa-chevron-down */
 .dropbtn i.fa-chevron-down {
     font-size: 12px;
 }
 
 
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropbtn */
 .lang-switcher:hover .dropbtn {
     color: var(--primary-color);
     transform: translateY(-2px) scale(1.05);
 }
 
+/* Στυλ κλάσης: .dropdown-content */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -390,6 +443,7 @@ h2 {
 }
 
 /* Invisible bridge to maintain hover */
+/* Στυλ κλάσης: .lang-switcher::after */
 .lang-switcher::after {
     content: '';
     position: absolute;
@@ -402,10 +456,12 @@ h2 {
     display: none;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover::after */
 .lang-switcher:hover::after {
     display: block;
 }
 
+/* Στυλ κλάσης: .dropdown-content a */
 .dropdown-content a {
     color: var(--dark-bg) !important;
     padding: 11px 20px !important;
@@ -423,70 +479,87 @@ h2 {
     transform: translateX(-12px);
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a */
 .lang-switcher:hover .dropdown-content a {
     animation: langItemSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(1) */
 .lang-switcher:hover .dropdown-content a:nth-child(1) {
     animation-delay: 0.05s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(2) */
 .lang-switcher:hover .dropdown-content a:nth-child(2) {
     animation-delay: 0.1s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(3) */
 .lang-switcher:hover .dropdown-content a:nth-child(3) {
     animation-delay: 0.15s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(4) */
 .lang-switcher:hover .dropdown-content a:nth-child(4) {
     animation-delay: 0.18s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(5) */
 .lang-switcher:hover .dropdown-content a:nth-child(5) {
     animation-delay: 0.21s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(6) */
 .lang-switcher:hover .dropdown-content a:nth-child(6) {
     animation-delay: 0.24s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(7) */
 .lang-switcher:hover .dropdown-content a:nth-child(7) {
     animation-delay: 0.27s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(8) */
 .lang-switcher:hover .dropdown-content a:nth-child(8) {
     animation-delay: 0.30s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(9) */
 .lang-switcher:hover .dropdown-content a:nth-child(9) {
     animation-delay: 0.33s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(10) */
 .lang-switcher:hover .dropdown-content a:nth-child(10) {
     animation-delay: 0.36s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(11) */
 .lang-switcher:hover .dropdown-content a:nth-child(11) {
     animation-delay: 0.39s;
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content a:nth-child(12) */
 .lang-switcher:hover .dropdown-content a:nth-child(12) {
     animation-delay: 0.42s;
 }
 
 @keyframes langItemSlideIn {
+
+    /* Ρυθμίσεις για το στοιχείο: 0% */
     0% {
         opacity: 0;
         transform: translateX(-12px);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         opacity: 1;
         transform: translateX(0);
     }
 }
 
+/* Στυλ κλάσης: .dropdown-content a img */
 .dropdown-content a img {
     width: 20px !important;
     height: auto;
@@ -497,10 +570,12 @@ h2 {
     transition: transform 0.2s ease;
 }
 
+/* Στυλ κλάσης: .dropdown-content a:hover img */
 .dropdown-content a:hover img {
     transform: scale(1.15);
 }
 
+/* Στυλ κλάσης: .dropdown-content a::after */
 .dropdown-content a::after {
     content: '';
     position: absolute;
@@ -513,22 +588,26 @@ h2 {
     display: block;
 }
 
+/* Στυλ κλάσης: .dropdown-content a:hover */
 .dropdown-content a:hover {
     background-color: rgba(255, 215, 0, 0.06);
     color: var(--dark-bg) !important;
     padding-left: 25px !important;
 }
 
+/* Στυλ κλάσης: .dropdown-content a:hover::after */
 .dropdown-content a:hover::after {
     width: calc(100% - 45px);
 }
 
+/* Στυλ κλάσης: .lang-switcher:hover .dropdown-content */
 .lang-switcher:hover .dropdown-content {
     display: block;
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
+/* Στυλ κλάσης: .mobile-menu-toggle */
 .mobile-menu-toggle {
     display: none;
     color: var(--white);
@@ -538,11 +617,13 @@ h2 {
     transition: color 0.3s ease;
 }
 
+/* Στυλ κλάσης: .mobile-menu-toggle:hover */
 .mobile-menu-toggle:hover {
     color: var(--primary-color);
 }
 
 /* Hero Section */
+/* Κεντρική ενότητα (Hero Section) με την εικόνα φόντου */
 .hero {
     height: 100vh;
     min-height: 600px;
@@ -553,6 +634,7 @@ h2 {
     padding: 0 5%;
 }
 
+/* Στυλ κλάσης: .hero-overlay */
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -563,6 +645,7 @@ h2 {
     z-index: 1;
 }
 
+/* Στυλ κλάσης: .hero-content */
 .hero-content {
     position: relative;
     z-index: 2;
@@ -570,6 +653,7 @@ h2 {
     color: var(--white);
 }
 
+/* Στυλ κλάσης: .hero-content h1 */
 .hero-content h1 {
     font-size: 4rem;
     margin-bottom: 20px;
@@ -577,8 +661,11 @@ h2 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* Crucial for Samsung Internet: prevents the browser from making the gradient text black in dark mode */
+    forced-color-adjust: none;
 }
 
+/* Στυλ κλάσης: .hero-content p */
 .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 40px;
@@ -586,28 +673,33 @@ h2 {
     line-height: 1.8;
 }
 
+/* Στυλ κλάσης: .hero-actions */
 .hero-actions {
     display: flex;
     gap: 20px;
 }
 
 /* Services Section */
+/* Ενότητα υπηρεσιών και στόλου */
 .services {
     padding: 100px 5%;
     background-color: var(--light-bg);
 }
 
+/* Στυλ κλάσης: .section-header */
 .section-header {
     text-align: center;
     max-width: 600px;
     margin: 0 auto 60px;
 }
 
+/* Στυλ κλάσης: .section-header p */
 .section-header p {
     color: #666;
     font-size: 1.1rem;
 }
 
+/* Στυλ κλάσης: .cards-container */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -616,6 +708,7 @@ h2 {
     margin: 0 auto;
 }
 
+/* Κάρτες παρουσίασης οχημάτων και υπηρεσιών */
 .service-card {
     background: var(--white);
     border-radius: var(--radius-lg);
@@ -629,6 +722,7 @@ h2 {
     border-top: 3px solid var(--primary-color);
 }
 
+/* Στυλ κλάσης: .service-card:hover */
 .service-card:hover {
     transform: translateY(-12px);
     box-shadow: var(--shadow-hover), 0 0 0 1px rgba(255, 215, 0, 0.1);
@@ -636,6 +730,7 @@ h2 {
 }
 
 /* Van "Most Popular" card — extra premium */
+/* Στυλ κλάσης: .service-card.highlight */
 .service-card.highlight {
     border: 3px solid var(--primary-color);
     background: linear-gradient(168deg, #fffef5 0%, #fff9db 40%, #fff4b8 100%);
@@ -644,11 +739,13 @@ h2 {
     z-index: 2;
 }
 
+/* Στυλ κλάσης: .service-card.highlight:hover */
 .service-card.highlight:hover {
     transform: scale(1.04) translateY(-10px);
     box-shadow: 0 25px 50px rgba(255, 215, 0, 0.35), 0 0 0 6px rgba(255, 215, 0, 0.15);
 }
 
+/* Στυλ κλάσης: .badge */
 .badge {
     position: absolute;
     top: -18px;
@@ -668,15 +765,18 @@ h2 {
 @keyframes badgePulse {
 
     0%,
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 50% */
     50% {
         box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4), 0 0 0 6px rgba(255, 215, 0, 0.15);
     }
 }
 
+/* Στυλ κλάσης: .card-icon */
 .card-icon {
     font-size: 2.5rem;
     color: var(--dark-bg);
@@ -691,27 +791,32 @@ h2 {
     transition: all 0.3s ease;
 }
 
+/* Στυλ κλάσης: .service-card:hover .card-icon */
 .service-card:hover .card-icon {
     background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
     transform: scale(1.05);
 }
 
+/* Στυλ κλάσης: .service-card h3 */
 .service-card h3 {
     font-size: 1.8rem;
     margin-bottom: 15px;
 }
 
+/* Στυλ κλάσης: .service-card p */
 .service-card p {
     color: #666;
     margin-bottom: 25px;
     flex-grow: 1;
 }
 
+/* Στυλ κλάσης: .features-list */
 .features-list {
     list-style: none;
     margin-bottom: 30px;
 }
 
+/* Στυλ κλάσης: .features-list li */
 .features-list li {
     margin-bottom: 10px;
     display: flex;
@@ -721,12 +826,14 @@ h2 {
     font-weight: 600;
 }
 
+/* Στυλ κλάσης: .features-list i */
 .features-list i {
     color: var(--primary-color);
     width: 20px;
 }
 
 /* Why Us Section */
+/* Στυλ κλάσης: .why-us */
 .why-us {
     padding: 100px 5%;
     background: linear-gradient(180deg, var(--dark-bg) 0%, #081428 100%);
@@ -734,6 +841,7 @@ h2 {
     position: relative;
 }
 
+/* Στυλ κλάσης: .why-us::before */
 .why-us::before {
     content: '';
     position: absolute;
@@ -744,10 +852,12 @@ h2 {
     background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.3) 50%, transparent 100%);
 }
 
+/* Στυλ κλάσης: .section-header.dark p */
 .section-header.dark p {
     color: rgba(230, 241, 255, 0.7);
 }
 
+/* Στυλ κλάσης: .features-grid */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -756,6 +866,7 @@ h2 {
     margin: 0 auto;
 }
 
+/* Στυλ κλάσης: .feature-item */
 .feature-item {
     text-align: center;
     padding: 40px 25px;
@@ -766,6 +877,7 @@ h2 {
     transition: all 0.4s var(--transition-premium);
 }
 
+/* Στυλ κλάσης: .feature-item:hover */
 .feature-item:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 215, 0, 0.2);
@@ -773,6 +885,7 @@ h2 {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Στυλ κλάσης: .feature-item i */
 .feature-item i {
     font-size: 2.5rem;
     color: var(--primary-color);
@@ -781,21 +894,25 @@ h2 {
     transition: transform 0.3s ease;
 }
 
+/* Στυλ κλάσης: .feature-item:hover i */
 .feature-item:hover i {
     transform: scale(1.15);
 }
 
+/* Στυλ κλάσης: .feature-item h4 */
 .feature-item h4 {
     font-size: 1.4rem;
     margin-bottom: 15px;
 }
 
+/* Στυλ κλάσης: .feature-item p */
 .feature-item p {
     color: rgba(230, 241, 255, 0.6);
     line-height: 1.7;
 }
 
 /* Booking CTA */
+/* Στυλ κλάσης: .booking-cta */
 .booking-cta {
     padding: 90px 5%;
     background: linear-gradient(135deg, #ffd700 0%, #ffb400 30%, #ffc107 70%, #ffd700 100%);
@@ -804,6 +921,7 @@ h2 {
     overflow: hidden;
 }
 
+/* Στυλ κλάσης: .booking-cta::before */
 .booking-cta::before {
     content: '';
     position: absolute;
@@ -815,17 +933,20 @@ h2 {
     pointer-events: none;
 }
 
+/* Στυλ κλάσης: .cta-content */
 .cta-content {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
 }
 
+/* Στυλ κλάσης: .cta-content h2 */
 .cta-content h2 {
     color: var(--dark-bg);
     font-size: 2.5rem;
 }
 
+/* Στυλ κλάσης: .cta-content p */
 .cta-content p {
     color: rgba(10, 25, 47, 0.75);
     font-size: 1.2rem;
@@ -833,6 +954,7 @@ h2 {
     font-weight: 500;
 }
 
+/* Στυλ κλάσης: .contact-buttons */
 .contact-buttons {
     display: flex;
     justify-content: center;
@@ -841,6 +963,7 @@ h2 {
 }
 
 /* Footer */
+/* Ρυθμίσεις για το στοιχείο: footer */
 footer {
     background: linear-gradient(180deg, #0a192f 0%, #050d18 100%);
     color: var(--text-light);
@@ -848,6 +971,7 @@ footer {
     position: relative;
 }
 
+/* Ρυθμίσεις για το στοιχείο: footer::before */
 footer::before {
     content: '';
     position: absolute;
@@ -858,6 +982,7 @@ footer::before {
     background: linear-gradient(90deg, transparent 0%, var(--primary-color) 50%, transparent 100%);
 }
 
+/* Στυλ κλάσης: .footer-content */
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -866,6 +991,7 @@ footer::before {
     margin: 0 auto 60px;
 }
 
+/* Στυλ κλάσης: .footer-logo-wrapper */
 .footer-logo-wrapper {
     display: flex;
     align-items: center;
@@ -873,16 +999,19 @@ footer::before {
     margin-bottom: 20px;
 }
 
+/* Στυλ κλάσης: .footer-brand h3 */
 .footer-brand h3 {
     color: var(--white);
     margin-bottom: 0px;
     font-size: 1.8rem;
 }
 
+/* Στυλ κλάσης: .footer-brand span */
 .footer-brand span {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .footer-logo */
 .footer-logo {
     height: 50px;
     width: auto;
@@ -891,12 +1020,14 @@ footer::before {
 }
 
 .footer-links h4,
+/* Στυλ κλάσης: .footer-contact h4 */
 .footer-contact h4 {
     color: var(--white);
     margin-bottom: 20px;
     font-size: 1.2rem;
 }
 
+/* Στυλ κλάσης: .footer-links a */
 .footer-links a {
     display: block;
     color: var(--text-light);
@@ -905,10 +1036,12 @@ footer::before {
     transition: color 0.3s;
 }
 
+/* Στυλ κλάσης: .footer-links a:hover */
 .footer-links a:hover {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .footer-contact p */
 .footer-contact p {
     margin-bottom: 15px;
     display: flex;
@@ -916,10 +1049,12 @@ footer::before {
     gap: 10px;
 }
 
+/* Στυλ κλάσης: .footer-contact i */
 .footer-contact i {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .footer-bottom */
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
@@ -931,6 +1066,7 @@ footer::before {
 /* =========================
    WhatsApp Hero CTA
 ========================= */
+/* Στυλ κλάσης: .whatsapp-hero-cta */
 .whatsapp-hero-cta {
     display: flex;
     align-items: center;
@@ -946,6 +1082,7 @@ footer::before {
     transition: all 0.3s ease;
 }
 
+/* Στυλ κλάσης: .whatsapp-hero-cta:hover */
 .whatsapp-hero-cta:hover {
     background: rgba(37, 211, 102, 0.2);
     border-color: rgba(37, 211, 102, 0.55);
@@ -953,6 +1090,7 @@ footer::before {
     box-shadow: 0 8px 30px rgba(37, 211, 102, 0.2);
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-icon */
 .whatsapp-cta-icon {
     width: 52px;
     height: 52px;
@@ -966,11 +1104,13 @@ footer::before {
     animation: whatsappPulseIcon 2s ease-in-out infinite;
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-icon i */
 .whatsapp-cta-icon i {
     font-size: 1.6rem;
     color: #fff;
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-text */
 .whatsapp-cta-text {
     display: flex;
     flex-direction: column;
@@ -979,6 +1119,7 @@ footer::before {
     min-width: 0;
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-label */
 .whatsapp-cta-label {
     font-size: 1.1rem;
     font-weight: 800;
@@ -987,12 +1128,14 @@ footer::before {
     letter-spacing: 0.5px;
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-desc */
 .whatsapp-cta-desc {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-btn */
 .whatsapp-cta-btn {
     display: inline-flex;
     align-items: center;
@@ -1010,12 +1153,14 @@ footer::before {
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-btn:hover */
 .whatsapp-cta-btn:hover {
     background: #128C7E;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
 }
 
+/* Στυλ κλάσης: .whatsapp-cta-btn i */
 .whatsapp-cta-btn i {
     font-size: 1.2rem;
 }
@@ -1023,6 +1168,7 @@ footer::before {
 /* =========================
    Floating WhatsApp Button
 ========================= */
+/* Σταθερό κουμπί WhatsApp που ακολουθεί το scroll */
 .whatsapp-float {
     position: fixed;
     bottom: 30px;
@@ -1043,16 +1189,19 @@ footer::before {
     transform: scale(0.5) translateY(20px);
 }
 
+/* Στυλ κλάσης: .whatsapp-float:hover */
 .whatsapp-float:hover {
     background: #128C7E;
     transform: scale(1.08);
     box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
 }
 
+/* Στυλ κλάσης: .whatsapp-float i */
 .whatsapp-float i {
     font-size: 1.6rem;
 }
 
+/* Στυλ κλάσης: .whatsapp-float-label */
 .whatsapp-float-label {
     font-weight: 700;
     font-size: 0.95rem;
@@ -1060,6 +1209,8 @@ footer::before {
 }
 
 @keyframes whatsappFloat {
+
+    /* Ρυθμίσεις για το στοιχείο: to */
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -1069,10 +1220,12 @@ footer::before {
 @keyframes whatsappPulse {
 
     0%,
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 50% */
     50% {
         box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45), 0 0 0 12px rgba(37, 211, 102, 0.15);
     }
@@ -1081,26 +1234,36 @@ footer::before {
 @keyframes whatsappPulseIcon {
 
     0%,
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 50% */
     50% {
         box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4), 0 0 0 8px rgba(37, 211, 102, 0.15);
     }
 }
 
 @keyframes whatsappAttention {
+
+    /* Ρυθμίσεις για το στοιχείο: 0% */
     0% {
         box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
         filter: brightness(1);
     }
+
+    /* Ρυθμίσεις για το στοιχείο: 50% */
     50% {
         filter: brightness(1.2);
     }
+
+    /* Ρυθμίσεις για το στοιχείο: 70% */
     70% {
         box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
     }
+
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
         filter: brightness(1);
@@ -1108,21 +1271,26 @@ footer::before {
 }
 
 /* Animations */
+/* Στυλ κλάσης: .fade-in-up */
 .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInUp 0.8s ease forwards;
 }
 
+/* Στυλ κλάσης: .delay-1 */
 .delay-1 {
     animation-delay: 0.2s;
 }
 
+/* Στυλ κλάσης: .delay-2 */
 .delay-2 {
     animation-delay: 0.4s;
 }
 
 @keyframes fadeInUp {
+
+    /* Ρυθμίσεις για το στοιχείο: to */
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1132,26 +1300,31 @@ footer::before {
 /* Scroll Animations */
 .reveal,
 .reveal-left,
+/* Στυλ κλάσης: .reveal-right */
 .reveal-right {
     opacity: 0;
     transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: transform, opacity;
 }
 
+/* Στυλ κλάσης: .reveal */
 .reveal {
     transform: translateY(60px);
 }
 
+/* Στυλ κλάσης: .reveal-left */
 .reveal-left {
     transform: translateX(-60px);
 }
 
+/* Στυλ κλάσης: .reveal-right */
 .reveal-right {
     transform: translateX(60px);
 }
 
 .reveal.active,
 .reveal-left.active,
+/* Στυλ κλάσης: .reveal-right.active */
 .reveal-right.active {
     opacity: 1;
     transform: translate(0, 0);
@@ -1163,6 +1336,7 @@ footer::before {
    Inner Tour Pages Styles
 ========================= */
 
+/* Στυλ κλάσης: .tour-hero */
 .tour-hero {
     height: 60vh;
     min-height: 400px;
@@ -1179,6 +1353,7 @@ footer::before {
     /* Navbar is fixed */
 }
 
+/* Στυλ κλάσης: .tour-hero-overlay */
 .tour-hero-overlay {
     position: absolute;
     top: 0;
@@ -1189,6 +1364,7 @@ footer::before {
     z-index: 1;
 }
 
+/* Στυλ κλάσης: .tour-hero-content */
 .tour-hero-content {
     position: relative;
     z-index: 2;
@@ -1198,16 +1374,19 @@ footer::before {
     /* Offset for navbar */
 }
 
+/* Στυλ κλάσης: .tour-hero-content h1 */
 .tour-hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
 }
 
+/* Στυλ κλάσης: .tour-hero-content p */
 .tour-hero-content p {
     font-size: 1.2rem;
     color: var(--text-light);
 }
 
+/* Στυλ κλάσης: .tour-content */
 .tour-content {
     padding: 80px 5%;
     background-color: var(--white);
@@ -1218,16 +1397,19 @@ footer::before {
     margin: 0 auto;
 }
 
+/* Στυλ κλάσης: .tour-main */
 .tour-main {
     flex: 1;
     min-width: 300px;
 }
 
+/* Στυλ κλάσης: .tour-sidebar */
 .tour-sidebar {
     width: 350px;
     flex-shrink: 0;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget */
 .tour-sidebar-widget {
     background: var(--light-bg);
     padding: 30px;
@@ -1237,6 +1419,7 @@ footer::before {
     top: 100px;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget h3 */
 .tour-sidebar-widget h3 {
     margin-bottom: 20px;
     font-size: 1.5rem;
@@ -1245,6 +1428,7 @@ footer::before {
     display: inline-block;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget .price */
 .tour-sidebar-widget .price {
     font-size: 2rem;
     font-weight: 800;
@@ -1252,17 +1436,20 @@ footer::before {
     margin-bottom: 20px;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget .price span */
 .tour-sidebar-widget .price span {
     font-size: 1rem;
     color: #666;
     font-weight: 400;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget ul */
 .tour-sidebar-widget ul {
     list-style: none;
     margin-bottom: 30px;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget ul li */
 .tour-sidebar-widget ul li {
     margin-bottom: 12px;
     display: flex;
@@ -1272,11 +1459,13 @@ footer::before {
     font-weight: 600;
 }
 
+/* Στυλ κλάσης: .tour-sidebar-widget ul i */
 .tour-sidebar-widget ul i {
     color: var(--primary-color);
     width: 20px;
 }
 
+/* Στυλ κλάσης: .tour-section-title */
 .tour-section-title {
     font-size: 2rem;
     margin-bottom: 20px;
@@ -1285,6 +1474,7 @@ footer::before {
     padding-bottom: 10px;
 }
 
+/* Στυλ κλάσης: .tour-section-title::after */
 .tour-section-title::after {
     content: '';
     position: absolute;
@@ -1295,6 +1485,7 @@ footer::before {
     background-color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .tour-text */
 .tour-text {
     font-size: 1.1rem;
     color: #555;
@@ -1302,6 +1493,7 @@ footer::before {
     line-height: 1.8;
 }
 
+/* Στυλ κλάσης: .key-highlights */
 .key-highlights {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1309,6 +1501,7 @@ footer::before {
     margin-bottom: 40px;
 }
 
+/* Στυλ κλάσης: .highlight-box */
 .highlight-box {
     background: var(--light-bg);
     padding: 20px;
@@ -1318,27 +1511,32 @@ footer::before {
     gap: 15px;
 }
 
+/* Στυλ κλάσης: .highlight-box i */
 .highlight-box i {
     font-size: 1.5rem;
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .highlight-box h4 */
 .highlight-box h4 {
     margin-bottom: 5px;
     font-size: 1.1rem;
 }
 
+/* Στυλ κλάσης: .highlight-box p */
 .highlight-box p {
     font-size: 0.9rem;
     color: #666;
 }
 
+/* Στυλ κλάσης: .itinerary */
 .itinerary {
     position: relative;
     margin-bottom: 50px;
     padding-left: 30px;
 }
 
+/* Στυλ κλάσης: .itinerary::before */
 .itinerary::before {
     content: '';
     position: absolute;
@@ -1349,11 +1547,13 @@ footer::before {
     background-color: #e0e0e0;
 }
 
+/* Στυλ κλάσης: .itinerary-item */
 .itinerary-item {
     position: relative;
     margin-bottom: 30px;
 }
 
+/* Στυλ κλάσης: .itinerary-item::before */
 .itinerary-item::before {
     content: '';
     position: absolute;
@@ -1367,16 +1567,19 @@ footer::before {
     box-shadow: 0 0 0 2px #e0e0e0;
 }
 
+/* Στυλ κλάσης: .itinerary-item h4 */
 .itinerary-item h4 {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: var(--dark-bg);
 }
 
+/* Στυλ κλάσης: .itinerary-item p */
 .itinerary-item p {
     color: #666;
 }
 
+/* Στυλ κλάσης: .tour-gallery */
 .tour-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1384,6 +1587,7 @@ footer::before {
     margin-bottom: 40px;
 }
 
+/* Στυλ κλάσης: .tour-gallery img */
 .tour-gallery img {
     width: 100%;
     height: 300px;
@@ -1394,6 +1598,7 @@ footer::before {
     cursor: zoom-in;
 }
 
+/* Στυλ κλάσης: .tour-gallery img:hover */
 .tour-gallery img:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
@@ -1401,33 +1606,42 @@ footer::before {
 }
 
 @media (max-width: 900px) {
+
+    /* Στυλ κλάσης: .tour-content */
     .tour-content {
         flex-direction: column;
     }
 
+    /* Στυλ κλάσης: .tour-sidebar */
     .tour-sidebar {
         width: 100%;
     }
 
+    /* Στυλ κλάσης: .tour-sidebar-widget */
     .tour-sidebar-widget {
         position: static;
     }
 }
 
 @media (max-width: 1024px) {
+
+    /* Στυλ για τη γραμμή πλοήγησης (header) */
     .navbar {
         padding: 10px 4%;
     }
 
+    /* Στυλ κλάσης: .logo */
     .logo {
         font-size: 1.4rem;
         gap: 8px;
     }
 
+    /* Στυλ κλάσης: .brand-logo */
     .brand-logo {
         height: 40px;
     }
 
+    /* Στυλ κλάσης: .nav-links */
     .nav-links {
         position: absolute;
         top: 100%;
@@ -1448,22 +1662,26 @@ footer::before {
         /* Allow scrolling within the menu */
     }
 
+    /* Στυλ κλάσης: .nav-links.active */
     .nav-links.active {
         visibility: visible;
         opacity: 1;
         transform: translateY(0);
     }
 
+    /* Στυλ κλάσης: .nav-right */
     .nav-right {
         gap: 0.5rem;
     }
 
+    /* Στυλ κλάσης: .lang-switcher */
     .lang-switcher {
         margin-top: 0;
         border-top: none;
         padding-top: 0;
     }
 
+    /* Στυλ κλάσης: .dropbtn */
     .dropbtn {
         padding: 5px 10px;
         font-size: 13px;
@@ -1471,14 +1689,17 @@ footer::before {
         border: none;
     }
 
+    /* Στυλ κλάσης: .dropbtn i.fa-globe */
     .dropbtn i.fa-globe {
         font-size: 16px;
     }
 
+    /* Στυλ κλάσης: .dropbtn img */
     .dropbtn img {
         margin: 0 2px !important;
     }
 
+    /* Στυλ κλάσης: .dropdown-content */
     .dropdown-content {
         left: auto;
         right: 0;
@@ -1491,51 +1712,62 @@ footer::before {
         gap: 2px;
     }
 
+    /* Στυλ κλάσης: .lang-switcher:hover .dropdown-content */
     .lang-switcher:hover .dropdown-content {
         display: grid !important;
         transform: translateY(0);
     }
 
+    /* Στυλ κλάσης: .dropdown-content a */
     .dropdown-content a {
         padding: 10px 15px !important;
         border-radius: 8px;
         background: transparent;
     }
 
+    /* Στυλ κλάσης: .nav-links a:not(.btn-primary) */
     .nav-links a:not(.btn-primary) {
         width: 100%;
         padding: 10px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    /* Στυλ κλάσης: .nav-links a.btn-primary */
     .nav-links a.btn-primary {
         margin-top: 15px;
         text-align: center;
         width: 100%;
     }
 
+    /* Στυλ κλάσης: .mobile-menu-toggle */
     .mobile-menu-toggle {
         display: block;
     }
 }
 
 @media (max-width: 480px) {
+
+    /* Στυλ για τη γραμμή πλοήγησης (header) */
     .navbar {
         padding: 8px 3%;
     }
 
+    /* Στυλ κλάσης: .logo-text */
     .logo-text {
         font-size: 1.1rem;
     }
 
+    /* Στυλ κλάσης: .brand-logo */
     .brand-logo {
         height: 32px;
     }
 
+    /* Στυλ κλάσης: .nav-actions */
     .nav-actions {
         gap: 0.4rem;
     }
 
+    /* Στυλ κλάσης: .dropbtn */
     .dropbtn {
         padding: 4px 8px;
         font-size: 12px;
@@ -1543,24 +1775,29 @@ footer::before {
         border: none;
     }
 
+    /* Στυλ κλάσης: .dropbtn i.fa-globe */
     .dropbtn i.fa-globe {
         font-size: 14px;
     }
 
+    /* Στυλ κλάσης: .gr-widget-link */
     .gr-widget-link {
         padding: 8px 15px;
     }
 
+    /* Στυλ κλάσης: .gr-logo-container */
     .gr-logo-container {
         width: 30px;
         height: 30px;
         margin-right: 10px;
     }
 
+    /* Στυλ κλάσης: .gr-text */
     .gr-text {
         font-size: 11px;
     }
 
+    /* Στυλ κλάσης: .gr-rating-number */
     .gr-rating-number {
         font-size: 13px;
     }
@@ -1568,28 +1805,36 @@ footer::before {
 
 /* Intermediate screens refinement */
 @media (min-width: 1025px) and (max-width: 1300px) {
+
+    /* Στυλ κλάσης: .nav-right */
     .nav-right {
         gap: 1rem;
     }
 
+    /* Στυλ κλάσης: .nav-links */
     .nav-links {
         gap: 1rem;
     }
 
+    /* Στυλ κλάσης: .logo-text */
     .logo-text {
         font-size: 1.2rem;
     }
 
+    /* Στυλ κλάσης: .brand-logo */
     .brand-logo {
         height: 40px;
     }
 
+    /* Στυλ κλάσης: .nav-actions */
     .nav-actions {
         gap: 1rem;
     }
 }
 
 @media (max-width: 1024px) {
+
+    /* Κεντρική ενότητα (Hero Section) με την εικόνα φόντου */
     .hero {
         padding-top: 110px;
         padding-bottom: 60px;
@@ -1598,16 +1843,19 @@ footer::before {
         align-items: flex-start;
     }
 
+    /* Στυλ κλάσης: .hero-content h1 */
     .hero-content h1 {
         font-size: 1.8rem;
         margin-bottom: 15px;
     }
 
+    /* Στυλ κλάσης: .hero-actions */
     .hero-actions {
         flex-direction: column;
     }
 
     /* WhatsApp Hero CTA mobile */
+    /* Στυλ κλάσης: .whatsapp-hero-cta */
     .whatsapp-hero-cta {
         flex-direction: column;
         align-items: stretch;
@@ -1616,16 +1864,19 @@ footer::before {
         gap: 14px;
     }
 
+    /* Στυλ κλάσης: .whatsapp-cta-icon */
     .whatsapp-cta-icon {
         margin: 0 auto;
     }
 
+    /* Στυλ κλάσης: .whatsapp-cta-btn */
     .whatsapp-cta-btn {
         width: 100%;
         justify-content: center;
     }
 
     /* Floating button: smaller on mobile */
+    /* Σταθερό κουμπί WhatsApp που ακολουθεί το scroll */
     .whatsapp-float {
         bottom: 20px;
         right: 20px;
@@ -1633,6 +1884,7 @@ footer::before {
         border-radius: 50%;
     }
 
+    /* Στυλ κλάσης: .whatsapp-float-label */
     .whatsapp-float-label {
         display: none;
     }
@@ -1641,6 +1893,7 @@ footer::before {
 /* =========================
    Lightbox Modal
 ========================= */
+/* Στυλ κλάσης: .lightbox-modal */
 .lightbox-modal {
     position: fixed;
     top: 0;
@@ -1657,11 +1910,13 @@ footer::before {
     display: flex;
 }
 
+/* Στυλ κλάσης: .lightbox-modal.active */
 .lightbox-modal.active {
     opacity: 1;
     visibility: visible;
 }
 
+/* Στυλ κλάσης: .lightbox-content */
 .lightbox-content {
     max-width: 90%;
     max-height: 90%;
@@ -1672,10 +1927,12 @@ footer::before {
     transition: transform 0.3s ease;
 }
 
+/* Στυλ κλάσης: .lightbox-modal.active .lightbox-content */
 .lightbox-modal.active .lightbox-content {
     transform: scale(1);
 }
 
+/* Στυλ κλάσης: .lightbox-close */
 .lightbox-close {
     position: absolute;
     top: 20px;
@@ -1687,20 +1944,24 @@ footer::before {
     line-height: 1;
 }
 
+/* Στυλ κλάσης: .lightbox-close:hover */
 .lightbox-close:hover {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .tour-gallery img */
 .tour-gallery img {
     cursor: zoom-in;
 }
 
 /* Inline Card Popup Styles */
+/* Στυλ κλάσης: .popup-wrapper */
 .popup-wrapper {
     position: relative;
     width: 100%;
 }
 
+/* Στυλ κλάσης: .card-popup */
 .card-popup {
     position: absolute;
     bottom: calc(100% + 15px);
@@ -1720,6 +1981,7 @@ footer::before {
 }
 
 /* The little pointing arrow */
+/* Στυλ κλάσης: .card-popup::after */
 .card-popup::after {
     content: '';
     position: absolute;
@@ -1732,6 +1994,7 @@ footer::before {
 }
 
 /* White inner arrow to cover the border */
+/* Στυλ κλάσης: .card-popup::before */
 .card-popup::before {
     content: '';
     position: absolute;
@@ -1744,12 +2007,14 @@ footer::before {
     z-index: 1;
 }
 
+/* Στυλ κλάσης: .card-popup.active */
 .card-popup.active {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
 
+/* Στυλ κλάσης: .popup-title */
 .popup-title {
     font-size: 0.9rem;
     font-weight: 600;
@@ -1758,6 +2023,7 @@ footer::before {
     text-align: center;
 }
 
+/* Στυλ κλάσης: .popup-link */
 .popup-link {
     display: flex;
     align-items: center;
@@ -1773,25 +2039,30 @@ footer::before {
     transition: all 0.2s ease;
 }
 
+/* Στυλ κλάσης: .popup-link:last-child */
 .popup-link:last-child {
     margin-bottom: 0;
 }
 
+/* Στυλ κλάσης: .popup-link i */
 .popup-link i {
     color: var(--primary-color);
     font-size: 1.1rem;
 }
 
+/* Στυλ κλάσης: .popup-link:hover */
 .popup-link:hover {
     background-color: var(--primary-color);
     color: var(--text-dark);
 }
 
+/* Στυλ κλάσης: .popup-link:hover i */
 .popup-link:hover i {
     color: var(--text-dark);
 }
 
 /* Custom Modal Styles (Used for Gallery etc) */
+/* Στυλ κλάσης: .custom-modal */
 .custom-modal {
     position: fixed;
     top: 0;
@@ -1808,11 +2079,13 @@ footer::before {
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+/* Στυλ κλάσης: .custom-modal.active */
 .custom-modal.active {
     opacity: 1;
     visibility: visible;
 }
 
+/* Στυλ κλάσης: .modal-content */
 .modal-content {
     background-color: var(--white);
     padding: 40px;
@@ -1825,11 +2098,13 @@ footer::before {
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Στυλ κλάσης: .custom-modal.active .modal-content */
 .custom-modal.active .modal-content {
     transform: translateY(0);
 }
 
 /* Vehicle Gallery Modal */
+/* Στυλ κλάσης: .btn-gallery */
 .btn-gallery {
     background-color: transparent;
     color: var(--primary-color);
@@ -1845,17 +2120,20 @@ footer::before {
     gap: 5px;
 }
 
+/* Στυλ κλάσης: .btn-gallery:hover */
 .btn-gallery:hover {
     background-color: var(--primary-color);
     color: var(--text-dark);
 }
 
+/* Στυλ κλάσης: .vehicle-gallery-content */
 .vehicle-gallery-content {
     width: 600px;
     max-width: 95%;
     padding: 30px;
 }
 
+/* Στυλ κλάσης: .close-vehicle-gallery */
 .close-vehicle-gallery {
     position: absolute;
     top: 15px;
@@ -1866,10 +2144,12 @@ footer::before {
     transition: color 0.3s ease;
 }
 
+/* Στυλ κλάσης: .close-vehicle-gallery:hover */
 .close-vehicle-gallery:hover {
     color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .vehicle-carousel */
 .vehicle-carousel {
     position: relative;
     display: flex;
@@ -1878,6 +2158,7 @@ footer::before {
     margin-bottom: 20px;
 }
 
+/* Στυλ κλάσης: .carousel-image-container */
 .carousel-image-container {
     width: 100%;
     height: 350px;
@@ -1889,12 +2170,14 @@ footer::before {
     justify-content: center;
 }
 
+/* Στυλ κλάσης: .carousel-image-container img */
 .carousel-image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* Στυλ κλάσης: .carousel-btn */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -1915,24 +2198,29 @@ footer::before {
     z-index: 10;
 }
 
+/* Στυλ κλάσης: .carousel-btn:hover */
 .carousel-btn:hover {
     background-color: var(--primary-color);
 }
 
+/* Στυλ κλάσης: .prev-btn */
 .prev-btn {
     left: -15px;
 }
 
+/* Στυλ κλάσης: .next-btn */
 .next-btn {
     right: -15px;
 }
 
+/* Στυλ κλάσης: .carousel-indicators */
 .carousel-indicators {
     display: flex;
     justify-content: center;
     gap: 8px;
 }
 
+/* Στυλ κλάσης: .dot */
 .dot {
     width: 10px;
     height: 10px;
@@ -1942,11 +2230,13 @@ footer::before {
     transition: background-color 0.3s ease;
 }
 
+/* Στυλ κλάσης: .dot.active */
 .dot.active {
     background-color: var(--primary-color);
 }
 
 /* Scroll Down Indicator */
+/* Στυλ κλάσης: .scroll-indicator */
 .scroll-indicator {
     position: fixed;
     bottom: 30px;
@@ -1963,11 +2253,13 @@ footer::before {
     /* Don't interfere with clicks */
 }
 
+/* Στυλ κλάσης: .scroll-indicator.hidden */
 .scroll-indicator.hidden {
     opacity: 0;
     transform: translateX(-50%) translateY(20px);
 }
 
+/* Στυλ κλάσης: .scroll-indicator i */
 .scroll-indicator i {
     animation: scrollBounce 2s infinite;
 }
@@ -1978,14 +2270,17 @@ footer::before {
     20%,
     50%,
     80%,
+    /* Ρυθμίσεις για το στοιχείο: 100% */
     100% {
         transform: translateY(0);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 40% */
     40% {
         transform: translateY(-10px);
     }
 
+    /* Ρυθμίσεις για το στοιχείο: 60% */
     60% {
         transform: translateY(-5px);
     }
@@ -1993,6 +2288,8 @@ footer::before {
 
 /* Adjust for mobile - keep it at the same low height as desktop */
 @media (max-width: 768px) {
+
+    /* Στυλ κλάσης: .scroll-indicator */
     .scroll-indicator {
         bottom: 30px;
         font-size: 1.5rem;
