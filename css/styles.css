@@ -25,8 +25,8 @@
     --shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
     --shadow-gold: 0 10px 30px -5px rgba(255, 215, 0, 0.25);
 
-    /* Prevent forced dark mode issues in browsers like Samsung Internet */
-    color-scheme: light;
+    /* Declare both light and dark support to prevent aggressive browser overrides */
+    color-scheme: dark light;
 }
 
 /* Καθολικό reset για περιθώρια και padding */
@@ -40,6 +40,9 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    /* Prevent browsers from forcing high-contrast/dark mode colors globally */
+    forced-color-adjust: none;
+    -webkit-text-size-adjust: 100%;
 }
 
 /* Κύριες ρυθμίσεις γραμματοσειράς και φόντου του ιστότοπου */
@@ -52,6 +55,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Extra insurance for Samsung Internet */
+    forced-color-adjust: none;
 }
 
 /* Typography */
@@ -657,12 +662,15 @@ h2 {
 .hero-content h1 {
     font-size: 4rem;
     margin-bottom: 20px;
+    color: #ffffff; /* Strong fallback color */
     background: linear-gradient(135deg, #ffffff 0%, #e6f1ff 60%, #ffd700 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     /* Crucial for Samsung Internet: prevents the browser from making the gradient text black in dark mode */
     forced-color-adjust: none;
+    /* Add a very subtle text-shadow which often stops aggressive inversion */
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.01);
 }
 
 /* Στυλ κλάσης: .hero-content p */
