@@ -19,26 +19,28 @@
 
     // Browser language → site directory
     var langMap = {
-        'de': 'de', 'de-de': 'de', 'de-at': 'de', 'de-ch': 'de',
-        'fr': 'fr', 'fr-fr': 'fr', 'fr-be': 'fr', 'fr-ca': 'fr', 'fr-ch': 'fr',
-        'es': 'es', 'es-es': 'es', 'es-mx': 'es', 'es-ar': 'es', 'es-co': 'es',
-        'it': 'it', 'it-it': 'it', 'it-ch': 'it',
-        'pt': 'pt', 'pt-pt': 'pt', 'pt-br': 'pt',
+        'en': 'en', 'en-us': 'en', 'en-gb': 'en', 'en-ca': 'en', 'en-au': 'en', 'en-ie': 'en', 'en-nz': 'en',
+        'de': 'de', 'de-de': 'de', 'de-at': 'de', 'de-ch': 'de', 'de-lu': 'de', 'de-li': 'de',
+        'fr': 'fr', 'fr-fr': 'fr', 'fr-be': 'fr', 'fr-ca': 'fr', 'fr-ch': 'fr', 'fr-lu': 'fr', 'fr-mc': 'fr',
+        'es': 'es', 'es-es': 'es', 'es-mx': 'es', 'es-ar': 'es', 'es-co': 'es', 'es-cl': 'es', 'es-pe': 'es', 'es-ve': 'es', 'es-ec': 'es', 'es-gt': 'es', 'es-cu': 'es', 'es-bo': 'es', 'es-do': 'es', 'es-hn': 'es', 'es-py': 'es', 'es-sv': 'es', 'es-ni': 'es', 'es-cr': 'es', 'es-pa': 'es', 'es-uy': 'es',
+        'it': 'it', 'it-it': 'it', 'it-ch': 'it', 'it-va': 'it', 'it-sm': 'it',
+        'pt': 'pt', 'pt-pt': 'pt', 'pt-br': 'pt', 'pt-ao': 'pt', 'pt-mz': 'pt',
         'pl': 'pl', 'pl-pl': 'pl',
-        'el': 'el', 'el-gr': 'el',
+        'el': 'el', 'el-gr': 'el', 'el-cy': 'el',
         'he': 'he', 'he-il': 'he',
         'nb': 'no', 'nn': 'no', 'no': 'no', 'nb-no': 'no', 'nn-no': 'no',
-        'zh': 'zh', 'zh-cn': 'zh', 'zh-tw': 'zh', 'zh-hk': 'zh', 'zh-sg': 'zh',
+        'zh': 'zh', 'zh-cn': 'zh', 'zh-tw': 'zh', 'zh-hk': 'zh', 'zh-sg': 'zh', 'zh-mo': 'zh',
         'ja': 'ja', 'ja-jp': 'ja'
     };
 
     // Country code → site directory (Cloudflare geo-IP fallback)
     var countryMap = {
-        'DE': 'de', 'AT': 'de', 'CH': 'de',
-        'FR': 'fr', 'BE': 'fr', 'MC': 'fr',
-        'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es',
-        'IT': 'it', 'SM': 'it',
-        'PT': 'pt', 'BR': 'pt',
+        'US': 'en', 'GB': 'en', 'CA': 'en', 'AU': 'en', 'NZ': 'en', 'IE': 'en',
+        'DE': 'de', 'AT': 'de', 'CH': 'de', 'LU': 'de', 'LI': 'de',
+        'FR': 'fr', 'BE': 'fr', 'MC': 'fr', 'SN': 'fr', 'CI': 'fr', 'CM': 'fr', 'MG': 'fr', 'BF': 'fr', 'ML': 'fr', 'NE': 'fr', 'BJ': 'fr', 'TG': 'fr',
+        'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'CL': 'es', 'PE': 'es', 'VE': 'es', 'EC': 'es', 'GT': 'es', 'CU': 'es', 'BO': 'es', 'DO': 'es', 'HN': 'es', 'PY': 'es', 'SV': 'es', 'NI': 'es', 'CR': 'es', 'PA': 'es', 'UY': 'es',
+        'IT': 'it', 'SM': 'it', 'VA': 'it',
+        'PT': 'pt', 'BR': 'pt', 'AO': 'pt', 'MZ': 'pt', 'CV': 'pt', 'GW': 'pt', 'ST': 'pt',
         'PL': 'pl',
         'GR': 'el', 'CY': 'el',
         'IL': 'he',
@@ -50,6 +52,10 @@
     function doRedirect(targetDir) {
         if (!targetDir) return;
         sessionStorage.setItem('lang_chosen', targetDir);
+
+        // If target is English, stay on root
+        if (targetDir === 'en') return;
+
         var base = window.location.origin;
         var cleanPath = path.replace(/index\.html$/, '').replace(/\/$/, '');
         if (cleanPath.endsWith('/taxi_van_transfers')) {
