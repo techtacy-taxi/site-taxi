@@ -22,7 +22,8 @@ function updateFile(filePath, lang, fileName) {
         { code: 'HE', flag: 'il', link: `${prefix}he/${fileName}` },
         { code: 'EL', flag: 'gr', link: `${prefix}el/${fileName}` },
         { code: 'ZH', flag: 'cn', link: `${prefix}zh/${fileName}` },
-        { code: 'JA', flag: 'jp', link: `${prefix}ja/${fileName}` }
+        { code: 'JA', flag: 'jp', link: `${prefix}ja/${fileName}` },
+        { code: 'HU', flag: 'hu', link: `${prefix}hu/${fileName}` }
     ];
 
     // Update the main button (dropbtn) based on current language
@@ -31,6 +32,7 @@ function updateFile(filePath, lang, fileName) {
     if (lang === 'el') currentLang = languages.find(l => l.code === 'EL');
     if (lang === 'zh') currentLang = languages.find(l => l.code === 'ZH');
     if (lang === 'ja') currentLang = languages.find(l => l.code === 'JA');
+    if (lang === 'hu') currentLang = languages.find(l => l.code === 'HU');
     
     const flag = currentLang ? currentLang.flag : 'gb';
     const code = currentLang ? currentLang.code : 'EN';
@@ -77,7 +79,7 @@ function updateFile(filePath, lang, fileName) {
     fs.writeFileSync(filePath, content, 'utf-8');
 }
 
-const langs = ['root', 'de', 'es', 'pt', 'fr', 'it', 'pl', 'no', 'he', 'el', 'zh', 'ja'];
+const langs = ['root', 'de', 'es', 'pt', 'fr', 'it', 'pl', 'no', 'he', 'el', 'zh', 'ja', 'hu'];
 rootFiles.forEach(f => {
     langs.forEach(l => {
         const path = l === 'root' ? f : `${l}/${f}`;

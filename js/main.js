@@ -257,8 +257,6 @@ const vehicleGalleries = {
         'images/bus_black_port.jpg',
         'images/bus_black_acropolis.jpg',
         'images/bus_black_sounio.jpg',
-        'images/bus_exterior_1.jpg',
-        'images/bus_exterior_2.jpg',
         'images/bus_interior_1.jpg',
         'images/bus_interior_2.jpg'
     ]
