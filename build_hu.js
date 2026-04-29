@@ -51,7 +51,7 @@ const translations = [
     [/Instant replies &bull; Quick booking &bull; 24\/7 available/g, 'Azonnali válasz &bull; Gyors foglalás &bull; 24/7 elérhető'],
     [/Chat on WhatsApp/g, 'WhatsApp csevegés'],
     [/Executive Taxi/g, 'Prémium taxi'],
-    [/Only with pre-booking/g, 'Csak előfoglalással'],
+    [/Only with\s+pre-booking/gi, 'Csak előfoglalással'],
     [/LIVE RIGHT NOW: KONSTANTINOS/g, 'JELENLEG ELÉRHETŐ: KONSTANTINOS'],
     [/Most Popular/g, 'Legnépszerűbb'],
     [/Luxury Van/g, 'Luxus furgon'],
