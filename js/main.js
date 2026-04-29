@@ -216,6 +216,12 @@ const vehicleGalleries = {
         'images/van_exterior_2.jpg',
         'images/van_interior_1.jpg',
         'images/van_interior_2.jpg'
+    ],
+    'bus': [
+        'images/bus_exterior_1.jpg',
+        'images/bus_exterior_2.jpg',
+        'images/bus_interior_1.jpg',
+        'images/bus_interior_2.jpg'
     ]
 };
 
@@ -228,7 +234,9 @@ function openVehicleGallery(type) {
     
     // Set title
     const title = document.getElementById('vehicle-gallery-title');
-    title.innerText = type === 'taxi' ? 'Executive Taxi Gallery' : 'Luxury Van Gallery';
+    if (type === 'taxi') title.innerText = 'Executive Taxi Gallery';
+    else if (type === 'van') title.innerText = 'Luxury Van Gallery';
+    else if (type === 'bus') title.innerText = 'Bus & Mini Bus Gallery';
     
     // Create dots
     const indicatorContainer = document.getElementById('vehicle-indicators');
@@ -271,7 +279,21 @@ function goToVehicleImg(index) {
 
 function updateVehicleGalleryUI() {
     const imgEl = document.getElementById('vehicle-gallery-img');
-    imgEl.src = currentGalleryArr[currentImgIndex];
+    
+    // Check if we are in a subdirectory (like /el/ or /de/)
+    const path = window.location.pathname;
+    const langs = ['de', 'el', 'es', 'fr', 'he', 'it', 'ja', 'no', 'pl', 'pt', 'zh'];
+    let prefix = '';
+    
+    // Check if current URL path contains any of the language subdirectories
+    for (const l of langs) {
+        if (path.includes('/' + l + '/') || path.endsWith('/' + l) || path.endsWith('/' + l + '/index.html')) {
+            prefix = '../';
+            break;
+        }
+    }
+    
+    imgEl.src = prefix + currentGalleryArr[currentImgIndex];
 
     const dots = document.querySelectorAll('#vehicle-indicators .dot');
     dots.forEach((dot, idx) => {
