@@ -104,11 +104,11 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Icon on browser tab -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="images/favicon_io/site.webmanifest">
-    <link rel="shortcut icon" href="images/favicon_io/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../images/favicon_io/site.webmanifest">
+    <link rel="shortcut icon" href="../images/favicon_io/favicon.ico">
 </head>
 
 <body>
@@ -231,7 +231,7 @@
                 <div class="card-icon"><i class="fas fa-taxi"></i></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 style="margin: 0;">Prémium taxi</h3>
-                    <button class="btn-gallery" onclick="openVehicleGallery('taxi')"><i class="fas fa-images"></i>
+                    <button class="btn-gallery" onclick="openVehicleGaléria('taxi')"><i class="fas fa-images"></i>
                         Galéria</button>
                 </div>
                 <p>Tökéletes egyéni utazóknak vagy pároknak. Gyors, hatékony és kényelmes városi vagy reptéri transzferek.
@@ -251,7 +251,7 @@
                 <div class="card-icon"><i class="fas fa-shuttle-van"></i></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 style="margin: 0;">Luxus furgon</h3>
-                    <button class="btn-gallery" onclick="openVehicleGallery('van')"><i class="fas fa-images"></i>
+                    <button class="btn-gallery" onclick="openVehicleGaléria('van')"><i class="fas fa-images"></i>
                         Galéria</button>
                 </div>
                 <p>Tágas utazás családoknak, csoportoknak vagy hajózó személyzetnek. Prémium kényelem extra helyet biztosítva a csomagoknak.
@@ -270,7 +270,7 @@
                 <div class="card-icon"><i class="fas fa-bus"></i></div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 style="margin: 0;">Busz és kisbusz</h3>
-                    <button class="btn-gallery" onclick="openVehicleGallery('bus')"><i class="fas fa-images"></i> Galéria</button>
+                    <button class="btn-gallery" onclick="openVehicleGaléria('bus')"><i class="fas fa-images"></i> Galéria</button>
                 </div>
                 <p>Ideális nagy csoportok és céges események számára.</p>
                 <ul class="features-list">
@@ -499,7 +499,7 @@
     <!-- Gépjárműpark galéria Modal -->
     <div id="vehicle-gallery-modal" class="custom-modal">
         <div class="modal-content vehicle-gallery-content">
-            <span class="close-vehicle-gallery" onclick="closeVehicleGallery()">&times;</span>
+            <span class="close-vehicle-gallery" onclick="closeVehicleGaléria()">&times;</span>
             <h3 id="vehicle-gallery-title" style="margin-bottom: 20px;">Gépjárműpark galéria</h3>
 
             <div class="vehicle-carousel">

@@ -143,13 +143,12 @@ files.forEach(file => {
             content = content.replace(regex, replacement);
         });
 
-        // Set language attribute
-        content = content.replace(/<html lang="en">/, '<html lang="hu">');
-
-        // FIX: Revert accidentally translated function names and property keys
-        content = content.replace(/openVehicleGaléria/g, 'openVehicleGallery');
-        content = content.replace(/closeVehicleGaléria/g, 'closeVehicleGallery');
-        content = content.replace(/Vehicle Galéria/g, 'Gépjárműpark galéria');
+        // FIX: Favicon and Asset paths for subdirectories
+        content = content.replace(/href="css\//g, 'href="../css/');
+        content = content.replace(/src="images\//g, 'src="../images/');
+        content = content.replace(/href="images\//g, 'href="../images/');
+        content = content.replace(/url\('images\//g, "url('../images/");
+        content = content.replace(/url\("images\//g, 'url("../images/');
 
         fs.writeFileSync(huPath, content, 'utf8');
         console.log(`Translated ${file} to hu`);
