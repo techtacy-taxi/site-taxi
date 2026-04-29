@@ -99,6 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lightbox Logic for Tour Galleries
     const galleryImages = document.querySelectorAll('.tour-gallery img');
+    galleryImages.forEach(img => {
+        img.onerror = function() {
+            this.style.display = 'none';
+            // Also hide the parent link/container if it's just a wrapper
+            if (this.parentElement.classList.contains('gallery-item')) {
+                this.parentElement.style.display = 'none';
+            }
+        };
+    });
     if (galleryImages.length > 0) {
         // Create modal elements dynamically
         const modal = document.createElement('div');
@@ -201,6 +210,33 @@ document.addEventListener('DOMContentLoaded', () => {
     updateScrollIndicator();
     window.addEventListener('scroll', updateScrollIndicator);
     window.addEventListener('resize', updateScrollIndicator);
+    // Handle gallery image loading errors (skip missing images)
+    const galleryImg = document.getElementById('vehicle-gallery-img');
+    if (galleryImg) {
+        galleryImg.onerror = function () {
+            // Find which gallery this image belongs to and remove it
+            for (const type in vehicleGalleries) {
+                const index = vehicleGalleries[type].indexOf(currentGalleryArr[currentImgIndex]);
+                if (index !== -1) {
+                    vehicleGalleries[type].splice(index, 1);
+                    break;
+                }
+            }
+
+            // Also remove from current session array
+            currentGalleryArr.splice(currentImgIndex, 1);
+
+            if (currentGalleryArr.length === 0) {
+                closeVehicleGallery();
+            } else {
+                currentImgIndex = currentImgIndex % currentGalleryArr.length;
+                // Refresh the whole gallery UI to update dots
+                const type = document.getElementById('vehicle-gallery-title').innerText.toLowerCase().includes('taxi') ? 'taxi' :
+                             document.getElementById('vehicle-gallery-title').innerText.toLowerCase().includes('van') ? 'van' : 'bus';
+                openVehicleGallery(type, currentImgIndex % currentGalleryArr.length); 
+            }
+        };
+    }
 });
 
 // === Vehicle Gallery Logic (Global Scope) ===
@@ -218,6 +254,9 @@ const vehicleGalleries = {
         'images/van_interior_2.jpg'
     ],
     'bus': [
+        'images/bus_black_port.jpg',
+        'images/bus_black_acropolis.jpg',
+        'images/bus_black_sounio.jpg',
         'images/bus_exterior_1.jpg',
         'images/bus_exterior_2.jpg',
         'images/bus_interior_1.jpg',
@@ -228,9 +267,9 @@ const vehicleGalleries = {
 let currentGalleryArr = [];
 let currentImgIndex = 0;
 
-function openVehicleGallery(type) {
+function openVehicleGallery(type, startIndex = 0) {
     currentGalleryArr = vehicleGalleries[type];
-    currentImgIndex = 0;
+    currentImgIndex = startIndex;
     
     // Set title
     const title = document.getElementById('vehicle-gallery-title');
@@ -244,7 +283,7 @@ function openVehicleGallery(type) {
     currentGalleryArr.forEach((_, idx) => {
         const dot = document.createElement('div');
         dot.classList.add('dot');
-        if (idx === 0) dot.classList.add('active');
+        if (idx === currentImgIndex) dot.classList.add('active');
         dot.onclick = () => goToVehicleImg(idx);
         indicatorContainer.appendChild(dot);
     });
