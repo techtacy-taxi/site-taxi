@@ -26,6 +26,7 @@ const translations = [
 
     // Global Elements
     [/Taxi & Van Transfers/g, '雅典出租车与面包车接送'],
+    [/The Rocks/g, '岩层'],
     [/Services/g, '服务'],
     [/Why Choose Us/g, '为什么选择我们'],
     [/Book Now/g, '立即预订'],
@@ -40,7 +41,7 @@ const translations = [
     // Homepage Hero & CTA
     [/Premium Taxi & Van Transfers in Athens & Lavrio/g, '雅典与拉夫里奥优质出租车及面包车接送'],
     [/"Reliable Taxi & Luxury Van services in Lavrio, Lagonisi, and Keratea\./g, '“在拉夫里奥、拉戈尼西和科拉蒂亚提供可靠的出租车与豪华面包车服务。'],
-    [/Specialized in seamless Athens Airport pickups, port transfers, and private sightseeing tours\."/g, '专注于无缝的雅典机场接机、港口接送及私人观光旅游。”'],
+    [/Specialized in seamless Athens Airport pickups, port transfers, and private sightseeing tours\./g, '专注于无缝的雅典机场接机、港口接送及私人观光旅游。”'],
     [/Best way to reach us/g, '联系我们的最佳方式'],
     [/Instant replies &bull; Quick booking &bull; 24\/7 available/g, '即时回复 &bull; 快速预订 &bull; 24/7 全天候服务'],
     [/Chat on\s+WhatsApp/gi, 'WhatsApp 在线咨询'],
@@ -52,6 +53,7 @@ const translations = [
     [/Our Premium Fleet and Services/g, '我们的优质车队与服务'],
     [/Select the perfect ride for your needs, whether you're traveling solo or with a group, discover Greece\./g, '根据您的需求选择完美的座驾，无论您是独自旅行还是团体出游，尽情探索希腊。'],
     [/Executive Taxi/g, '行政出租车'],
+    [/Only with\s+pre-booking/gi, '仅限提前预订'],
     [/Gallery/g, '图库'],
     [/Perfect for solo travelers or couples\. Fast, efficient, and comfortable city or airport transfers\./g, '独行旅客或情侣的理想选择。快速、高效、舒适的城市或机场接送。'],
     [/1-4 Passengers/g, '1-4 名乘客'],
@@ -265,6 +267,31 @@ const translations = [
     [/5\. Seaside Dinner & Return/g, '5. 海滨晚餐与返回'],
     [/Enjoy an optional dinner at a traditional fish tavern by the sea before your comfortable return drive to Athens\./g, '在舒适地驱车返回雅典之前，在海边的一家传统鱼肉小酒馆享用可选晚餐。'],
 
+    // --- Sounio Tour Content ---
+    [/A magical drive along the Athenian Riviera leading to one of the most stunning/g, '沿着雅典海滨开启一段奇幻驾车之旅，通往希腊最迷人的'],
+    [/sunsets in Greece\./g, '日落之一。'],
+    [/Built in the 5th century BC to honor the God of the Sea, the temple stands proudly on a/g, '这座神庙建于公元前 5 世纪，用于祭祀海神，傲然屹立在'],
+    [/rocky hill overlooking the Aegean Sea\. Not only will you discover fascinating history, but you will also/g, '俯瞰爱琴海的岩石山丘上。您不仅会发现引人入胜的历史，还会'],
+    [/experience what many consider to be the most breathtaking sunset in all of Greece\./g, '体验被许多人认为是全希腊最扣人心弦的日落。'],
+    [/Photo Stops/g, '摄影点'],
+    [/Lake Vouliagmeni & Riviera/g, '武利亚格梅尼湖与海滨'],
+    [/Epic view from the Temple/g, '神庙的壮丽景色'],
+    [/1\. Hotel Pickup/g, '1. 酒店接送'],
+    [/Your private driver will pick you up directly from your hotel\/apartment in a luxurious,/g, '您的私人司机将乘坐豪华且配有'],
+    [/climate-controlled vehicle\. We usually recommend starting a few hours before sunset\./g, '空调的车辆直接从您的酒店/公寓接您。我们通常建议在日落前几小时出发。'],
+    [/2\. The Athenian Riviera Drive/g, '2. 雅典海滨驾车'],
+    [/We'll drive along the beautiful coastal road, passing through upscale Athenian suburbs like/g, '我们将沿着美丽的沿海公路行驶，经过格利法达、武利亚格梅尼和瓦尔基扎等雅典高档郊区，'],
+    [/Glyfada, Vouliagmeni, and Varkiza, enjoying uninterrupted views of the Saronic Gulf\./g, '欣赏萨罗尼克湾一览无余的美景。'],
+    [/3\. Vouliagmeni Lake \(Optional Stop\)/g, '3. 武利亚格梅尼湖（可选停靠点）'],
+    [/A quick stop at the natural spa lake of Vouliagmeni, famous for its warm therapeutic waters and/g, '在武利亚格梅尼天然水疗湖短暂停留，该湖以其温暖的疗愈湖水和'],
+    [/impressive rock formations\./g, '令人印象深刻的岩石构造而闻名。'],
+    [/4\. Temple of Poseidon/g, '4. 波塞冬神庙'],
+    [/Arrive at Cape Sounio\. You will have plenty of time to explore the ancient ruins, take stunning/g, '抵达苏尼翁角。您将有充足的时间探索古代遗迹，拍摄惊艳的照片，'],
+    [/photos, and watch the sun dip below the Aegean horizon\./g, '并观看太阳沉入爱琴海地平线。'],
+    [/5\. Return or Seaside Dinner/g, '5. 返回或海滨晚餐'],
+    [/After the sunset, we can head back to Athens or, if you prefer, stop at a traditional Greek/g, '日落后，我们可以返回雅典，或者如果您愿意，可以停留在海边的传统希腊'],
+    [/tavern by the sea for fresh seafood before returning\./g, '小酒馆享用新鲜海鲜后再返回。'],
+
     // --- Final generic terms ---
     [/Gallery/g, '图库'],
     [/Meteora Monasteries/g, '梅黛奥拉修道院'],
@@ -274,6 +301,11 @@ const translations = [
     [/Argolis/g, '阿尔戈利斯'],
     [/Mycenae/g, '迈锡尼'],
     [/Epidaurus/g, '埃皮达鲁斯'],
+    [/LIVE RIGHT NOW: KONSTANTINOS/g, '在线咨询：KONSTANTINOS'],
+    [/Only with\s+pre-booking/gi, '仅限提前预订'],
+    [/Temple of Apollo/g, '阿波罗神庙'],
+    [/Arachova Village/g, '阿拉霍瓦村'],
+    [/No need to struggle finding a vehicle that fits your entire crew and equipment\./g, '无需费力寻找能容纳所有船员及设备的车辆。'],
 ];
 
 // Create zh directory if not exists
@@ -293,10 +325,67 @@ files.forEach(file => {
             content = content.replace(regex, replacement);
         });
 
+        // SEO Meta Tags Translation
+        content = content.replace(/<title>.*?<\/title>/, '<title>雅典出租车与面包车接送 | 机场接送拉夫里奥、拉戈尼西、科拉蒂亚</title>');
+        content = content.replace(/meta name="description" content=".*?"/, 'meta name="description" content="雅典、拉夫里奥、拉戈尼西和科拉蒂亚的优质出租车与面包车接送服务。24/7 雅典机场接机、港口接送，以及前往卫城、苏尼翁、德尔斐、梅黛奥拉的私人游览。"');
+
+        // FIX: Revert accidentally translated function names and property keys
+        content = content.replace(/openVehicle图库/g, 'openVehicleGallery');
+        content = content.replace(/closeVehicle图库/g, 'closeVehicleGallery');
+
         // Set language attribute
         content = content.replace(/<html lang="en">/, '<html lang="zh-CN">');
 
+        // FIX: Favicon and Asset paths for subdirectories
+        content = content.replace(/href="css\//g, 'href="../css/');
+        content = content.replace(/src="images\//g, 'src="../images/');
+        content = content.replace(/href="images\//g, 'href="../images/');
+        content = content.replace(/src="js\//g, 'src="../js/');
+        content = content.replace(/url\('images\//g, "url('../images/");
+        content = content.replace(/url\("images\//g, 'url("../images/');
+
         fs.writeFileSync(zhPath, content, 'utf8');
         console.log(`Translated ${file} to zh`);
+    }
+});
+
+// Create ja directory if not exists
+const jaDir = path.join(__dirname, 'ja');
+if (!fs.existsSync(jaDir)) {
+    fs.mkdirSync(jaDir);
+}
+
+files.forEach(file => {
+    const enPath = path.join(__dirname, file);
+    const jaPath = path.join(__dirname, 'ja', file);
+    
+    if (fs.existsSync(enPath)) {
+        let content = fs.readFileSync(enPath, 'utf8');
+
+        translations.forEach(([regex, replacement]) => {
+            content = content.replace(regex, replacement);
+        });
+
+        // SEO Meta Tags Translation
+        content = content.replace(/<title>.*?<\/title>/, '<title>アテネ・タクシー＆バン送迎 | アテネ空港、ラブリオ、ラゴニシ、ケラテア送迎</title>');
+        content = content.replace(/meta name="description" content=".*?"/, 'meta name="description" content="アテネ、ラブリオ、ラゴニシ、ケラテアでのプレミアムタクシー＆バン送迎。24時間365日のアテネ空港送迎、港送迎、アクロポリス、スニオン、デルフィ、メテオラへのプライベートツアー。"');
+
+        // FIX: Revert accidentally translated function names and property keys
+        content = content.replace(/openVehicleギャラリー/g, 'openVehicleGallery');
+        content = content.replace(/closeVehicleギャラリー/g, 'closeVehicleGallery');
+
+        // Set language attribute
+        content = content.replace(/<html lang="en">/, '<html lang="ja">');
+
+        // FIX: Favicon and Asset paths for subdirectories
+        content = content.replace(/href="css\//g, 'href="../css/');
+        content = content.replace(/src="images\//g, 'src="../images/');
+        content = content.replace(/href="images\//g, 'href="../images/');
+        content = content.replace(/src="js\//g, 'src="../js/');
+        content = content.replace(/url\('images\//g, "url('../images/");
+        content = content.replace(/url\("images\//g, 'url("../images/');
+
+        fs.writeFileSync(jaPath, content, 'utf8');
+        console.log(`Translated ${file} to ja`);
     }
 });

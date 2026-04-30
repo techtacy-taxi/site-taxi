@@ -24,6 +24,38 @@ const translations = [
     [/Book via\s+WhatsApp/gi, 'Foglalás WhatsApp-on'],
     [/Send Inquiry/gi, 'Érdeklődés küldése'],
 
+    // --- Athens & Acropolis Tour ---
+    [/Athens & Acropolis Experience/g, 'Athén και Akropolisz élmény'],
+    [/Discover the cradle of Western civilization\. A complete journey through the/g, 'Fedezze fel a nyugati civilizáció bölcsőjét. Teljes utazás Athén'],
+    [/historical highlights of Athens\./g, 'történelmi látványosságain keresztül.'],
+    [/Athens is a city where ancient mythology and modern vibrancy exist side-by-side\. Our/g, 'Athén egy olyan város, ahol az ókori mitológia és a modern pezsgés egymás mellett él. A'],
+    [/private Athens City Tour is designed to give you a comprehensive understanding of the city's glorious/g, 'privát athéni városnézésünket úgy alakítottuk ki, hogy átfogó képet kapjon a város dicső'],
+    [/past, picking you up from your location and driving you through the historical center in ultimate/g, 'múltjáról, felvéve Önt a tartózkodási helyéről, και a történelmi központon keresztül szállítva a legnagyobb'],
+    [/comfort\./g, 'kényelemben.'],
+    [/You will witness architectural masterpieces such as the Parthenon on the Acropolis/g, 'Szemtanúja lesz olyan építészeti remekműveknek, mint az Akropolisz-dombon található Parthenon,'],
+    [/hill, experience the charm of the oldest neighborhood of Athens, and see where the first modern Olympic/g, 'megismerheti Athén legrégebbi negyedének varázsát, και láthatja, hol rendezték meg az első modern olimpiai'],
+    [/Games took place\. Your driver will provide historical context and let you explore each monument at your/g, 'játékokat. Sofőrje történelmi kontextust biztosít, και hagyja, hogy minden emlékművet a saját'],
+    [/own pace\./g, 'tempójában fedezzen fel.'],
+    [/Parthenon & Erechtheion/g, 'Parthenon és Erektheion'],
+    [/The Neighborhood of the Gods/g, 'Az istenek negyede'],
+    [/1\. Premium Pickup/g, '1. Prémium felvétel'],
+    [/Your private driver will meet you at your hotel, apartment, or cruise ship port to begin the tour/g, 'Privát sofőrje a szállodájánál, apartmanjánál vagy a hajókikötőben várja Önt, hogy megkezdjék a túrát'],
+    [/in our fully air-conditioned luxury vehicle\./g, 'teljesen légkondicionált luxusjárművünkben.'],
+    [/2\. The Acropolis & Parthenon/g, '2. Az Akropolisz και a Parthenon'],
+    [/Our first stop is the world-famous Acropolis\. You will have time to walk up the hill, explore the/g, 'Első állomásunk a világhírű Akropolisz. Lesz ideje felgyalogolni a dombra, felfedezni a'],
+    [/magnificent Parthenon, the Temple of Athena Nike, and take panoramic photos of the entire city/g, 'pompás Parthenont, Athéné Niké templomát, και panorámafotókat készíteni az egész városról'],
+    [/from the top\./g, 'a fentről.'],
+    [/3\. Panathenaic Stadium/g, '3. Panathinaiko Stadion'],
+    [/We'll drive to the impressive all-marble Panathenaic Stadium, the historic site of the first/g, 'Elautózunk a lenyűgöző, csupa márvány Panathinaiko Stadionhoz, az 1896-ban megrendezett első'],
+    [/modern Olympic Games held in 1896\./g, 'modern olimpiai játékok történelmi helyszínére.'],
+    [/4\. Changing of the Guards/g, '4. Őrségváltás'],
+    [/Next stop is Syntagma Square and the Greek Parliament to witness the traditional changing of the/g, 'A következő állomás a Szintagma tér και a görög parlament, ahol megtekinthetjük az'],
+    [/Presidential Guards \(Evzones\) at the Tomb of the Unknown Soldier\./g, 'elnöki gárda (Evzones) hagyományos őrségváltását az Ismeretlen Katona Sírjánál.'],
+    [/5\. Mount Lycabettus & Plaka/g, '5. Lükabéttosz-hegy και Plaka'],
+    [/We'll drive up Lycabettus Hill for the highest viewpoint in Athens, and conclude with a walk/g, 'Felautózunk a Lükabéttosz-dombra Athén legmagasabb kilátópontjáért, και egy sétával zárjuk a'],
+    [/through Plaka, the charming old town full of traditional tavernas and shops before returning to/g, 'Plakán, a hagyományos tavernákkal και üzletekkel teli bájos óvároson keresztül, mielőtt visszatérnénκ a'],
+    [/your hotel\./g, 'szállodájába.'],
+
     // Global
     [/Taxi & Van Transfers/g, 'Taxi és Van Transzfer'],
     [/Services/g, 'Szolgáltatások'],
@@ -124,6 +156,125 @@ const translations = [
     [/Argolis/g, 'Argolisz'],
     [/Mycenae/g, 'Mükéné'],
     [/Epidaurus/g, 'Epidaurusz'],
+    [/LIVE RIGHT NOW: KONSTANTINOS/g, 'JELENLEG ELÉRHETŐ: KONSTANTINOS'],
+    [/Only with\s+pre-booking/gi, 'Csak előfoglalással'],
+
+    // --- Services Section Missing ---
+    [/Athens Airport Transfer/g, 'Athéni repülőtéri transzfer'],
+    [/Direct pickup from the gate so you don't have to walk\. Skip the long taxi lines and arrive/g, 'Közvetlen felvétel a kapunál, így nem kell gyalogolnia. Kerülje el a hosszú taxi sorokat és érkezzen meg'],
+    [/stress-free\. We monitor your flight\./g, 'stresszmentesen. Figyeljük a járatát.'],
+    [/Gate Pickup, No Walking/g, 'Felvétel a kapunál, nincs gyaloglás'],
+    [/Skip Taxi Queues/g, 'Taxisorok kihagyása'],
+    [/60m Free Wait Time/g, '60 perc ingyenes várakozás'],
+    [/Book Transfer/g, 'Transzfer foglalása'],
+    [/Select Transfer Type:/g, 'Válassza ki a transzfer típusát:'],
+    [/Arrival \(From Airport\)/g, 'Érkezés (repülőtérről)'],
+    [/Departure \(To Airport\)/g, 'Indulás (repülőtérre)'],
+
+    [/Lavrio Port, Olympic Marine/g, 'Lavrio kikötő, Olympic Marine'],
+    [/"Seamless pickup directly from your yacht\. Specialized in transfers for sailing crews with/g, '"Zökkenőmentes felvétel közvetlenül a jachtjáról. Vitorlás személyzetek transzferére szakosodva,'],
+    [/high-capacity vans for extra gear and heavy bags\./g, 'nagy kapacitású furgonokkal az extra felszerelésekhez és nehéz csomagokhoz.'],
+    [/No need to struggle finding a vehicle that fits your entire crew and equipment\./g, 'Nem kell küzdenie olyan jármű megtalálásával, amelybe az egész személyzet és a felszerelés is befér.'],
+    [/Crew Vans Available/g, 'Személyzeti furgonok elérhetők'],
+    [/Excess Luggage Friendly/g, 'Túlsúlyos csomag barát'],
+    [/Point-to-Point Service/g, 'Ponttól-pontig szolgáltatás'],
+
+    [/Main Ports: Piraeus, Rafina, Lavrio/g, 'Fő kikötők: Pireusz, Rafina, Lavrio'],
+    [/Seamless pickup directly from your ferry, cruise ship, or hydrofoil\. Skip the long taxi queues at/g, 'Zökkenőmentes felvétel közvetlenül a kompról, luxushajóról vagy szárnyashajóról. Kerülje el a hosszú taxisorokat'],
+    [/busy ports and enjoy a fixed-price transfer/g, 'a forgalmas kikötőkben, και élvezze a fix áras transzfert'],
+    [/to your hotel or Athens Airport\. We monitor ferry arrivals/g, 'szállodájába vagy az athéni repülőtérre. Figyeljük a kompok érkezését'],
+    [/Pier-Side Pickup/g, 'Felvétel a mólónál'],
+    [/Fixed & Upfront Pricing/g, 'Fix és előre látható árazás'],
+    [/We Monitor Ferry Times/g, 'Figyeljük a komp menetrendet'],
+
+    [/Airbnb villas and hotels/g, 'Airbnb villák és szállodák'],
+    [/Reliable 24\/7 transfers directly to your villa, apartment, or hotel\. We specialize in finding even/g, 'Megbízható 24/7 transzferek közvetlenül villájába, apartmanjába vagy szállodájába. Sikerrel megtaláljuk még'],
+    [/the most remote locations in Lagonisi and Keratea\./g, 'a legtávolabbi helyszíneket is Lagonisiben és Kerateában.'],
+    [/Enjoy a stress-free arrival with a professional driver waiting for you\./g, 'Élvezze a stresszmentes érkezést egy profi sofőrrel, aki várja Önt.'],
+    [/Door-to-Door Service/g, 'Háztól házig szolgáltatás'],
+    [/Perfect for Families/g, 'Tökéletes családoknak'],
+    [/Local Area Experts/g, 'A környék szakértői'],
+
+    [/Athens & Akropolisz Tour/g, 'Athén és Akropolisz túra'],
+    [/Explore the historical heart of Greece\. Full or half-day private tours of the Akropolisz, Plaka, and/g, 'Fedezze fel Görögország történelmi szívét. Egész vagy félnapos privát túrák az Akropolisznál, a Plakánál és'],
+    [/more\./g, 'egyebeknél.'],
+    [/Panoramic Stops/g, 'Panorámás megállók'],
+    [/4 to 8 Hours/g, '4-8 óra'],
+    [/Knowledgeable Driver/g, 'Hozzáértő sofőr'],
+    [/View Details/g, 'Részletek megtekintése'],
+
+    [/Szounio & Poszeidón-temploma/g, 'Szounio és Poszeidón-temploma'],
+    [/Experience the breathtaking sunset at Cape Szounio along the beautiful Athéni riviéra\./g, 'Tapasztalja meg a lélegzetelállító naplementét a Szounio-foknál a gyönyörű Athéni riviéra mentén.'],
+    [/Coastal Scenic Drive/g, 'Part menti panorámaút'],
+    [/4 to 5 Hours/g, '4-5 óra'],
+    [/Sunset Views/g, 'Naplemente kilátás'],
+
+    [/Delphoi & Ancient Oracle/g, 'Delphoi και az ókori jósda'],
+    [/Journey to the "Navel of the World" and immerse yourself in the mystique of/g, 'Utazzon a „világ köldökéhez”, και merüljön el az ókori Görögország'],
+    [/ancient Greece\./g, 'misztikumában.'],
+    [/Step back in time with a full-day excursion to Delphi, considered by ancient Greeks to/g, 'Lépjen vissza az időben egy egész napos delphoi kirándulással, amelyet az ókori görögök'],
+    [/be the center of the world\. Nestled on the slopes of Mount Parnassus, Delphi is one of the most stunning/g, 'a világ központjának tartottak. A Parnasszosz-hegy lejtőin fekvő Delphoi Görögország egyik leglenyűgözőbb'],
+    [/UNESCO World Heritage sites in Greece\./g, 'UNESCO Világörökségi helyszíne.'],
+    [/On this private day trip, you will marvel at the Temple of Apollo where the famous/g, 'Ezen a privát egynapos kiránduláson megcsodálhatja az Apolló-templomot, ahol a híres'],
+    [/Oracle delivered her prophecies, explore the ancient theater, and witness incredible artifacts in the/g, 'Püthia jóslatait adta, felfedezheti az ókori színházat, και hihetetlen leleteket láthat a'],
+    [/Delphi Archaeological Museum\. The route also takes you through scenic mountain landscapes and/g, 'Delphoi Régészeti Múzeumban. Az útvonal látványos hegyi tájakon και'],
+    [/traditional villages\./g, 'hagyományos falvakon keresztül vezet.'],
+    [/The sanctuary of the Oracle/g, 'A jósda szentélye'],
+    [/Picturesque mountain town/g, 'Festői hegyi város'],
+    [/1\. Hotel \/ Port Pickup/g, '1. Szállodai / kikötői felvétel'],
+    [/Start your day early as your private driver picks you up from your Athens location in a premium,/g, 'Kezdje korán a napot, amint privát sofőrje felveszi Önt athéni tartózkodási helyéről egy prémium,'],
+    [/climate-controlled vehicle\./g, 'légkondicionált járművel.'],
+    [/2\. Scenic Mountain Drive/g, '2. Panorámás hegyi út'],
+    [/Enjoy a relaxing drive through the fertile plain of Boeotia, crossing the towns of Thebes and/g, 'Élvezze a pihentető autózást Boiótia termékeny síkságán keresztül, áthaladva Théba και'],
+    [/Levadia before ascending the majestic Mount Parnassus\./g, 'Levadia városán, mielőtt felkapaszkodna a fenséges Parnasszosz-hegyre.'],
+    [/3\. Delphi Archaeological Site/g, '3. Delphoi régészeti lelőhely'],
+    [/Arrive at Delphi to explore the incredible ruins\. Walk the Sacred Way, visit the Temple of/g, 'Érkezés Delphoiba a hihetetlen romok felfedezéséhez. Sétáljon a Szent Úton, látogassa meg Apolló'],
+    [/Apollo, the ancient Theater, and the Stadium where the Pythian Games were held\./g, 'templomát, az ókori színházat és a stadiont, ahol a püthiai játékokat tartották.'],
+    [/4\. Delphi Museum/g, '4. Delphoi Múzeum'],
+    [/Discover masterpieces of ancient Greek sculpture, including the famous bronze Charioteer and the/g, 'Fedezze fel az ókori görög szobrászat remekműveit, köztük a híres bronz kocsihajtót és a'],
+    [/Sphinx of Naxos\./g, 'Naxoszi Szfinxet.'],
+    [/5\. Arachova & Lunch/g, '5. Arachova és ebéd'],
+    [/Stop at the beautiful mountain village of Arachova for a traditional Greek lunch \(optional\) and/g, 'Álljon meg Arachova gyönyörű hegyi falujában egy hagyományos görög ebédre (opcionális) és'],
+    [/some souvenir shopping before we begin our comfortable drive back to Athens\./g, 'szuvenírvásárlásra, mielőtt megkezdenénk kényelmes visszautazásunkat Athénba.'],
+    [/Historical Ruins/g, 'Történelmi romok'],
+
+    [/Meteora Monasteries/g, 'Meteora kolostorok'],
+    [/Marvel at the breathtaking rock formations and visit the spectacular cliff-top monasteries\./g, 'Csodálja meg a lélegzetelállító sziklaalakzatokat και látogassa meg a látványos sziklatetőn lévő kolostorokat.'],
+    [/Spectacular Views/g, 'Látványos kilátás'],
+    [/Full Day \/ 2 Days/g, 'Egész nap / 2 nap'],
+    [/Monastery Visits/g, 'Kolostorlátogatások'],
+
+    [/Mycenae & Epidaurus/g, 'Mükéné και Epidaurusz'],
+    [/Explore the legendary Tomb of Agamemnon and the ancient theater with perfect acoustics\./g, 'Fedezze fel Agamemnón legendás sírját és az ókori színházat a tökéletes akusztikájával.'],
+    [/Ancient Theater/g, 'Ókori színház'],
+    [/Historic Ruins/g, 'Történelmi romok'],
+
+    // Why Us Section
+    [/Why Travel With Us\?/g, 'Miért utazzon velünk?'],
+    [/We pride ourselves on providing a top-tier experience for every passenger\./g, 'Büszkék vagyunk rá, hogy minden utas számára kiváló élményt nyújtunk.'],
+    [/No Waiting in Lines/g, 'Nincs várakozás sorban'],
+    [/Pre-book to avoid long queues, especially during Athens' high season when taxi shortages are a major/g, 'Foglaljon előre, hogy elkerülje a hosszú sorokat, különösen az athéni főszezonban, amikor a taxishiány jelentős'],
+    [/problem\./g, 'problémát jelent.'],
+    [/Local Concierge Support/g, 'Helyi portaszolgálat'],
+    [/Contact us even for recommendations on where to eat or what to see\. We are here to help you/g, 'Keressen minket éttermi ajánlásokért vagy látnivalókért is. Azért vagyunk itt, hogy segítsünk'],
+    [/throughout your entire trip\./g, 'az egész utazása alatt.'],
+    [/Available 24\/7/g, 'Elérhető 24/7'],
+    [/Day or night, our drivers are ready to pick you up whenever you need\./g, 'Nappal vagy éjjel, sofőreink készen állnak, hogy felvegyék Önt, amikor csak szüksége van rá.'],
+    [/Fixed Pricing/g, 'Fix árazás'],
+    [/No hidden fees\. Know exactly what you are paying before you book\./g, 'Nincsenek rejtett költségek. Tudja meg pontosan, mennyit fizet a foglalás előtt.'],
+    [/English Speaking/g, 'Angolul beszélő'],
+    [/All our professional drivers are fluent in English and ready to assist you\./g, 'Minden profi sofőrünk folyékonyan beszél angolul, és készen áll a segítségnyújtásra.'],
+    [/Premium Vehicles/g, 'Prémium járművek'],
+    [/Immaculately clean, air-conditioned fleet maintained to the highest standards\./g, 'Makulátlanul tiszta, légkondicionált flotta, a legmagasabb követelményeknek megfelelően karbantartva.'],
+    [/5-Star Rated/g, '5 csillagos minősítés'],
+    [/Our customers have rated us 5 out of 5 stars on Google Reviews for our excellent service\./g, 'Ügyfeleink 5-ből 5 csillagra értékelték kiváló szolgáltatásunkat a Google Véleményekben.'],
+
+    // Final CTA
+    [/Ready for a stress-free transfer\?/g, 'Készen áll egy stresszmentes transzferre?'],
+    [/Contact us via WhatsApp for instant booking capability and pricing inquiries\./g, 'Lépjen kapcsolatba velünk WhatsApp-on az azonnali foglalási lehetőségért και árajánlatért.'],
+    [/Chat on\s+WhatsApp/gi, 'WhatsApp csevegés'],
+    [/Send\s+Email/gi, 'E-mail küldése'],
+    [/Call Us/g, 'Hívjon minket'],
 ];
 
 // Create hu directory if not exists
@@ -142,6 +293,21 @@ files.forEach(file => {
         translations.forEach(([regex, replacement]) => {
             content = content.replace(regex, replacement);
         });
+
+        // SEO Meta Tags Translation
+        content = content.replace(/<title>.*?<\/title>/, '<title>Taxi és Van Transzfer Athén | Repülőtéri transzfer Lavrio, Lagonisi, Keratea</title>');
+        content = content.replace(/meta name="description" content=".*?"/, 'meta name="description" content="Prémium taxi- και furgontranszfer Athénban, Lavrióban, Lagonisiben και Kerateában. 24/7 athéni reptéri felvétel, kikötői transzferek και privát túrák az Akropoliszhoz, Szouniohoz, Delphoihoz, Meteorához."');
+
+        // FIX: Revert accidentally translated function names and property keys
+        content = content.replace(/openVehicleGaléria/g, 'openVehicleGallery');
+        content = content.replace(/closeVehicleGaléria/g, 'closeVehicleGallery');
+        content = content.replace(/openVehicle图库/g, 'openVehicleGallery');
+        content = content.replace(/closeVehicle图库/g, 'closeVehicleGallery');
+        content = content.replace(/openVehicleギャラリー/g, 'openVehicleGallery');
+        content = content.replace(/closeVehicleギャラリー/g, 'closeVehicleGallery');
+
+        // Set language attribute
+        content = content.replace(/<html lang="en">/, '<html lang="hu">');
 
         // FIX: Favicon and Asset paths for subdirectories
         content = content.replace(/href="css\//g, 'href="../css/');

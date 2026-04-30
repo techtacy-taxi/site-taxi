@@ -42,7 +42,14 @@ function updateFile(filePath, lang, fileName) {
                 <div class="lang-switcher">
                     <button class="dropbtn"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/${flag}.png" width="18" style="margin: 0 5px;"> ${code} <i class="fas fa-chevron-down"></i></button>
                     <div class="dropdown-content">
-                        ${languages.map(l => `<a href="${l.link}"><img src="https://flagcdn.com/w20/${l.flag}.png" width="20" alt="${l.code}" style="vertical-align: middle; margin-right: 8px;"> ${l.code}</a>`).join('\n                        ')}
+                        ${languages.map(l => {
+                            let finalLink = l.link;
+                            // If we are in a subdirectory and the link points to the same subdirectory, make it direct
+                            if (lang !== 'root' && finalLink.startsWith(`../${lang}/`)) {
+                                finalLink = finalLink.replace(`../${lang}/`, '');
+                            }
+                            return `<a href="${finalLink}"><img src="https://flagcdn.com/w20/${l.flag}.png" width="20" alt="${l.code}" style="vertical-align: middle; margin-right: 8px;"> ${l.code}</a>`;
+                        }).join('\n                        ')}
                     </div>
                 </div>`;
 
@@ -60,6 +67,7 @@ function updateFile(filePath, lang, fileName) {
         content = content.replace(/href="css\//g, 'href="../css/');
         content = content.replace(/src="js\//g, 'src="../js/');
         content = content.replace(/src="images\//g, 'src="../images/');
+        content = content.replace(/href="images\//g, 'href="../images/');
         content = content.replace(/url\('images\//g, "url('../images/");
         content = content.replace(/href="favicon_io/g, 'href="../images/favicon_io');
         content = content.replace(/href="..\/images\/favicon_io/g, 'href="../images/favicon_io');
