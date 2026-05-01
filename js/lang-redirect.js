@@ -31,7 +31,8 @@
         'nb': 'no', 'nn': 'no', 'no': 'no', 'nb-no': 'no', 'nn-no': 'no',
         'zh': 'zh', 'zh-cn': 'zh', 'zh-tw': 'zh', 'zh-hk': 'zh', 'zh-sg': 'zh', 'zh-mo': 'zh',
         'ja': 'ja', 'ja-jp': 'ja',
-        'hu': 'hu', 'hu-hu': 'hu'
+        'hu': 'hu', 'hu-hu': 'hu',
+        'ru': 'ru', 'ru-ru': 'ru', 'uk': 'ru', 'uk-ua': 'ru', 'be': 'ru', 'be-by': 'ru', 'kk': 'ru', 'kk-kz': 'ru'
     };
 
     // Country code → site directory (Cloudflare geo-IP fallback)
@@ -48,7 +49,8 @@
         'NO': 'no',
         'CN': 'zh', 'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh',
         'JP': 'ja',
-        'HU': 'hu'
+        'HU': 'hu',
+        'RU': 'ru', 'BY': 'ru', 'KZ': 'ru', 'UA': 'ru'
     };
 
     function doRedirect(targetDir) {

@@ -319,7 +319,7 @@ function updateVehicleGalleryUI() {
     
     // Check if we are in a subdirectory (like /el/ or /de/)
     const path = window.location.pathname;
-    const langs = ['de', 'el', 'es', 'fr', 'he', 'it', 'ja', 'no', 'pl', 'pt', 'zh'];
+    const langs = ['de', 'el', 'es', 'fr', 'he', 'it', 'ja', 'no', 'pl', 'pt', 'zh', 'ru', 'hu'];
     let prefix = '';
     
     // Check if current URL path contains any of the language subdirectories
