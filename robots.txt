@@ -3,9 +3,20 @@ Allow: /
 
 Sitemap: https://taxiathenstransfers.com/sitemap.xml
 
-# Disallow build/dev files
-Disallow: /js/
-Disallow: /css/
+# Disallow build/dev scripts
 Disallow: /*.js$
 Disallow: /seo_fix.js
+Disallow: /seo_fix_v2_part1.js
+Disallow: /seo_fix_v2_part2.js
+Disallow: /seo_fix_v2_run.js
+Disallow: /build_sitemap_v2.js
 Disallow: /sync_langs.js
+Disallow: /build_hu.js
+Disallow: /build_ja.js
+Disallow: /build_zh.js
+Disallow: /build_zh_v2.js
+Disallow: /build_zh_v3.js
+
+# Allow CSS and images for rendering
+Allow: /css/
+Allow: /images/
