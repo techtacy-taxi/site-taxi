@@ -20,7 +20,6 @@
     <title>Privat Tur Delfi & Det Gamle Orakelet | Taxi & Van Transfers</title>
     <meta name="description"
         content="Privat tur Delfi til Orakelet & UNESCO-stedet. Apollons tempel, Delfi-museet, Arachova.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/no/delphi-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Privat Tur Delfi & Det Gamle Orakelet | Taxi & Van Transfers">
     <meta property="og:description" content="Privat tur Delfi til Orakelet & UNESCO-stedet. Apollons tempel, Delfi-museet, Arachova.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/delphi_hero.jpg">
     <meta property="og:url" content="https://taxiathenstransfers.com/no/delphi-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Privat Tur Delfi & Det Gamle Orakelet | Taxi & Van Transfers">
     <meta name="twitter:description" content="Privat tur Delfi til Orakelet & UNESCO-stedet. Apollons tempel, Delfi-museet, Arachova.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/delphi_hero.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Hjem",
+          "item": "https://taxiathenstransfers.com/no/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Privat Tur Delfi & Det Gamle Orakelet",
+          "item": "https://taxiathenstransfers.com/no/delphi-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Privat Tur Delfi & Det Gamle Orakelet",
+      "description": "Privat tur Delfi til Orakelet & UNESCO-stedet. Apollons tempel, Delfi-museet, Arachova.",
+      "image": "https://taxiathenstransfers.com/images/delphi_hero.jpg",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Avreise mot Parnassos-fjellet"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apollon-santuariumet"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Det arkeologiske museet i Delfi"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Atene Pronaia-santuariumet"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Landsbyen Arachova"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -111,6 +185,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/delphi_hero.jpg');">
         <div class="tour-hero-overlay"></div>
@@ -121,7 +197,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -175,8 +251,8 @@
 
             <h2 class="tour-section-title reveal">Galleri</h2>
             <div class="tour-gallery">
-                <img src="../images/delphi_gallery_1.jpg" alt="Apollon-tempelet i Delfi" class="reveal-left">
-                <img src="../images/delphi_gallery_2.jpg" alt="Tholos i Delfi" class="reveal-right">
+                <img loading="lazy" src="../images/delphi_gallery_1.jpg" alt="Apollon-tempelet i Delfi" class="reveal-left">
+                <img loading="lazy" src="../images/delphi_gallery_2.jpg" alt="Tholos i Delfi" class="reveal-right">
             </div>
         </div>
 
@@ -198,6 +274,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Hei! Jeg er interessert i deres tjenester. Kan du hjelpe meg?"

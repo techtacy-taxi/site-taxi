@@ -1,21 +1,38 @@
 User-agent: *
 Allow: /
+Allow: /js/
 
 Sitemap: https://taxiathenstransfers.com/sitemap.xml
 
 # Disallow build/dev scripts
-Disallow: /*.js$
-Disallow: /seo_fix.js
-Disallow: /seo_fix_v2_part1.js
-Disallow: /seo_fix_v2_part2.js
-Disallow: /seo_fix_v2_run.js
-Disallow: /build_sitemap_v2.js
-Disallow: /sync_langs.js
+Disallow: /add_hreflang.js
+Disallow: /add_why_us.js
 Disallow: /build_hu.js
 Disallow: /build_ja.js
+Disallow: /build_ru.js
+Disallow: /build_sitemap.js
+Disallow: /build_sitemap_v2.js
 Disallow: /build_zh.js
 Disallow: /build_zh_v2.js
 Disallow: /build_zh_v3.js
+Disallow: /check_ja.js
+Disallow: /dump_english.js
+Disallow: /extract_ru.js
+Disallow: /fix_js_funcs.js
+Disallow: /move_no_waiting.js
+Disallow: /seo_fix.js
+Disallow: /seo_fix_v2_part1.js
+Disallow: /seo_fix_v2_part2.js
+Disallow: /seo_fix_v2_patch.js
+Disallow: /seo_fix_v2_run.js
+Disallow: /seo_verify.js
+Disallow: /sync_langs.js
+Disallow: /translate_fleet_titles.js
+Disallow: /translate_ru_tours_patch.js
+Disallow: /translate_titles.js
+Disallow: /update_bus_title.js
+Disallow: /update_cta.js
+Disallow: /seo_improve_run.js
 
 # Allow CSS and images for rendering
 Allow: /css/

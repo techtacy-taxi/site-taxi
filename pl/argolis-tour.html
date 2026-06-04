@@ -20,7 +20,6 @@
     <title>Prywatna Wycieczka Mykeny & Epidauros | Taxi & Van Transfers</title>
     <meta name="description"
         content="Prywatna wycieczka Mykeny & Epidauros. Grobowiec Agamemnona, Brama Lwów, Nauplia & starożytny teatr.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/pl/argolis-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Prywatna Wycieczka Mykeny & Epidauros | Taxi & Van Transfers">
     <meta property="og:description" content="Prywatna wycieczka Mykeny & Epidauros. Grobowiec Agamemnona, Brama Lwów, Nauplia & starożytny teatr.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/mycenae_hero.jpg">
     <meta property="og:url" content="https://taxiathenstransfers.com/pl/argolis-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Prywatna Wycieczka Mykeny & Epidauros | Taxi & Van Transfers">
     <meta name="twitter:description" content="Prywatna wycieczka Mykeny & Epidauros. Grobowiec Agamemnona, Brama Lwów, Nauplia & starożytny teatr.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/mycenae_hero.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Strona główna",
+          "item": "https://taxiathenstransfers.com/pl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Prywatna Wycieczka Mykeny & Epidauros",
+          "item": "https://taxiathenstransfers.com/pl/argolis-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Prywatna Wycieczka Mykeny & Epidauros",
+      "description": "Prywatna wycieczka Mykeny & Epidauros. Grobowiec Agamemnona, Brama Lwów, Nauplia & starożytny teatr.",
+      "image": "https://taxiathenstransfers.com/images/mycenae_hero.jpg",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Wyjazd i Kanał Koryncki"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Starożytne Mykeny"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Miasto Nafplio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Teatr w Epidauros"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Powrót do Aten"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -111,6 +185,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/mycenae_hero.jpg');">
         <div class="tour-hero-overlay"></div>
@@ -121,7 +197,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -175,8 +251,8 @@
 
             <h2 class="tour-section-title reveal">Galeria</h2>
             <div class="tour-gallery">
-                <img src="../images/mycenae_gallery_1.jpg" alt="Stanowisko archeologiczne w Mykenach" class="reveal-left">
-                <img src="../images/mycenae_gallery_2.jpg" alt="Teatr w Epidauros" class="reveal-right">
+                <img loading="lazy" src="../images/mycenae_gallery_1.jpg" alt="Stanowisko archeologiczne w Mykenach" class="reveal-left">
+                <img loading="lazy" src="../images/mycenae_gallery_2.jpg" alt="Teatr w Epidauros" class="reveal-right">
             </div>
         </div>
 
@@ -198,6 +274,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Dzień dobry! Interesują mnie Państwa usługi. Czy mogą Państwo pomóc?"

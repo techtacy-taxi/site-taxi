@@ -20,7 +20,6 @@
     <title>Tur Kapp Sounion & Poseidons Tempel | Taxi & Van Transfers</title>
     <meta name="description"
         content="Privat tur solnedgang Kapp Sounion. Poseidons tempel, Athen-rivieraen, Vouliagmeni-sjøen.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/no/sounio-tour.html">
 
@@ -47,14 +46,84 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Tur Kapp Sounion & Poseidons Tempel | Taxi & Van Transfers">
     <meta property="og:description" content="Privat tur solnedgang Kapp Sounion. Poseidons tempel, Athen-rivieraen, Vouliagmeni-sjøen.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
     <meta property="og:url" content="https://taxiathenstransfers.com/no/sounio-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tur Kapp Sounion & Poseidons Tempel | Taxi & Van Transfers">
     <meta name="twitter:description" content="Privat tur solnedgang Kapp Sounion. Poseidons tempel, Athen-rivieraen, Vouliagmeni-sjøen.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Hjem",
+          "item": "https://taxiathenstransfers.com/no/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tur Kapp Sounion & Poseidons Tempel",
+          "item": "https://taxiathenstransfers.com/no/sounio-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Tur Kapp Sounion & Poseidons Tempel",
+      "description": "Privat tur solnedgang Kapp Sounion. Poseidons tempel, Athen-rivieraen, Vouliagmeni-sjøen.",
+      "image": "https://taxiathenstransfers.com/images/sounio_hero.png",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 4,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Rute langs kysten"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Vouliagmeni-innsjøen"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Ankomst Kapp Sounio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Solnedgangen"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -111,6 +180,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/sounio_hero.jpg');">
         <div class="tour-hero-overlay"></div>
@@ -121,7 +192,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -171,8 +242,8 @@
 
             <h2 class="tour-section-title reveal">Galleri</h2>
             <div class="tour-gallery">
-                <img src="../images/sounio_gallery_1.jpg" alt="Poseidon-tempelet" class="reveal-left">
-                <img src="../images/sounio_gallery_2.jpg" alt="Solnedgang i Sounio" class="reveal-right">
+                <img loading="lazy" src="../images/sounio_gallery_1.jpg" alt="Poseidon-tempelet" class="reveal-left">
+                <img loading="lazy" src="../images/sounio_gallery_2.jpg" alt="Solnedgang i Sounio" class="reveal-right">
             </div>
         </div>
 
@@ -194,6 +265,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Hei! Jeg er interessert i deres tjenester. Kan du hjelpe meg?"

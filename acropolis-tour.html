@@ -20,7 +20,6 @@
     <title>Athens & Acropolis Private Tour | Taxi & Van Transfers</title>
     <meta name="description"
         content="Private Athens & Acropolis tour with luxury taxi or van. Visit the Parthenon, Plaka, Panathenaic Stadium. Half-day or full-day tours from Athens.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/acropolis-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Athens & Acropolis Private Tour | Taxi & Van Transfers">
     <meta property="og:description" content="Private Athens & Acropolis tour with luxury taxi or van. Visit the Parthenon, Plaka, Panathenaic Stadium. Half-day or full-day tours from Athens.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/acropolis_hero.jpg">
     <meta property="og:url" content="https://taxiathenstransfers.com/acropolis-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Athens & Acropolis Private Tour | Taxi & Van Transfers">
     <meta name="twitter:description" content="Private Athens & Acropolis tour with luxury taxi or van. Visit the Parthenon, Plaka, Panathenaic Stadium. Half-day or full-day tours from Athens.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/acropolis_hero.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://taxiathenstransfers.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Athens & Acropolis Private Tour",
+          "item": "https://taxiathenstransfers.com/acropolis-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Athens & Acropolis Private Tour",
+      "description": "Private Athens & Acropolis tour with luxury taxi or van. Visit the Parthenon, Plaka, Panathenaic Stadium. Half-day or full-day tours from Athens.",
+      "image": "https://taxiathenstransfers.com/images/acropolis_hero.jpg",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Premium Pickup"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The Acropolis & Parthenon"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Panathenaic Stadium"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Changing of the Guards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Mount Lycabettus & Plaka"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -112,6 +186,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('images/acropolis_hero.jpg');">
         <div class="tour-hero-overlay"></div>
@@ -123,7 +199,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -190,8 +266,8 @@
 
             <h2 class="tour-section-title reveal">Gallery</h2>
             <div class="tour-gallery">
-                <img src="images/acropolis_gallery_1.jpg" alt="Acropolis Hill" class="reveal-left">
-                <img src="images/acropolis_gallery_2.jpg" alt="Plaka Neighborhood" class="reveal-right">
+                <img loading="lazy" src="images/acropolis_gallery_1.jpg" alt="Acropolis Hill" class="reveal-left">
+                <img loading="lazy" src="images/acropolis_gallery_2.jpg" alt="Plaka Neighborhood" class="reveal-right">
             </div>
         </div>
 
@@ -214,6 +290,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Hello!%20I%E2%80%99m%20interested%20in%20your%20services.%20Can%20you%20assist%20me%3F"
