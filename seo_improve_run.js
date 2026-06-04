@@ -5,7 +5,7 @@ const { descs } = require('./seo_fix_v2_part2');
 
 const root = __dirname;
 
-const faqData = {
+const fconst faqData = {
   en: {
     title: "Frequently Asked Questions",
     desc: "Find answers to common questions about our taxi, van, and transfer services in Athens.",
@@ -13,7 +13,7 @@ const faqData = {
       { q: "How do I book a transfer?", a: "You can book easily and instantly by clicking our WhatsApp button. We are available 24/7 to confirm your transfer and answer any questions." },
       { q: "What happens if my flight is delayed?", a: "We monitor all flight arrivals in real-time. Your driver will be waiting for you at the airport at the actual arrival time, with no extra charges for flight delays." },
       { q: "Are your prices fixed?", a: "Yes, all our prices are fixed and agreed upon before your trip. There are no hidden fees, toll charges, or extra luggage costs." },
-      { q: "Where will the driver meet me?", a: "For airport pickups, the driver will meet you inside the arrival terminal holding a sign with your name. For hotel or port pickups, the driver will meet you at the lobby or outside the cruise terminal." },
+      { q: "Where will the driver meet me?", a: "For airport pickups, the driver will contact you via WhatsApp as soon as your flight lands and will guide you to the meeting point to pick you up from the exit with no walking. For hotel or port pickups, the driver will meet you at the lobby or outside the cruise terminal." },
       { q: "Do you offer private tours?", a: "Yes, we specialize in private sightseeing tours around Athens (Acropolis, Cape Sounio) and other historic areas in Greece (Delphi, Meteora, Argolis). All tours are fully customizable." }
     ]
   },
@@ -24,7 +24,7 @@ const faqData = {
       { q: "Wie buche ich einen Transfer?", a: "Sie können einfach und sofort buchen, indem Sie auf unseren WhatsApp-Button klicken. Wir sind rund um die Uhr für Sie da, um Ihre Buchung zu bestätigen und Fragen zu beantworten." },
       { q: "Was passiert, wenn mein Flug Verspätung hat?", a: "Wir überwachen alle Flugankünfte in Echtzeit. Ihr Fahrer erwartet Sie ohne Aufpreis zur tatsächlichen Ankunftszeit am Flughafen." },
       { q: "Sind Ihre Preise Festpreise?", a: "Ja, alle unsere Preise sind Festpreise und werden vor der Fahrt vereinbart. Es gibt keine versteckten Gebühren, Mautgebühren oder zusätzliche Gepäckkosten." },
-      { q: "Wo holt mich der Fahrer ab?", a: "Bei Abholungen am Flughafen erwartet Sie der Fahrer in der Ankunftshalle mit einem Schild, auf dem Ihr Name steht. Bei Hotels oder Häfen holt er Sie in der Lobby bzw. vor dem Terminal ab." },
+      { q: "Wo holt mich der Fahrer ab?", a: "Für Abholungen am Flughafen kontaktiert Sie der Fahrer per WhatsApp, sobald Ihr Flug landet, und führt Sie zum Treffpunkt, um Sie direkt am Ausgang ohne Fußweg abzuholen. Bei Hotels oder Häfen holt er Sie in der Lobby bzw. vor dem Terminal ab." },
       { q: "Bieten Sie private Touren an?", a: "Ja, wir sind auf private Besichtigungstouren in Athen (Akropolis, Kap Sounio) und anderen historischen Regionen Griechenlands (Delphi, Meteora, Argolis) spezialisiert. Alle Touren sind anpassbar." }
     ]
   },
@@ -35,7 +35,7 @@ const faqData = {
       { q: "Comment réserver un transfert ?", a: "Vous pouvez réserver facilement et instantanément en cliquant sur notre bouton WhatsApp. Nous sommes disponibles 24h/24 et 7j/7 pour confirmer votre réservation et répondre à vos questions." },
       { q: "Que se passe-t-il si mon vol est retardé ?", a: "We monitor all flight arrivals in real-time. Your driver will be waiting for you at the airport at the actual arrival time, with no extra charges for flight delays. Nous suivons tous les vols en temps réel. Votre chauffeur vous attendra à l'aéroport à l'heure réelle d'arrivée, sans frais supplémentaires pour les retards de vol." },
       { q: "Vos tarifs sont-ils fixes ?", a: "Oui, tous nos prix sont fixes et convenus avant le trajet. Il n'y a pas de frais cachés, de frais de péage ou de coûts de bagages supplémentaires." },
-      { q: "Où le chauffeur va-t-il me rencontrer ?", a: "Pour les transferts depuis l'aéroport, le chauffeur vous attendra à l'intérieur du terminal d'arrivée avec une pancarte à votre nom. Pour les hôtels ou ports, il vous attendra dans le hall ou devant le terminal." },
+      { q: "Où le chauffeur va-t-il me rencontrer ?", a: "Pour les prises en charge à l'aéroport, le chauffeur vous contactera via WhatsApp dès l'atterrissage de votre vol et vous guidera vers le point de rencontre pour vous récupérer directement à la sortie sans marcher. Pour les hôtels ou ports, il vous attendra dans le hall ou devant le terminal." },
       { q: "Proposez-vous des visites privées ?", a: "Oui, nous sommes spécialisés dans les visites privées d'Athènes (Acropole, Cap Sounion) et d'autres sites historiques en Grèce (Delphes, Météores, Argolide). Toutes les visites sont personnalisables." }
     ]
   },
@@ -46,7 +46,7 @@ const faqData = {
       { q: "¿Cómo reservo un traslado?", a: "Puede reservar de forma fácil e instantánea haciendo clic en nuestro botón de WhatsApp. Estamos disponibles 24/7 para confirmar su reserva y responder cualquier pregunta." },
       { q: "¿Qué pasa si mi vuelo se retrasa?", a: "Monitoreamos todos los vuelos en tiempo real. Su conductor le esperará en el aeropuerto a la hora real de llegada, sin cargos adicionales por retrasos." },
       { q: "¿Son fijos sus precios?", a: "Sí, todos nuestros precios son fijos y acordados antes del viaje. No hay tarifas ocultas, peajes ni costos adicionales por equipaje." },
-      { q: "¿Dónde me recibirá el conductor?", a: "Para recogidas en el aeropuerto, el conductor le esperará dentro de la terminal de llegadas con un cartel con su nombre. Para hoteles o puertos, le esperará en el lobby o fuera de la terminal." },
+      { q: "¿Dónde me recibirá el conductor?", a: "Para recogidas en el aeropuerto, el conductor se pondrá en contacto con usted a través de WhatsApp tan pronto como aterrice su vuelo y le guiará hasta el punto de encuentro para recogerle directamente en la salida sin tener que caminar. Para hoteles o puertos, le esperará en el lobby o fuera de la terminal." },
       { q: "¿Ofrecen tours privados?", a: "Sí, nos especializamos en tours privados por Atenas (Acrópolis, Cabo Sunión) y otras zonas históricas de Grecia (Delfos, Meteora, Argólida). Todos los tours son personalizables." }
     ]
   },
@@ -57,7 +57,7 @@ const faqData = {
       { q: "Come posso prenotare un trasferimento?", a: "Puoi prenotare facilmente e istantaneamente cliccando sul nostro pulsante WhatsApp. Siamo disponibili 24/7 per confermare la tua prenotazione e rispondere a qualsiasi domanda." },
       { q: "Cosa succede se il mio volo è in ritardo?", a: "Monitoriamo tutti i voli in tempo reale. Il tuo autista ti aspetterà all'aeroporto all'ora di arrivo effettiva, senza costi aggiuntivi per ritardi del volo." },
       { q: "I vostri prezzi sono fissi?", a: "Sì, tutti i nostri prezzi sono fissi e concordati prima del viaggio. Non ci sono costi nascosti, pedaggi o costi aggiuntivi per i bagagli." },
-      { q: "Dove mi incontrerà l'autista?", a: "Per i prelievi in aeroporto, l'autista ti aspetterà all'interno del terminal degli arrivi con un cartello con il tuo nome. Per hotel o porti, ti aspetterà nella hall o all'esterno del terminal." },
+      { q: "Dove mi incontrerà l'autista?", a: "Per i prelievi in aeroporto, l'autista vi contatterà tramite WhatsApp non appena il vostro volo sarà atterrato e vi guiderà al punto d'incontro per venirvi a prendere direttamente all'uscita senza camminare. Per hotel o porti, ti aspetterà nella hall o all'esterno del terminal." },
       { q: "Offrite tour privati?", a: "Sì, siamo specializzati in tour privati ad Atene (Acropoli, Capo Sounion) e in altre aree storiche della Grecia (Delfi, Meteora, Argolide). Tutti i tour sono personalizzabili." }
     ]
   },
@@ -68,7 +68,7 @@ const faqData = {
       { q: "Como posso reservar um transfer?", a: "Pode reservar de forma fácil e instantânea clicando no nosso botão do WhatsApp. Estamos disponíveis 24/7 para confirmar a sua reserva e responder a qualquer pergunta." },
       { q: "O que acontece se o meu voo estiver atrasado?", a: "Monitorizamos todos os voos em tempo real. O seu motorista estará à sua espera no aeroporto à hora real de chegada, sem custos adicionais por atrasos no voo." },
       { q: "Os vossos preços são fixos?", a: "Sim, todos os nossos preços são fixos e acordados antes da viagem. Não há taxas ocultas, portagens ou custos adicionais de bagagem." },
-      { q: "Onde é que o motorista me vai encontrar?", a: "Para recolhas no aeroporto, o motorista irá encontrá-lo dentro do terminal de chegadas com uma placa com o seu nome. Para hotéis ou portos, irá encontrá-lo no lobby ou fora do terminal." },
+      { q: "Onde é que o motorista me vai encontrar?", a: "Para recolhas no aeroporto, o motorista entrará em contacto consigo via WhatsApp assim que o seu voo aterrar e irá guiá-lo até ao ponto de encontro para o recolher diretamente na saída sem precisar de caminhar. Para hotéis ou portos, irá encontrá-lo no lobby ou fora do terminal." },
       { q: "Oferecem tours privados?", a: "Sim, somos especializados em tours privados por Atenas (Acrópole, Cabo Súnion) e outras regiões históricas da Grécia (Delfos, Meteora, Argólida). Todos os tours são personalizáveis." }
     ]
   },
@@ -79,7 +79,7 @@ const faqData = {
       { q: "Jak mogę zarezerwować transfer?", a: "Możesz zarezerwować łatwo i natychmiast, klikając nasz przycisk WhatsApp. Jesteśmy dostępni 24/7, aby potwierdzić rezerwację i odpowiedzieć na wszelkie pytania." },
       { q: "Co się stanie, jeśli mój lot będzie opóźniony?", a: "Monitorujemy wszystkie przyloty w czasie rzeczywistym. Twój kierowca będzie czekał na Ciebie na lotnisku o rzeczywistej godzinie przylotu, bez dodatkowych opłat za opóźnienia." },
       { q: "Czy ceny są stałe?", a: "Tak, wszystkie nasze ceny są stałe i uzgadniane przed podróżą. Nie ma ukrytych opłat, opłat drogowych ani dodatkowych kosztów bagażu." },
-      { q: "Gdzie spotkam się z kierowcą?", a: "W przypadku odbioru z lotniska, kierowca będzie czekał wewnątrz terminala przylotów z tabliczką z Twoim nazwiskiem. W przypadku hoteli lub portów spotka Cię w lobby lub przed terminalem." },
+      { q: "Gdzie spotkam się z kierowcą?", a: "W przypadku odbioru z lotniska kierowca skontaktuje się z Tobą przez WhatsApp, gdy tylko Twój samolot wyląduje, i poprowadzi Cię do miejsca spotkania, aby odebrać Cię bezpośrednio przy wyjściu bez konieczności chodzenia. W przypadku hoteli lub portów spotka Cię w lobby lub przed terminalem." },
       { q: "Czy oferujecie prywatne wycieczki?", a: "Tak, specjalizujemy się w prywatnych wycieczkach po Atenach (Akropol, Przylądek Sunion) i innych historycznych miejscach w Grecji (Delfy, Meteory, Argolida). Wszystkie wycieczki można dostosować do własnych potrzeb." }
     ]
   },
@@ -90,7 +90,7 @@ const faqData = {
       { q: "Πώς μπορώ να κλείσω μια μεταφορά;", a: "Μπορείτε να κάνετε κράτηση εύκολα και άμεσα κάνοντας κλικ στο κουμπί WhatsApp. Είμαστε διαθέσιμοι 24/7 για να επιβεβαιώσουμε την κράτησή σας και να απαντήσουμε σε κάθε ερώτηση." },
       { q: "Τι συμβαίνει εάν η πτήση μου καθυστερήσει;", a: "Παρακολουθούμε όλες τις πτήσεις σε πραγματικό χρόνο. Ο οδηγός σας θα σας περιμένει στο αεροδρόμιο την πραγματική ώρα άφιξης, χωρίς επιπλέον χρέωση για την καθυστέρηση της πτήσης." },
       { q: "Είναι οι τιμές σας σταθερές;", a: "Ναι, όλες οι τιμές μας είναι σταθερές και συμφωνούνται πριν από τη μεταφορά. Δεν υπάρχουν κρυφές χρεώσεις, διόδια ή επιπλέον έξοδα για αποσκευές." },
-      { q: "Πού θα με συναντήσει ο οδηγός;", a: "Για παραλαβή από το αεροδρόμιο, ο οδηγός θα σας περιμένει μέσα στην αίθουσα αφίξεων κρατώντας μια πινακίδα με το όνομά σας. Για ξενοδοχεία ή λιμάνια, θα σας συναντήσει στο λόμπι ή έξω από τον τερματικό σταθμό." },
+      { q: "Πού θα με συναντήσει ο οδηγός;", a: "Για παραλαβή από το αεροδρόμιο, ο οδηγός θα επικοινωνήσει μαζί σας μέσω WhatsApp με το που προσγειωθεί η πτήση σας και θα σας οδηγήσει στο meeting point για να σας παραλάβει από την έξοδο χωρίς περπάτημα. Για ξενοδοχεία ή λιμάνια, θα σας συναντήσει στο λόμπι ή έξω από τον τερματικό σταθμό." },
       { q: "Προσφέρετε ιδιωτικές περιηγήσεις;", a: "Διαθέτουμε μεγάλη εμπειρία σε ιδιωτικές περιηγήσεις στην Αθήνα (Ακρόπολη, Σούνιο) και σε άλλες ιστορικές περιοχές της Ελλάδας (Δελφοί, Μετέωρα, Αργολίδα). Όλες οι περιηγήσεις είναι πλήρως παραμετροποιήσιμες." }
     ]
   },
@@ -99,9 +99,9 @@ const faqData = {
     desc: "מצאו תשובות לשאלות נפוצות על שירותי המוניות, הוואנים וההסעות שלנו באתונה.",
     faqs: [
       { q: "איך מזמינים הסעה?", a: "ניתן להזמין בקלות ובאופן מיידי על ידי לחיצה על כפתור הוואטסאפ שלנו. אנו זמינים 24/7 כדי לאשר את הזמנתכם ולענות על כל שאלה." },
-      { q: "מה קורה אם הטיסה שלי מתעכבת?", a: "אנו עוקבים אחר כל הטיסות בזמן אמת. הנהג שלכם ימתין לכם בשדה התعופה בזמן ההגעה בפועל, ללא תוספת תשלום על עיכובי טיסה." },
+      { q: "מה קורה אם הטיסה שלי מתעכבת?", a: "אנו עוקבים אחר כל הטיסות בזמן אמת. הנהג שלכם ימתין לכם בשדה התעופה בזמן ההגעה בפועל, ללא תוספת תשלום על עיכובי טיסה." },
       { q: "האם המחירים שלכם קבועים?", a: "כן, כל המחירים שלנו קבועים ומסוכמים מראש לפני הנסיעה. אין עמלות נסתרות, אגרות כביש או עלויות כבודה נוספות." },
-      { q: "איפה הנהג יפגוש אותי?", a: "באיסוף משדה התעופה, הנהг ימתין לכם בתוך טרמינל הנוסעים הנכנסים עם שלט הנושא את שמכם. באיסוף ממלונות או נמלים, הנהג יפגוש אתכם בלובי או מחוץ לטרמינל." },
+      { q: "איפה הנהג יפגוש אותי?", a: "לאיסוף משדה התעופה, הנהג יצור איתך קשר בוואטסאפ ברגע שהטיסה שלך תנחת ויכוון אותך לנקודת המפגש כדי לאסוף אותך ישירות מהיציאה ללא הליכה ברגל. באיסוף ממלונות או נמלים, הנהג יפגוש אתכם בלובי או מחוץ לטרמינל." },
       { q: "האם אתם מציעים סיורים פרטיים?", a: "כן, אנו מתמחים בסיורים פרטיים באתונה (אקרופוליס, כף סוניון) ובאזורים היסטוריים אחרים ביוון (דלפי, מטאורה, ארגוליס). כל הסיורים ניתנים להתאמה אישית מלאה." }
     ]
   },
@@ -109,10 +109,10 @@ const faqData = {
     title: "Ofte stilte spørsmål (FAQ)",
     desc: "Finn svar på vanlige spørsmål om våre taxi-, van- og transporttjenester i Athen.",
     faqs: [
-      { q: "Hvordan bestiller jeg en transport?", a: "Du kan bestille enkelt og umiddelbart ved å klikke på vår WhatsApp-knapp. Vi er tilgjengelige 24/7 for å bekrefte bestillingen din og svare på spørsmål." },
+      { q: "Hvordan bestiller jeg en transport?", a: "Du kan bestille enkelt og umiddelbart by å klikke på vår WhatsApp-knapp. Vi er tilgjengelige 24/7 for å bekrefte bestillingen din og svare på spørsmål." },
       { q: "Hva skjer hvis flyet mitt er forsinket?", a: "Vi overvåker alle flyankomster i sanntid. Sjåføren din vil vente på deg på flyplassen til det faktiske ankomsttidspunktet, uten ekstra kostnader for flyforsinkelser." },
       { q: "Er prisene deres faste?", a: "Ja, alle våre priser er faste og avtales på forhånd. Det er ingen skjulte avgifter, bompenger eller ekstra bagasjekostnader." },
-      { q: "Hvor vil sjåføren møte meg?", a: "For henting på flyplassen vil sjåføren møte deg inne i ankomstterminalen med et skilt med navnet ditt. For hotell- eller havnehenting vil sjåføren møte deg i lobbyen eller utenfor terminalen." },
+      { q: "Hvor vil sjåføren møte meg?", a: "For henting på flyplassen vil sjåføren kontakte deg via WhatsApp så snart flyet ditt lander og guide deg til møtepunktet for å hente deg direkte fra utgangen uten å måtte gå. For hotell- eller havnehenting vil sjåføren møte deg i lobbyen eller utenfor terminalen." },
       { q: "Tilbyr dere private turer?", a: "Ja, vi spesialiserer oss på private sightseeingturer i Athen (Akropolis, Kapp Sounion) og andre historiske områder i Hellas (Delfi, Meteora, Argolis). Alle turer kan tilpasses." }
     ]
   },
@@ -123,7 +123,7 @@ const faqData = {
       { q: "如何预订接送服务？", a: "您可以通过点击我们的 WhatsApp 按钮轻松即时预订。我们提供 24/7 全天候服务，确认您的预订并回答任何疑问。" },
       { q: "如果我的航班延误了怎么办？", a: "我们实时监控所有航班动态。您的司机将在机场的实际到达时间迎接您，航班延误不会产生额外费用。" },
       { q: "价格是固定的吗？", a: "是的，我们所有的价格都是固定的，并在行程前商定。没有任何隐藏费用、过路费或额外的行李费。" },
-      { q: "司机将在哪里与我见面？", a: "对于机场接机，司机将在到达大厅内拿着写有您名字的牌子等候。对于酒店或港口接送，司机将在大堂或游轮码头外与您会面。" },
+      { q: "司机将在哪里与我见面？", a: "对于机场接机，航班降落后司机将立即通过 WhatsApp 与您联系，并引导您前往接头地点，直接在出口处接您，无需步行。对于酒店或港口接送，司机将在大堂或游轮码头外与您会面。" },
       { q: "你们提供私人游览服务吗？", a: "是的，我们专注于雅典（卫城、苏尼翁角）以及希腊其他历史地区（德尔斐、梅黛奥拉、阿哥利斯）的私人观光游览。所有行程均可完全定制。" }
     ]
   },
@@ -133,6 +133,34 @@ const faqData = {
     faqs: [
       { q: "送迎サービスの予約方法は？", a: "WhatsAppボタンをクリックするだけで、簡単かつ即座にご予約いただけます。ご予約の確認やご質問には、24時間年中無休で対応しております。" },
       { q: "飛行機が遅延した場合はどうなりますか？", a: "すべての到着便をリアルタイムで追跡しています。フライト遅延による追加料金は発生せず、ドライバーは実際の到着時刻に合わせて空港でお待ちいたします。" },
+      { q: "料金は固定ですか？", a: "はい、すべての料金は事前確定の固定料金です。隠れた手数料、通行料、追加の手荷物料金などは一切ありません。" },
+      { q: "ドライバーとはどこで合流しますか？", a: "空港へのお迎えの場合、フライトが着陸するとすぐにドライバーがWhatsAppでご連絡し、ミーティングポイントまでご案内します。歩くことなく出口から直接ご乗車いただけます。ホテルや港の場合は、ロビーやターミナルビルの外で合流します。" },
+      { q: "プライベートツアーはありますか？", a: "はい、アテネ市内（アクロポリス、スニオン岬）やギリシャの他の歴史的地域（デルフィ、メテオラ、アルゴリス）のプライベート観光ツアーを専門としています。プランは自由に変更可能です。" }
+    ]
+  },
+  hu: {
+    title: "Gyakran Ismételt Kérdések",
+    desc: "Itt megtalálja a választ az athéni taxi-, van- és transzferszolgáltatásainkkal kapcsolatos leggyakoribb kérdésekre.",
+    faqs: [
+      { q: "Hogyan tudok transzfert foglalni?", a: "Egyszerűen és azonnal foglalhat a WhatsApp gombra kattintva. 24/7 elérhetőek vagyunk, hogy megerősítsük foglalását és válaszoljunk a kérdéseire." },
+      { q: "Mi történik, ha késik a járatom?", a: "Valós időben követjük a járatok érkezését. A sofőr a tényleges érkezési időpontban fogja várni Önt a repülőtéren, járatkésés esetén felár nélkül." },
+      { q: "Fixek az áraik?", a: "Igen, minden árunk fix és az utazás előtt kerül megbeszélésre. Nincsenek rejtett költségek, autópályadíjak vagy extra poggyászdíjak." },
+      { q: "Hol fog találkozni velem a sofőr?", a: "Repülőtéri felvétel esetén a sofőr WhatsApp-on lép kapcsolatba Önnel, amint a járata leszáll, és elirányítja a találkozási ponthoz, hogy gyaloglás nélkül, közvetlenül a kijáratnál vegye fel. Hotel vagy kikötő esetén a lobbyban vagy a terminál előtt találkoznak." },
+      { q: "Kínálnak privát túrákat?", a: "Igen, privát városnéző túrákra szakosodtunk Athénban (Akropolisz, Szunion-fok) és Görögország más történelmi részein (Delfi, Meteora, Argolisz). Minden túránk személyre szabható." }
+    ]
+  },
+  ru: {
+    title: "Часто задаваемые вопросы",
+    desc: "Найдите ответы на часто задаваемые вопросы о наших услугах такси, минивэнов и трансферов в Афинах.",
+    faqs: [
+      { q: "Как я могу забронировать трансфер?", a: "Вы можете легко и мгновенно забронировать трансфер, нажав на нашу кнопку WhatsApp. Мы доступны 24/7, чтобы подтвердить ваше бронирование и ответить на любые вопросы." },
+      { q: "Что произойдет, если мой рейс задержится?", a: "Мы отслеживаем все рейсы в режиме реального времени. Ваш водитель будет ждать вас в аэропорту к фактическому времени прибытия, без каких-либо доплат за задержку рейса." },
+      { q: "Ваши цены фиксированы?", a: "Да, все наши цены фиксированы и согласовываются до поездки. Нет никаких скрытых сборов, дорожных пошлин или дополнительных расходов за багаж." },
+      { q: "Где меня встретит водитель?", a: "При встрече в аэропорту водитель свяжется с вами через WhatsApp, как только ваш рейс приземлится, и направит вас к месту встречи, чтобы забрать прямо у выхода без необходимости идти пешком. При встрече в отеле или порту водитель встретит вас в лобби или у терминала." },
+      { q: "Предлагаете ли вы частные экскурсии?", a: "Да, мы специализируемся на частных экскурсиях по Афинам (Акрополь, мыс Сунион) и другим историческим местам Греции (Дельфы, Метеоры, Арголида). Все туры полностью настраиваемы." }
+    ]
+  }
+};��ず、ドライバーは実際の到着時刻に合わせて空港でお待ちいたします。" },
       { q: "料金は固定ですか？", a: "はい、すべての料金は事前確定の固定料金です。隠れた手数料、通行料、追加の手荷物料金などは一切ありません。" },
       { q: "ドライバーとはどこで合流しますか？", a: "空港へのお迎えの場合、ドライバーは到着ロビー内でお名前を書いたプレートを持ってお待ちしています。ホテルや港の場合は、ロビーやターミナルビルの外で合流します。" },
       { q: "プライベートツアーはありますか？", a: "はい、アテネ市内（アクロポリス、スニオン岬）やギリシャの他の歴史的地域（デルフィ、メテオラ、アルゴリス）のプライベート観光ツアーを専門としています。プランは自由に変更可能です。" }
