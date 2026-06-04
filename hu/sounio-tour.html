@@ -20,7 +20,6 @@
     <title>Szunion-fok & Poszeidón Templom Túra | Taxi & Van Transfers</title>
     <meta name="description"
         content="Szunion-fok naplemente privát túra. Poszeidón temploma, athéni Riviéra, Vouliagmeni-tó.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/hu/sounio-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Szunion-fok & Poszeidón Templom Túra | Taxi & Van Transfers">
     <meta property="og:description" content="Szunion-fok naplemente privát túra. Poszeidón temploma, athéni Riviéra, Vouliagmeni-tó.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
     <meta property="og:url" content="https://taxiathenstransfers.com/hu/sounio-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Szunion-fok & Poszeidón Templom Túra | Taxi & Van Transfers">
     <meta name="twitter:description" content="Szunion-fok naplemente privát túra. Poszeidón temploma, athéni Riviéra, Vouliagmeni-tó.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Főoldal",
+          "item": "https://taxiathenstransfers.com/hu/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Szunion-fok & Poszeidón Templom Túra",
+          "item": "https://taxiathenstransfers.com/hu/sounio-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Szunion-fok & Poszeidón Templom Túra",
+      "description": "Szunion-fok naplemente privát túra. Poszeidón temploma, athéni Riviéra, Vouliagmeni-tó.",
+      "image": "https://taxiathenstransfers.com/images/sounio_hero.png",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Szállodai felvétel"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Autózás az athéni riviérán"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Vouliagmeni-tó (opcionális megálló)"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Poszeidón-temploma"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Visszatérés vagy tengerparti vacsora"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -112,6 +186,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/sounio_hero.png');">
         <div class="tour-hero-overlay"></div>
@@ -122,7 +198,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -176,7 +252,7 @@
             <h2 class="tour-section-title reveal">Galéria</h2>
             <div class="tour-gallery">
                 <img src="../images/vouliagmeni_lake.jpg" alt="Vouliagmeni-tó" class="reveal-left">
-                <img src="../images/sounio_gallery_2.png" alt="Templom közelkép" class="reveal-right">
+                <img loading="lazy" src="../images/sounio_gallery_2.png" alt="Templom közelkép" class="reveal-right">
             </div>
         </div>
 
@@ -198,6 +274,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Hello!%20%C3%89rdekl%C5%91dn%C3%A9k%20a%20szolg%C3%A1ltat%C3%A1saikr%C3%B3l.%20Tudn%C3%A1nak%20seg%C3%ADteni%3F"

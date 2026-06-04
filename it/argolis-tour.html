@@ -20,7 +20,6 @@
     <title>Tour Privato Micene & Epidauro | Taxi & Van Transfers</title>
     <meta name="description"
         content="Tour privato Micene & Epidauro. Tomba di Agamennone, Porta dei Leoni, Nauplia & teatro antico.">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/it/argolis-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="Tour Privato Micene & Epidauro | Taxi & Van Transfers">
     <meta property="og:description" content="Tour privato Micene & Epidauro. Tomba di Agamennone, Porta dei Leoni, Nauplia & teatro antico.">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/mycenae_hero.jpg">
     <meta property="og:url" content="https://taxiathenstransfers.com/it/argolis-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tour Privato Micene & Epidauro | Taxi & Van Transfers">
     <meta name="twitter:description" content="Tour privato Micene & Epidauro. Tomba di Agamennone, Porta dei Leoni, Nauplia & teatro antico.">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/mycenae_hero.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://taxiathenstransfers.com/it/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tour Privato Micene & Epidauro",
+          "item": "https://taxiathenstransfers.com/it/argolis-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Tour Privato Micene & Epidauro",
+      "description": "Tour privato Micene & Epidauro. Tomba di Agamennone, Porta dei Leoni, Nauplia & teatro antico.",
+      "image": "https://taxiathenstransfers.com/images/mycenae_hero.jpg",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Partenza e Canale di Corinto"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Antica Micene"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Città di Nauplia"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Teatro di Epidauro"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Ritorno ad Atene"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -111,6 +185,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/mycenae_hero.jpg');">
         <div class="tour-hero-overlay"></div>
@@ -121,7 +197,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -175,8 +251,8 @@
 
             <h2 class="tour-section-title reveal">Galleria</h2>
             <div class="tour-gallery">
-                <img src="../images/mycenae_gallery_1.jpg" alt="Sito archeologico di Micene" class="reveal-left">
-                <img src="../images/mycenae_gallery_2.jpg" alt="Teatro di Epidauro" class="reveal-right">
+                <img loading="lazy" src="../images/mycenae_gallery_1.jpg" alt="Sito archeologico di Micene" class="reveal-left">
+                <img loading="lazy" src="../images/mycenae_gallery_2.jpg" alt="Teatro di Epidauro" class="reveal-right">
             </div>
         </div>
 
@@ -198,6 +274,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Ciao! Sono interessato ai vostri servizi. Puoi aiutarmi?"

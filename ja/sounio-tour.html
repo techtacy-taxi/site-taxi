@@ -20,7 +20,6 @@
     <title>スニオン岬とポセイドン神殿ツアー | タクシー＆バン送迎</title>
     <meta name="description"
         content="スニオン岬 夕日プライベートツアー。ポセイドン神殿、アテニアン・リビエラ、ヴォウリアグメニ湖。">
-
     <!-- Canonical URL -->
     <link rel="canonical" href="https://taxiathenstransfers.com/ja/sounio-tour.html">
 
@@ -47,14 +46,89 @@
     <meta property="og:site_name" content="Taxi &amp; Van Transfers">
     <meta property="og:title" content="スニオン岬とポセイドン神殿ツアー | タクシー＆バン送迎">
     <meta property="og:description" content="スニオン岬 夕日プライベートツアー。ポセイドン神殿、アテニアン・リビエラ、ヴォウリアグメニ湖。">
-    <meta property="og:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta property="og:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
     <meta property="og:url" content="https://taxiathenstransfers.com/ja/sounio-tour.html">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="スニオン岬とポセイドン神殿ツアー | タクシー＆バン送迎">
     <meta name="twitter:description" content="スニオン岬 夕日プライベートツアー。ポセイドン神殿、アテニアン・リビエラ、ヴォウリアグメニ湖。">
-    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
+    <meta name="twitter:image" content="https://taxiathenstransfers.com/images/sounio_hero.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ホーム",
+          "item": "https://taxiathenstransfers.com/ja/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "スニオン岬とポセイドン神殿ツアー",
+          "item": "https://taxiathenstransfers.com/ja/sounio-tour.html"
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "スニオン岬とポセイドン神殿ツアー",
+      "description": "スニオン岬 夕日プライベートツアー。ポセイドン神殿、アテニアン・リビエラ、ヴォウリアグメニ湖。",
+      "image": "https://taxiathenstransfers.com/images/sounio_hero.png",
+      "touristType": "Sightseeing",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": "0",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "valueAddedTaxIncluded": "true"
+        },
+        "description": "Price upon request"
+      },
+      "itinerary": {
+        "@type": "ItemList",
+        "numberOfItems": 5,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "酒店接送"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "The 雅典海滨 Drive"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "武利亚格梅尼湖（可选停靠点）"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "波塞冬神庙"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "返回或海滨晚餐"
+          }
+        ]
+      }
+    }
+    </script>
 
 <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -112,6 +186,8 @@
         </div>
     </header>
 
+    <main>
+
     <!-- Tour Hero Section -->
     <section class="tour-hero" style="background-image: url('../images/sounio_hero.png');">
         <div class="tour-hero-overlay"></div>
@@ -123,7 +199,7 @@
     </section>
 
     <!-- Tour Content -->
-    <section class="tour-content">
+    <article class="tour-content">
         <div class="tour-main">
             <a href="index.html#services" class="btn-outline dark-btn"
                 style="margin-bottom: 40px; display: inline-block;"><i class="fas fa-arrow-left"
@@ -186,7 +262,7 @@
             <h2 class="tour-section-title reveal">图库</h2>
             <div class="tour-gallery">
                 <img src="../images/vouliagmeni_lake.jpg" alt="Lake Vouliagmeni" class="reveal-left">
-                <img src="../images/sounio_gallery_2.png" alt="Temple Close Up" class="reveal-right">
+                <img loading="lazy" src="../images/sounio_gallery_2.png" alt="Temple Close Up" class="reveal-right">
             </div>
         </div>
 
@@ -208,6 +284,8 @@
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/+306936123322?text=Hello!%20I%E2%80%99m%20interested%20in%20your%20services.%20Can%20you%20assist%20me%3F"
