@@ -61,21 +61,26 @@
     <meta name="twitter:image" content="https://taxiathenstransfers.com/images/logo.jpg">
 
     <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+        <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "TaxiService"],
       "name": "Taxi & Van Transfers",
+      "alternateName": "Lavrio Taxi Airport & Athens (Van, mini bus)",
       "description": "Premium Taxi & Van transfers in Athens, Lavrio, Lagonisi & Keratea. 24/7 Athens Airport pickups, port transfers & private tours to Acropolis, Sounio, Delphi, Meteora.",
       "image": "https://taxiathenstransfers.com/images/logo.jpg",
+      "logo": "https://taxiathenstransfers.com/images/logo.jpg",
       "url": "https://taxiathenstransfers.com/",
       "telephone": "+306936123322",
       "email": "book@taxiathenstransfers.com",
       "priceRange": "$$",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Cash, Credit Card",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Lavrio",
         "addressRegion": "Attica",
+        "postalCode": "19500",
         "addressCountry": "GR"
       },
       "geo": {
@@ -83,17 +88,22 @@
         "latitude": "37.7163",
         "longitude": "24.0611"
       },
+      "hasMap": "https://share.google/LASdV1LBsEjROgdSQ",
+      "areaServed": [
+        { "@type": "City", "name": "Athens" },
+        { "@type": "City", "name": "Lavrio" },
+        { "@type": "City", "name": "Lagonisi" },
+        { "@type": "City", "name": "Keratea" },
+        { "@type": "Place", "name": "Athens International Airport (ATH)" },
+        { "@type": "Place", "name": "Lavrio Port" },
+        { "@type": "Place", "name": "Piraeus Port" },
+        { "@type": "Place", "name": "Rafina Port" },
+        { "@type": "Place", "name": "Cape Sounio" }
+      ],
+      "knowsLanguage": ["en", "el", "de", "fr", "es", "it", "pt", "pl", "no", "he", "zh", "ja", "hu", "ru"],
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
-        ],
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
         "opens": "00:00",
         "closes": "23:59"
       },
@@ -103,7 +113,27 @@
         "bestRating": "5",
         "reviewCount": "219"
       },
-      "sameAs": []
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Transfer & Tour Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Athens Airport Transfer" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lavrio Port Transfer" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Piraeus & Rafina Port Transfer" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sailing Crew Transfer (Olympic Marine)" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airbnb, Villa & Hotel Transfer" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Tour: Athens & Acropolis" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Tour: Cape Sounio & Temple of Poseidon" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Tour: Delphi" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Tour: Meteora" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Tour: Mycenae & Epidaurus (Argolis)" } }
+        ]
+      },
+      "sameAs": [
+        "https://share.google/LASdV1LBsEjROgdSQ",
+        "https://wa.me/306936123322",
+        "https://www.instagram.com/athenslu/"
+      ]
     }
     </script>
     <script type="application/ld+json">
