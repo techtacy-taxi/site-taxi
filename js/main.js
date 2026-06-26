@@ -358,3 +358,93 @@ function updateVehicleGalleryUI() {
     });
 }
 
+
+
+/* =========================================================
+   MOBILE STICKY ACTION BAR (Call + WhatsApp) + "online" pill
+   Auto-injected on every page. No HTML edits needed.
+   Texts are localized by <html lang="..">.
+   ========================================================= */
+(function () {
+    var PHONE = '+306936123322';
+    var WA_TEXT = 'Hello!%20I%E2%80%99m%20interested%20in%20your%20services.%20Can%20you%20help%20me%3F';
+
+    // Localized labels per language
+    var T = {
+        en: { call: 'Call', wa: 'WhatsApp', rec: 'Best way to reach us', online: 'Konstantinos is online', sub: 'Typically replies within minutes' },
+        el: { call: 'Κλήση', wa: 'WhatsApp', rec: 'Ο καλύτερος τρόπος επικοινωνίας', online: 'Ο Κωνσταντίνος είναι online', sub: 'Απαντά συνήθως μέσα σε λίγα λεπτά' },
+        de: { call: 'Anrufen', wa: 'WhatsApp', rec: 'Beste Möglichkeit, uns zu erreichen', online: 'Konstantinos ist online', sub: 'Antwortet meist innerhalb von Minuten' },
+        es: { call: 'Llamar', wa: 'WhatsApp', rec: 'La mejor forma de contactarnos', online: 'Konstantinos está en línea', sub: 'Suele responder en pocos minutos' },
+        fr: { call: 'Appeler', wa: 'WhatsApp', rec: 'Le meilleur moyen de nous joindre', online: 'Konstantinos est en ligne', sub: 'Répond généralement en quelques minutes' },
+        it: { call: 'Chiama', wa: 'WhatsApp', rec: 'Il modo migliore per contattarci', online: 'Konstantinos è online', sub: 'Di solito risponde in pochi minuti' },
+        pt: { call: 'Ligar', wa: 'WhatsApp', rec: 'A melhor forma de nos contactar', online: 'Konstantinos está online', sub: 'Costuma responder em poucos minutos' },
+        pl: { call: 'Zadzwoń', wa: 'WhatsApp', rec: 'Najlepszy sposób kontaktu', online: 'Konstantinos jest online', sub: 'Zwykle odpowiada w ciągu kilku minut' },
+        no: { call: 'Ring', wa: 'WhatsApp', rec: 'Beste måten å nå oss på', online: 'Konstantinos er pålogget', sub: 'Svarer vanligvis innen få minutter' },
+        hu: { call: 'Hívás', wa: 'WhatsApp', rec: 'A legjobb módja a kapcsolatfelvételnek', online: 'Konstantinos online van', sub: 'Általában percek alatt válaszol' },
+        ru: { call: 'Звонок', wa: 'WhatsApp', rec: 'Лучший способ связаться с нами', online: 'Константинос онлайн', sub: 'Обычно отвечает в течение нескольких минут' },
+        ja: { call: '電話', wa: 'WhatsApp', rec: 'お問い合わせはこちらが最適', online: 'コンスタンティノスはオンラインです', sub: '通常数分で返信します' },
+        zh: { call: '致电', wa: 'WhatsApp', rec: '联系我们的最佳方式', online: 'Konstantinos 在线', sub: '通常几分钟内回复' },
+        he: { call: 'התקשרו', wa: 'WhatsApp', rec: 'הדרך הטובה ביותר ליצור קשר', online: 'קונסטנטינוס מחובר', sub: 'בדרך כלל מגיב תוך דקות' }
+    };
+
+    var lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+    var t = T[lang] || T.en;
+
+    var waHref = 'https://wa.me/' + PHONE + '?text=' + WA_TEXT;
+    var telHref = 'tel:' + PHONE;
+
+    // Build the bobbing online pill
+    var pill = document.createElement('div');
+    pill.id = 'mobile-online-pill';
+    pill.innerHTML =
+        '<span class="mab-pill-dot"></span>' +
+        '<span class="mab-pill-text">' + t.online + '</span>' +
+        '<span class="mab-pill-sub">· ' + t.sub + '</span>';
+
+    // Build the action bar
+    var bar = document.createElement('div');
+    bar.id = 'mobile-action-bar';
+    bar.setAttribute('role', 'navigation');
+    bar.innerHTML =
+        '<p class="mab-recommend"><i class="fab fa-whatsapp"></i>' + t.rec + '</p>' +
+        '<div class="mab-buttons">' +
+            '<a class="mab-btn mab-call" href="' + telHref + '" aria-label="' + t.call + '">' +
+                '<i class="fas fa-phone"></i> ' + t.call + '</a>' +
+            '<a class="mab-btn mab-whatsapp" href="' + waHref + '" target="_blank" rel="noopener" aria-label="' + t.wa + '">' +
+                '<i class="fab fa-whatsapp"></i> ' + t.wa + '</a>' +
+        '</div>';
+
+    document.body.appendChild(pill);
+    document.body.appendChild(bar);
+
+    // Show/hide on scroll direction: hide when scrolling up to read, show when scrolling down or idle
+    var lastY = window.pageYOffset;
+    var idleTimer = null;
+
+    function showBar() {
+        bar.classList.remove('bar-hidden');
+        pill.classList.remove('pill-hidden');
+    }
+    function hideBar() {
+        bar.classList.add('bar-hidden');
+        pill.classList.add('pill-hidden');
+    }
+
+    window.addEventListener('scroll', function () {
+        var y = window.pageYOffset;
+        if (y < 80) {
+            showBar();
+        } else if (y < lastY - 6) {
+            // scrolling up (reading) -> hide
+            hideBar();
+        } else if (y > lastY + 6) {
+            // scrolling down -> show
+            showBar();
+        }
+        lastY = y;
+
+        // Re-show shortly after scrolling stops
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(showBar, 900);
+    }, { passive: true });
+})();
