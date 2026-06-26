@@ -398,8 +398,10 @@ function updateVehicleGalleryUI() {
     pill.id = 'mobile-online-pill';
     pill.innerHTML =
         '<span class="mab-pill-dot"></span>' +
-        '<span class="mab-pill-text">' + t.online + '</span>' +
-        '<span class="mab-pill-sub">· ' + t.sub + '</span>';
+        '<span class="mab-pill-col">' +
+            '<span class="mab-pill-text">' + t.online + '</span>' +
+            '<span class="mab-pill-sub">' + t.sub + '</span>' +
+        '</span>';
 
     // Build the action bar
     var bar = document.createElement('div');
@@ -447,4 +449,58 @@ function updateVehicleGalleryUI() {
         if (idleTimer) clearTimeout(idleTimer);
         idleTimer = setTimeout(showBar, 900);
     }, { passive: true });
+})();
+
+
+/* =========================================================
+   FLEET STATS STRIP — signals organized company scale.
+   Inserted before #why-us on the homepage only.
+   Localized by <html lang="..">.
+   ========================================================= */
+(function () {
+    var whyUs = document.getElementById('why-us');
+    if (!whyUs) return; // only on homepage
+
+    var lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+
+    var FS = {
+        en: { h: 'One Team, Every Transfer Solution', p: 'We are a network of professional partner drivers across Athens, Lavrio, Lagonisi & Keratea — with access to a large fleet for any group size, available around the clock.', taxis: 'Taxis & Sedans', vans: 'Luxury Vans', mini: 'Minibuses', coach: 'Seat Coaches', avail: 'Availability', langs: 'Languages', up: 'Up to ' },
+        el: { h: 'Μία Ομάδα, Λύση για Κάθε Μεταφορά', p: 'Είμαστε ένα δίκτυο επαγγελματιών συνεργαζόμενων οδηγών σε Αθήνα, Λαύριο, Λαγονήσι & Κερατέα — με πρόσβαση σε μεγάλο στόλο για κάθε μέγεθος γκρουπ, 24 ώρες το 24ωρο.', taxis: 'Ταξί & Σεντάν', vans: 'Πολυτελή Βαν', mini: 'Μίνι Πούλμαν', coach: 'Θέσεων Πούλμαν', avail: 'Διαθεσιμότητα', langs: 'Γλώσσες', up: 'Έως ' },
+        de: { h: 'Ein Team, jede Transferlösung', p: 'Wir sind ein Netzwerk professioneller Partnerfahrer in Athen, Lavrio, Lagonisi & Keratea — mit Zugang zu einer großen Flotte für jede Gruppengröße, rund um die Uhr.', taxis: 'Taxis & Limousinen', vans: 'Luxus-Vans', mini: 'Minibusse', coach: 'Sitzplätze Busse', avail: 'Verfügbarkeit', langs: 'Sprachen', up: 'Bis zu ' },
+        es: { h: 'Un equipo, todas las soluciones de traslado', p: 'Somos una red de conductores profesionales asociados en Atenas, Lavrio, Lagonisi y Keratea, con acceso a una gran flota para cualquier tamaño de grupo, las 24 horas.', taxis: 'Taxis y sedanes', vans: 'Furgonetas de lujo', mini: 'Microbuses', coach: 'Plazas autobuses', avail: 'Disponibilidad', langs: 'Idiomas', up: 'Hasta ' },
+        fr: { h: 'Une équipe, toutes les solutions de transfert', p: 'Nous sommes un réseau de chauffeurs partenaires professionnels à Athènes, Lavrio, Lagonisi et Keratea, avec accès à une grande flotte pour tout groupe, 24h/24.', taxis: 'Taxis & berlines', vans: 'Vans de luxe', mini: 'Minibus', coach: 'Places autocars', avail: 'Disponibilité', langs: 'Langues', up: "Jusqu'à " },
+        it: { h: 'Un team, ogni soluzione di transfer', p: 'Siamo una rete di autisti partner professionisti ad Atene, Lavrio, Lagonisi e Keratea, con accesso a una grande flotta per qualsiasi gruppo, 24 ore su 24.', taxis: 'Taxi e berline', vans: 'Van di lusso', mini: 'Minibus', coach: 'Posti pullman', avail: 'Disponibilità', langs: 'Lingue', up: 'Fino a ' },
+        pt: { h: 'Uma equipa, todas as soluções de transfer', p: 'Somos uma rede de motoristas parceiros profissionais em Atenas, Lavrio, Lagonisi e Keratea, com acesso a uma grande frota para qualquer grupo, 24 horas por dia.', taxis: 'Táxis e sedans', vans: 'Vans de luxo', mini: 'Minibus', coach: 'Lugares autocarros', avail: 'Disponibilidade', langs: 'Idiomas', up: 'Até ' },
+        pl: { h: 'Jeden zespół, każde rozwiązanie transferowe', p: 'Jesteśmy siecią profesjonalnych kierowców partnerskich w Atenach, Lavrio, Lagonisi i Keratei, z dostępem do dużej floty dla każdej grupy, przez całą dobę.', taxis: 'Taksówki i sedany', vans: 'Luksusowe vany', mini: 'Minibusy', coach: 'Miejsc autokary', avail: 'Dostępność', langs: 'Języki', up: 'Do ' },
+        no: { h: 'Ett team, alle transportløsninger', p: 'Vi er et nettverk av profesjonelle partnersjåfører i Athen, Lavrio, Lagonisi og Keratea — med tilgang til en stor flåte for enhver gruppe, døgnet rundt.', taxis: 'Taxier og sedaner', vans: 'Luksusvarebiler', mini: 'Minibusser', coach: 'Seters busser', avail: 'Tilgjengelighet', langs: 'Språk', up: 'Opptil ' },
+        hu: { h: 'Egy csapat, minden transzfermegoldás', p: 'Professzionális partnersofőrök hálózata vagyunk Athénban, Lavrióban, Lagonisiben és Kerateában — nagy flottához férünk hozzá bármilyen csoportmérethez, a nap 24 órájában.', taxis: 'Taxik és szedánok', vans: 'Luxus furgonok', mini: 'Minibuszok', coach: 'Férőhelyes buszok', avail: 'Elérhetőség', langs: 'Nyelvek', up: 'Akár ' },
+        ru: { h: 'Одна команда — любое решение для трансфера', p: 'Мы — сеть профессиональных водителей-партнёров в Афинах, Лаврио, Лагониси и Кератее, с доступом к большому автопарку для групп любого размера, круглосуточно.', taxis: 'Такси и седаны', vans: 'Микроавтобусы люкс', mini: 'Минибусы', coach: 'Мест автобусы', avail: 'Доступность', langs: 'Языки', up: 'До ' },
+        ja: { h: '一つのチーム、あらゆる送迎ソリューション', p: '私たちはアテネ、ラヴリオ、ラゴニシ、ケラテアにまたがるプロのパートナードライバーのネットワークで、あらゆる人数に対応する大規模な車両を24時間ご利用いただけます。', taxis: 'タクシー・セダン', vans: '高級バン', mini: 'ミニバス', coach: '席 大型バス', avail: '稼働', langs: '言語', up: '最大 ' },
+        zh: { h: '一个团队，满足各种接送需求', p: '我们是雅典、拉夫里奥、拉戈尼西和克拉泰亚的专业合作司机网络，拥有可满足任何团体规模的大型车队，全天候服务。', taxis: '出租车和轿车', vans: '豪华面包车', mini: '中巴', coach: '座大巴', avail: '全天候', langs: '语言', up: '最多 ' },
+        he: { h: 'צוות אחד, כל פתרון הסעה', p: 'אנו רשת של נהגים שותפים מקצועיים באתונה, לבריו, לגוניסי וקראטיה — עם גישה לצי גדול לכל גודל קבוצה, מסביב לשעון.', taxis: 'מוניות וסדאנים', vans: 'ואנים יוקרתיים', mini: 'מיניבוסים', coach: 'מקומות אוטובוסים', avail: 'זמינות', langs: 'שפות', up: 'עד ' }
+    };
+
+    var f = FS[lang] || FS.en;
+
+    function card(icon, num, label) {
+        return '<div class="fs-card"><i class="' + icon + '"></i>' +
+            '<span class="fs-num">' + num + '</span>' +
+            '<span class="fs-label">' + label + '</span></div>';
+    }
+
+    var sec = document.createElement('section');
+    sec.className = 'fleet-stats';
+    sec.id = 'fleet-stats';
+    sec.innerHTML =
+        '<div class="fs-header"><h2>' + f.h + '</h2><p>' + f.p + '</p></div>' +
+        '<div class="fs-grid">' +
+            card('fas fa-taxi', f.up + '15', f.taxis) +
+            card('fas fa-shuttle-van', f.up + '7', f.vans) +
+            card('fas fa-bus', f.up + '4', f.mini) +
+            card('fas fa-bus-alt', '50', f.coach) +
+            card('fas fa-clock', '24/7', f.avail) +
+            card('fas fa-language', '14', f.langs) +
+        '</div>';
+
+    whyUs.parentNode.insertBefore(sec, whyUs);
 })();

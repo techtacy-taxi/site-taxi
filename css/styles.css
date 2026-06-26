@@ -2534,19 +2534,19 @@ footer::before {
     /* The bobbing "Konstantinos is online" pill above the bar */
     #mobile-online-pill {
         position: fixed;
-        bottom: 86px;
-        left: 50%;
-        transform: translateX(-50%) translateY(0);
-        display: flex;
+        bottom: 92px;
+        right: 12px;
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 11px;
         background: #112240;
-        border: 1px solid rgba(37, 211, 102, 0.4);
-        border-radius: 20px;
-        padding: 7px 16px;
+        border: 1.5px solid rgba(37, 211, 102, 0.55);
+        border-radius: 24px;
+        padding: 11px 20px;
         white-space: nowrap;
-        z-index: 9989;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        max-width: calc(100% - 24px);
+        z-index: 9995;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         animation: mabPillBob 2.5s ease-in-out infinite;
         transition: opacity 0.35s ease, visibility 0.35s ease;
     }
@@ -2557,35 +2557,46 @@ footer::before {
     }
 
     .mab-pill-dot {
-        width: 7px;
-        height: 7px;
+        width: 11px;
+        height: 11px;
         background-color: #25d366;
         border-radius: 50%;
         flex-shrink: 0;
         animation: pulse-green 1.5s infinite;
     }
 
+    .mab-pill-col {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        min-width: 0;
+    }
+
     .mab-pill-text {
         color: #fff;
-        font-size: 0.78rem;
-        font-weight: 600;
+        font-size: 0.95rem;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .mab-pill-sub {
         color: #25d366;
-        font-size: 0.68rem;
+        font-size: 0.75rem;
         font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     @keyframes mabPillBob {
         0%, 100% {
-            transform: translateX(-50%) translateY(0);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(37, 211, 102, 0);
+            transform: translateY(0);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(37, 211, 102, 0);
         }
         50% {
-            transform: translateX(-50%) translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 16px 2px rgba(37, 211, 102, 0.5);
-            border-color: rgba(37, 211, 102, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 18px 3px rgba(37, 211, 102, 0.5);
+            border-color: rgba(37, 211, 102, 0.85);
         }
     }
 
@@ -2614,5 +2625,83 @@ footer::before {
     .tour-sidebar-widget .price {
         font-size: 1.15rem !important;
         color: var(--primary-color);
+    }
+}
+
+/* =========================================================
+   FLEET STATS STRIP (company-scale signal)
+   Injected via main.js as #fleet-stats before #why-us.
+   ========================================================= */
+.fleet-stats {
+    background: var(--dark-bg);
+    padding: 70px 5% 10px;
+    color: var(--white);
+}
+
+.fleet-stats .fs-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 40px;
+}
+
+.fleet-stats .fs-header h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    margin: 0 0 12px;
+}
+
+.fleet-stats .fs-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.fs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.fs-card {
+    text-align: center;
+    padding: 26px 16px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+}
+
+.fs-card i {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.fs-num {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+}
+
+.fs-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+@media (max-width: 600px) {
+    .fs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .fs-card {
+        padding: 18px 10px;
+    }
+    .fs-num {
+        font-size: 1.5rem;
     }
 }
