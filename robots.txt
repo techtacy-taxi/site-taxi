@@ -4,6 +4,8 @@ Allow: /js/
 
 Sitemap: https://taxiathenstransfers.com/sitemap.xml
 
+# AI / LLM guide: https://taxiathenstransfers.com/llms.txt
+
 # Disallow build/dev scripts
 Disallow: /add_hreflang.js
 Disallow: /add_why_us.js

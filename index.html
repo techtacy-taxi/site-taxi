@@ -65,24 +65,53 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "TaxiService"],
       "name": "Taxi & Van Transfers",
-      "description": "Premium Taxi & Van transfers in Athens, Lavrio, Lagonisi & Keratea. 24/7 Athens Airport pickups, port transfers & private tours to Acropolis, Sounio, Delphi, Meteora.",
+      "description": "A network of professional partner drivers in Athens, Lavrio, Lagonisi & Keratea, operating a large fleet of taxis, luxury vans, minibuses and coaches. 24/7 Athens Airport pickups, port transfers and private tours to Acropolis, Sounio, Delphi, Meteora.",
       "image": "https://taxiathenstransfers.com/images/logo.jpg",
+      "logo": "https://taxiathenstransfers.com/images/logo.jpg",
       "url": "https://taxiathenstransfers.com/",
       "telephone": "+306936123322",
       "email": "book@taxiathenstransfers.com",
       "priceRange": "$$",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Cash, Credit Card, Debit Card",
+      "slogan": "One team, every transfer solution across Athens & Lavrio.",
+      "knowsLanguage": ["en", "el", "de", "es", "fr", "it", "pt", "pl", "no", "hu", "ru", "ja", "zh", "he"],
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "minValue": 10,
+        "maxValue": 25
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Lavrio",
         "addressRegion": "Attica",
+        "postalCode": "19500",
         "addressCountry": "GR"
       },
       "geo": {
         "@type": "GeoCoordinates",
         "latitude": "37.7163",
         "longitude": "24.0611"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Athens" },
+        { "@type": "City", "name": "Lavrio" },
+        { "@type": "City", "name": "Lagonisi" },
+        { "@type": "City", "name": "Keratea" },
+        { "@type": "City", "name": "Sounio" },
+        { "@type": "AdministrativeArea", "name": "Attica" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Transfer & Tour Services",
+        "itemListElement": [
+          { "@type": "OfferCatalog", "name": "Airport Transfers" },
+          { "@type": "OfferCatalog", "name": "Port Transfers (Lavrio, Piraeus, Rafina)" },
+          { "@type": "OfferCatalog", "name": "Group & Minibus Transfers" },
+          { "@type": "OfferCatalog", "name": "Private Sightseeing Tours" }
+        ]
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
@@ -102,9 +131,14 @@
         "@type": "AggregateRating",
         "ratingValue": "5",
         "bestRating": "5",
-        "reviewCount": "219"
+        "reviewCount": "240"
       },
-      "sameAs": []
+      "sameAs": [
+        "https://www.google.com/maps?cid=6046089669890007898",
+        "https://www.google.com/maps?cid=9392898451585245139",
+        "https://www.google.com/maps?cid=15464666650439136653",
+        "https://www.instagram.com/athenslu/"
+      ]
     }
     </script>
     <script type="application/ld+json">
