@@ -504,3 +504,35 @@ function updateVehicleGalleryUI() {
 
     whyUs.parentNode.insertBefore(sec, whyUs);
 })();
+
+
+/* =========================================================
+   ADD "ABOUT" LINK to the footer Quick Links on every page.
+   Auto-detects language + correct path. No HTML edits needed.
+   ========================================================= */
+(function () {
+    var footerLinks = document.querySelector('.footer-links');
+    if (!footerLinks) return;
+
+    var lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+    var ABOUT = {
+        en: 'About Us', el: 'Σχετικά με εμάς', de: 'Über uns', es: 'Sobre nosotros',
+        fr: 'À propos', it: 'Chi siamo', pt: 'Sobre nós', pl: 'O nas', nb: 'Om oss',
+        no: 'Om oss', hu: 'Rólunk', ru: 'О нас', ja: '私たちについて', zh: '关于我们', he: 'אודותינו'
+    };
+    var label = ABOUT[lang] || ABOUT.en;
+
+    // Same-folder pages link to about.html directly (works at root and in /xx/)
+    var href = 'about.html';
+
+    // Avoid duplicating if it already exists
+    var exists = Array.prototype.some.call(footerLinks.querySelectorAll('a'), function (a) {
+        return a.getAttribute('href') === 'about.html' || a.getAttribute('href') === '/about.html';
+    });
+    if (exists) return;
+
+    var a = document.createElement('a');
+    a.href = href;
+    a.textContent = label;
+    footerLinks.appendChild(a);
+})();
