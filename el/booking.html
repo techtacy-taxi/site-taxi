@@ -232,6 +232,74 @@ body{
 
 .foot{text-align:center;color:var(--text-muted);font-size:.78rem;padding:24px 18px 36px;}
 .foot a{color:var(--primary-color);text-decoration:none;}
+
+/* ---------- Route block: Από/Προς + εναλλαγή ---------- */
+.route-block{position:relative;}
+.input-with-map{position:relative;}
+.input-with-map input{padding-right:42px;}
+.map-btn{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:30px;height:30px;border:none;border-radius:7px;cursor:pointer;
+  background:rgba(255,215,0,.14);color:var(--primary-color);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  transition:background .2s ease;
+}
+.map-btn:hover{background:rgba(255,215,0,.28);}
+.swap-btn{
+  position:absolute;right:14px;top:calc(50% - 14px);z-index:5;
+  width:34px;height:34px;border-radius:50%;border:2px solid var(--dark-secondary);
+  background:var(--gold-gradient);color:var(--dark-bg);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+  transition:transform .35s cubic-bezier(.16,1,.3,1),filter .2s ease;
+}
+.swap-btn:hover{filter:brightness(1.05);}
+.swap-btn.spin{transform:rotate(180deg);}
+
+/* ---------- Google Places autocomplete dropdown ---------- */
+.pac-container{
+  border-radius:10px;margin-top:4px;border:1px solid var(--field-border);
+  box-shadow:0 12px 36px rgba(0,0,0,.35);font-family:var(--font-main);
+  background:var(--dark-secondary);
+}
+.pac-item{padding:8px 12px;color:var(--text-light);border-top:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.pac-item:hover{background:var(--dark-tertiary);}
+.pac-item-query{color:#fff;}
+.pac-matched{color:var(--primary-color);}
+.pac-icon{display:none;}
+
+/* ---------- Map modal ---------- */
+.map-modal{
+  position:fixed;inset:0;z-index:2000;display:none;
+  align-items:center;justify-content:center;padding:16px;
+  background:rgba(5,12,26,.72);backdrop-filter:blur(4px);
+}
+.map-modal.open{display:flex;animation:fadeIn .25s ease;}
+.map-box{
+  width:100%;max-width:560px;background:var(--dark-secondary);
+  border-radius:16px;overflow:hidden;border:1px solid rgba(255,215,0,.15);
+  box-shadow:0 24px 70px rgba(0,0,0,.5);
+  animation:cardIn .35s cubic-bezier(.16,1,.3,1) both;
+}
+.map-box-head{padding:14px 18px;border-bottom:2px solid var(--primary-color);background:var(--dark-bg);display:flex;align-items:center;gap:10px;}
+.map-box-head .t{color:#fff;font-weight:700;font-size:1rem;flex:1;}
+.map-box-head .x{background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;padding:4px;}
+.map-box-head .x:hover{color:#fff;}
+#mapCanvas{width:100%;height:340px;background:var(--dark-tertiary);}
+.map-pin-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-100%);
+  pointer-events:none;z-index:5;color:#ff3b30;font-size:34px;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,.4));
+}
+.map-box-foot{padding:12px 18px 16px;}
+.map-addr{color:var(--text-light);font-size:.85rem;min-height:20px;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.map-addr i{color:var(--primary-color);}
+.map-confirm{
+  width:100%;background:var(--gold-gradient);color:var(--dark-bg);border:none;
+  border-radius:10px;padding:13px;font-size:.95rem;font-weight:800;cursor:pointer;
+  font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.map-confirm:disabled{filter:grayscale(.5);cursor:default;}
 </style>
 </head>
 <body>
@@ -289,13 +357,26 @@ body{
 
         <!-- ΑΡΙΣΤΕΡΑ: διαδρομή / χρόνος / πλήθος / όχημα -->
         <div class="colstack">
-          <div class="fld">
-            <label><i class="fas fa-dot-circle li"></i>Από</label>
-            <input type="text" id="from" placeholder="π.χ. Αεροδρόμιο Ελ. Βενιζέλος" autocomplete="off">
-          </div>
-          <div class="fld">
-            <label><i class="fas fa-map-marker-alt li" style="color:#ff5a5a;"></i>Προς</label>
-            <input type="text" id="to" placeholder="π.χ. Σύνταγμα, Αθήνα" autocomplete="off">
+          <div class="route-block">
+            <div class="fld">
+              <label><i class="fas fa-dot-circle li"></i>Από</label>
+              <div class="input-with-map">
+                <input type="text" id="from" placeholder="π.χ. Αεροδρόμιο Ελ. Βενιζέλος" autocomplete="off">
+                <button type="button" class="map-btn" data-target="from" title="Επιλογή στον χάρτη"><i class="fas fa-map-marker-alt"></i></button>
+              </div>
+            </div>
+
+            <button type="button" id="swapBtn" class="swap-btn" title="Εναλλαγή Από/Προς">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+
+            <div class="fld">
+              <label><i class="fas fa-map-marker-alt li" style="color:#ff5a5a;"></i>Προς</label>
+              <div class="input-with-map">
+                <input type="text" id="to" placeholder="π.χ. Σύνταγμα, Αθήνα" autocomplete="off">
+                <button type="button" class="map-btn" data-target="to" title="Επιλογή στον χάρτη"><i class="fas fa-map-marker-alt"></i></button>
+              </div>
+            </div>
           </div>
           <div class="duo">
             <div class="fld"><label><i class="far fa-calendar li"></i>Ημερομηνία</label><input type="date" id="date"></div>
@@ -368,6 +449,25 @@ body{
   </div>
 </div>
 
+<!-- ============ MAP MODAL (πινέζα → διεύθυνση) ============ -->
+<div class="map-modal" id="mapModal">
+  <div class="map-box">
+    <div class="map-box-head">
+      <i class="fas fa-map-marked-alt" style="color:var(--primary-color);"></i>
+      <span class="t" id="mapTitle">Επιλογή σημείου</span>
+      <button type="button" class="x" id="mapClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="position:relative;">
+      <div id="mapCanvas"></div>
+      <i class="fas fa-map-marker-alt map-pin-hint"></i>
+    </div>
+    <div class="map-box-foot">
+      <div class="map-addr" id="mapAddr"><i class="fas fa-location-dot"></i> <span>Μετακινήστε τον χάρτη…</span></div>
+      <button type="button" class="map-confirm" id="mapConfirm" disabled><i class="fas fa-check"></i> Επιβεβαίωση διεύθυνσης</button>
+    </div>
+  </div>
+</div>
+
 <div class="foot">© TaxiAthensTransfers.com · <a href="index.html">Επιστροφή στην αρχική</a></div>
 
 <script>
@@ -383,7 +483,8 @@ const LUGGAGE_VAN_THRESHOLD = 5;  // βαλίτσες >= 5 -> Βαν
 const MAX = { persons:8, luggage:12, seats:4 };
 const MIN = { persons:1, luggage:0,  seats:0 };
 
-const state = { persons:2, luggage:2, seats:0, veh:'taxi', autoVan:false };
+const state = { persons:2, luggage:2, seats:0, veh:'taxi', autoVan:false,
+  fromLat:null, fromLng:null, toLat:null, toLng:null };
 
 /* ---- Counters ---- */
 function clampStep(t,d){
@@ -441,6 +542,8 @@ function gather(){
   return {
     from:    document.getElementById('from').value.trim(),
     to:      document.getElementById('to').value.trim(),
+    fromLat: state.fromLat, fromLng: state.fromLng,
+    toLat:   state.toLat,   toLng:   state.toLng,
     date:    document.getElementById('date').value,   // YYYY-MM-DD
     time:    document.getElementById('time').value,   // HH:MM
     persons: state.persons,
@@ -495,11 +598,134 @@ function flash(kind, html){
 function resetForm(){
   ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
   state.persons=2; state.luggage=2; state.seats=0; state.veh='taxi'; state.autoVan=false;
+  state.fromLat=state.fromLng=state.toLat=state.toLng=null;
   btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή');
   render();
 }
 
+/* ============ ΕΝΑΛΛΑΓΗ Από ↔ Προς ============ */
+document.getElementById('swapBtn').addEventListener('click', ()=>{
+  const sb = document.getElementById('swapBtn');
+  sb.classList.toggle('spin');
+  const fi = document.getElementById('from'), ti = document.getElementById('to');
+  [fi.value, ti.value] = [ti.value, fi.value];
+  [state.fromLat, state.toLat] = [state.toLat, state.fromLat];
+  [state.fromLng, state.toLng] = [state.toLng, state.fromLng];
+});
+
+/* ============ GOOGLE MAPS: autocomplete + χάρτης με πινέζα ============ */
+// Όρια Ελλάδας (για περιορισμό προτάσεων autocomplete)
+const GREECE_BOUNDS = { south:34.7, west:19.3, north:41.8, east:29.7 };
+let mapObj=null, geocoder=null, mapTargetId=null, mapPickedAddr='', mapDebounce=null;
+
+// Καλείται από το Maps JS όταν φορτώσει (callback=initBooking)
+function initBooking(){
+  geocoder = new google.maps.Geocoder();
+  const bounds = new google.maps.LatLngBounds(
+    { lat:GREECE_BOUNDS.south, lng:GREECE_BOUNDS.west },
+    { lat:GREECE_BOUNDS.north, lng:GREECE_BOUNDS.east }
+  );
+  const opts = {
+    bounds,
+    componentRestrictions: { country: 'gr' },   // ΜΟΝΟ Ελλάδα
+    fields: ['formatted_address','geometry','name'],
+  };
+  // Autocomplete στα δύο πεδία
+  ['from','to'].forEach(id=>{
+    const ac = new google.maps.places.Autocomplete(document.getElementById(id), opts);
+    ac.addListener('place_changed', ()=>{
+      const p = ac.getPlace();
+      if (!p.geometry) return;
+      const lat = p.geometry.location.lat(), lng = p.geometry.location.lng();
+      const text = p.formatted_address || p.name || '';
+      document.getElementById(id).value = text;
+      if (id==='from'){ state.fromLat=lat; state.fromLng=lng; }
+      else { state.toLat=lat; state.toLng=lng; }
+    });
+  });
+}
+
+// ── Map modal ──────────────────────────────────────────────
+function openMap(targetId){
+  mapTargetId = targetId;
+  document.getElementById('mapTitle').textContent =
+    targetId==='from' ? 'Επιλογή σημείου αφετηρίας' : 'Επιλογή προορισμού';
+  document.getElementById('mapModal').classList.add('open');
+  mapPickedAddr=''; setMapAddr('Μετακινήστε τον χάρτη…'); 
+  document.getElementById('mapConfirm').disabled=true;
+
+  // Κέντρο: ό,τι υπάρχει ήδη, αλλιώς Αθήνα
+  const haveLat = targetId==='from' ? state.fromLat : state.toLat;
+  const haveLng = targetId==='from' ? state.fromLng : state.toLng;
+  const center = (haveLat && haveLng) ? {lat:haveLat,lng:haveLng} : {lat:37.9838,lng:23.7275};
+
+  if (!mapObj){
+    mapObj = new google.maps.Map(document.getElementById('mapCanvas'), {
+      center, zoom:14, disableDefaultUI:true, zoomControl:true,
+      gestureHandling:'greedy', clickableIcons:false,
+    });
+    mapObj.addListener('idle', onMapIdle);
+  } else {
+    mapObj.setCenter(center); mapObj.setZoom(14);
+    google.maps.event.trigger(mapObj,'idle');
+  }
+}
+function closeMap(){ document.getElementById('mapModal').classList.remove('open'); }
+
+function onMapIdle(){
+  // Η πινέζα είναι σταθερή στο κέντρο· διαβάζουμε το κέντρο του χάρτη.
+  const c = mapObj.getCenter();
+  if (mapDebounce) clearTimeout(mapDebounce);
+  setMapAddr('Αναζήτηση διεύθυνσης…');
+  document.getElementById('mapConfirm').disabled=true;
+  mapDebounce = setTimeout(()=>{
+    geocoder.geocode({ location:{lat:c.lat(),lng:c.lng()} }, (res,status)=>{
+      if (status==='OK' && res[0]){
+        mapPickedAddr = res[0].formatted_address;
+        setMapAddr(mapPickedAddr);
+        document.getElementById('mapConfirm').disabled=false;
+      } else {
+        setMapAddr('Δεν βρέθηκε διεύθυνση εδώ');
+      }
+    });
+  }, 350);
+}
+function setMapAddr(t){
+  document.querySelector('#mapAddr span').textContent = t;
+}
+function confirmMap(){
+  if (!mapPickedAddr) return;
+  const c = mapObj.getCenter();
+  const lat=c.lat(), lng=c.lng();
+  document.getElementById(mapTargetId).value = mapPickedAddr;
+  if (mapTargetId==='from'){ state.fromLat=lat; state.fromLng=lng; }
+  else { state.toLat=lat; state.toLng=lng; }
+  closeMap();
+}
+
+document.querySelectorAll('.map-btn').forEach(b=>{
+  b.addEventListener('click', ()=>openMap(b.dataset.target));
+});
+document.getElementById('mapClose').addEventListener('click', closeMap);
+document.getElementById('mapConfirm').addEventListener('click', confirmMap);
+document.getElementById('mapModal').addEventListener('click', (e)=>{
+  if (e.target.id==='mapModal') closeMap();
+});
+// Αν ο χρήστης γράψει με το χέρι (όχι autocomplete), καθάρισε τις συντεταγμένες
+['from','to'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{
+    if (id==='from'){ state.fromLat=null; state.fromLng=null; }
+    else { state.toLat=null; state.toLng=null; }
+  });
+});
+
 render();
+</script>
+
+<!-- Google Maps JavaScript API + Places (περιορισμένο στο domain μέσω referrer).
+     Φορτώνει ΑΦΟΥ ορίζονται οι functions (initBooking ως callback). -->
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW2YdAX_5beQrjkKmNyykTMqRixc-K88Y&libraries=places&callback=initBooking&region=GR&language=el">
 </script>
 </body>
 </html>
