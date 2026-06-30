@@ -336,6 +336,34 @@ body.is-mobile .map-gps{display:flex;}
 }
 .map-confirm:disabled{filter:grayscale(.5);cursor:default;}
 
+/* ---------- Country code picker (τηλέφωνο) ---------- */
+.phone-row{display:flex;gap:8px;}
+.cc-wrap{position:relative;flex-shrink:0;}
+.cc-btn{
+  height:100%;display:flex;align-items:center;gap:6px;cursor:pointer;
+  background:var(--field-bg);border:1px solid var(--field-border);
+  color:#fff;border-radius:var(--radius-sm);padding:0 11px;font-size:.92rem;
+  font-family:inherit;white-space:nowrap;min-height:43px;
+}
+.cc-btn:hover{border-color:var(--primary-color);}
+.cc-btn .flag{width:22px;height:auto;border-radius:3px;display:block;}
+.cc-btn .chev{font-size:10px;color:var(--text-muted);}
+.cc-list{
+  position:absolute;left:0;top:calc(100% + 4px);z-index:60;
+  width:280px;max-height:280px;overflow-y:auto;
+  background:var(--dark-secondary);border:1px solid var(--field-border);
+  border-radius:10px;box-shadow:0 12px 36px rgba(0,0,0,.4);display:none;
+}
+.cc-list.open{display:block;animation:fadeIn .15s ease;}
+.cc-search{position:sticky;top:0;background:var(--dark-secondary);padding:8px;border-bottom:1px solid var(--field-border);}
+.cc-search input{width:100%;box-sizing:border-box;background:var(--field-bg);border:1px solid var(--field-border);color:#fff;border-radius:7px;padding:8px 10px;font-size:.85rem;font-family:inherit;}
+.cc-item{padding:9px 12px;cursor:pointer;display:flex;align-items:center;gap:10px;border-top:1px solid rgba(255,255,255,.04);font-size:.88rem;color:#fff;}
+.cc-item:hover{background:var(--dark-tertiary);}
+.cc-item .flag{width:22px;height:auto;border-radius:3px;}
+.cc-item .nm{flex:1;color:#cdd6ee;}
+.cc-item .dc{color:var(--primary-color);font-weight:600;}
+.phone-row input{flex:1;}
+
 /* ---------- Custom autocomplete dropdown (Places API New) ---------- */
 .ac-wrap{position:relative;}
 .ac-list{
@@ -493,9 +521,31 @@ body.is-mobile .map-gps{display:flex;}
         <!-- ΔΕΞΙΑ: στοιχεία πελάτη -->
         <div class="colstack">
           <div class="fld"><label><i class="fas fa-user li"></i>Ονοματεπώνυμο</label><input type="text" id="name" placeholder="Το όνομά σας" autocomplete="name"></div>
-          <div class="fld"><label><i class="fas fa-phone li"></i>Τηλέφωνο</label><input type="tel" id="phone" placeholder="69XXXXXXXX" autocomplete="tel"></div>
-          <div class="fld"><label><i class="fas fa-envelope li"></i>Email <span class="opt">(προαιρετικό)</span></label><input type="email" id="email" placeholder="name@email.com" autocomplete="email"></div>
-          <div class="fld"><label><i class="fas fa-plane li"></i>Πτήση / Πλοίο <span class="opt">(προαιρετικό)</span></label><input type="text" id="flight" placeholder="π.χ. A3 712"></div>
+          <div class="fld">
+            <label><i class="fas fa-phone li"></i>Τηλέφωνο</label>
+            <div class="phone-row">
+              <div class="cc-wrap">
+                <div class="cc-btn" id="ccBtn">
+                  <img class="flag" id="ccFlag" src="https://flagcdn.com/w40/gr.png" width="22" alt="GR">
+                  <span id="ccCode">+30</span>
+                  <span class="chev"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="cc-list" id="ccList">
+                  <div class="cc-search"><input type="text" id="ccSearch" placeholder="Αναζήτηση χώρας…"></div>
+                  <div id="ccItems"></div>
+                </div>
+              </div>
+              <input type="tel" id="phone" placeholder="6912345678" autocomplete="tel">
+            </div>
+          </div>
+          <div class="fld"><label><i class="fas fa-envelope li"></i>Email</label><input type="email" id="email" placeholder="name@email.com" autocomplete="email"></div>
+          <div class="fld">
+            <label><i class="fas fa-plane li"></i>Πτήση / Πλοίο</label>
+            <input type="text" id="flight" placeholder="π.χ. A3 712">
+            <div style="color:var(--text-muted);font-size:.72rem;margin-top:5px;line-height:1.4;">
+              Αν δεν μας δώσετε πτήση/πλοίο δεν μπορούμε να εξυπηρετήσουμε. Αν δεν χρησιμοποιείτε κάτι, γράψτε <b style="color:var(--primary-color);">0</b>.
+            </div>
+          </div>
           <div class="fld"><label><i class="fas fa-comment-dots li"></i>Σχόλια <span class="opt">(προαιρετικό)</span></label><textarea id="note" placeholder="Επιπλέον πληροφορίες για τον οδηγό…"></textarea></div>
         </div>
 
@@ -562,7 +612,8 @@ const MAX = { persons:8, luggage:12, seats:4 };
 const MIN = { persons:1, luggage:0,  seats:0 };
 
 const state = { persons:2, luggage:2, seats:0, veh:'taxi', autoVan:false,
-  fromLat:null, fromLng:null, toLat:null, toLng:null };
+  fromLat:null, fromLng:null, toLat:null, toLng:null,
+  dialCode:'+30', country:'GR' };
 
 /* ---- Counters ---- */
 function clampStep(t,d){
@@ -617,6 +668,7 @@ document.getElementById('vehVan').addEventListener('click', ()=>{
 const btn = document.getElementById('sendBtn');
 
 function gather(){
+  const rawPhone = document.getElementById('phone').value.trim();
   return {
     from:    document.getElementById('from').value.trim(),
     to:      document.getElementById('to').value.trim(),
@@ -629,7 +681,7 @@ function gather(){
     childSeatCount: state.seats,
     vehicleType: state.veh,            // 'taxi' | 'van'
     name:    document.getElementById('name').value.trim(),
-    phone:   document.getElementById('phone').value.trim(),
+    phone:   rawPhone ? (state.dialCode + ' ' + rawPhone) : '',  // π.χ. "+30 6912345678"
     email:   document.getElementById('email').value.trim(),
     flight:  document.getElementById('flight').value.trim(),
     note:    document.getElementById('note').value.trim(),
@@ -642,13 +694,20 @@ function setBtn(state_, html){
   btn.innerHTML = html;
 }
 
+function isValidEmail(e){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+}
+
 btn.addEventListener('click', async ()=>{
   const data = gather();
 
-  // Ελάχιστη επικύρωση
+  // Επικύρωση
   if (!data.from || !data.to){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε Από και Προς'); return; }
-  if (!data.name || !data.phone){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε όνομα και τηλέφωνο'); return; }
+  if (!data.name){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε το ονοματεπώνυμο'); return; }
+  if (!document.getElementById('phone').value.trim()){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε τηλέφωνο'); return; }
   if (!data.date || !data.time){ flash('err','<i class="fas fa-exclamation-circle"></i> Επιλέξτε ημερομηνία και ώρα'); return; }
+  if (!isValidEmail(data.email)){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε έγκυρο email'); return; }
+  if (!data.flight){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε πτήση/πλοίο (ή 0)'); return; }
 
   btn.disabled = true;
   setBtn('', '<i class="fas fa-spinner fa-spin"></i> Αποστολή…');
@@ -949,6 +1008,80 @@ function gpsError(code){
   if (code===1) msg = 'Δώστε άδεια τοποθεσίας στον browser για να λειτουργήσει.';
   alert(msg);
 }
+
+/* ============ COUNTRY CODE PICKER ============ */
+// Δημοφιλείς χώρες (Ελλάδα πρώτη). Η σημαία βγαίνει από τον κωδικό 'c' (flagcdn).
+const COUNTRIES = [
+  {c:'GR',n:'Ελλάδα',d:'+30'},
+  {c:'CY',n:'Κύπρος',d:'+357'},
+  {c:'GB',n:'Ηνωμένο Βασίλειο',d:'+44'},
+  {c:'US',n:'ΗΠΑ / Καναδάς',d:'+1'},
+  {c:'DE',n:'Γερμανία',d:'+49'},
+  {c:'FR',n:'Γαλλία',d:'+33'},
+  {c:'IT',n:'Ιταλία',d:'+39'},
+  {c:'ES',n:'Ισπανία',d:'+34'},
+  {c:'PT',n:'Πορτογαλία',d:'+351'},
+  {c:'NL',n:'Ολλανδία',d:'+31'},
+  {c:'BE',n:'Βέλγιο',d:'+32'},
+  {c:'CH',n:'Ελβετία',d:'+41'},
+  {c:'AT',n:'Αυστρία',d:'+43'},
+  {c:'PL',n:'Πολωνία',d:'+48'},
+  {c:'SE',n:'Σουηδία',d:'+46'},
+  {c:'NO',n:'Νορβηγία',d:'+47'},
+  {c:'DK',n:'Δανία',d:'+45'},
+  {c:'FI',n:'Φινλανδία',d:'+358'},
+  {c:'IE',n:'Ιρλανδία',d:'+353'},
+  {c:'RU',n:'Ρωσία',d:'+7'},
+  {c:'IL',n:'Ισραήλ',d:'+972'},
+  {c:'TR',n:'Τουρκία',d:'+90'},
+  {c:'AE',n:'Ηνωμ. Αραβ. Εμιράτα',d:'+971'},
+  {c:'AU',n:'Αυστραλία',d:'+61'},
+  {c:'CN',n:'Κίνα',d:'+86'},
+  {c:'JP',n:'Ιαπωνία',d:'+81'},
+  {c:'HU',n:'Ουγγαρία',d:'+36'},
+  {c:'CZ',n:'Τσεχία',d:'+420'},
+  {c:'RO',n:'Ρουμανία',d:'+40'},
+  {c:'BG',n:'Βουλγαρία',d:'+359'},
+];
+
+function flagUrl(code){ return 'https://flagcdn.com/w40/' + code.toLowerCase() + '.png'; }
+
+const ccBtn = document.getElementById('ccBtn');
+const ccList = document.getElementById('ccList');
+const ccItems = document.getElementById('ccItems');
+const ccSearch = document.getElementById('ccSearch');
+
+function renderCountries(filter){
+  const q = (filter || '').trim().toLowerCase();
+  ccItems.innerHTML = '';
+  COUNTRIES.filter(co =>
+    !q || co.n.toLowerCase().includes(q) || co.d.includes(q) || co.c.toLowerCase().includes(q)
+  ).forEach(co=>{
+    const row = document.createElement('div');
+    row.className = 'cc-item';
+    row.innerHTML = '<img class="flag" src="'+flagUrl(co.c)+'" width="22" alt="'+co.c+'">' +
+                    '<span class="nm">'+co.n+'</span>' +
+                    '<span class="dc">'+co.d+'</span>';
+    row.addEventListener('click', ()=>{
+      state.dialCode = co.d; state.country = co.c;
+      document.getElementById('ccFlag').src = flagUrl(co.c);
+      document.getElementById('ccFlag').alt = co.c;
+      document.getElementById('ccCode').textContent = co.d;
+      ccList.classList.remove('open');
+    });
+    ccItems.appendChild(row);
+  });
+}
+ccBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const open = ccList.classList.toggle('open');
+  if (open){ renderCountries(''); ccSearch.value=''; setTimeout(()=>ccSearch.focus(),50); }
+});
+ccSearch.addEventListener('input', ()=>renderCountries(ccSearch.value));
+ccSearch.addEventListener('click', (e)=>e.stopPropagation());
+document.addEventListener('click', (e)=>{
+  if (!ccBtn.contains(e.target) && !ccList.contains(e.target)) ccList.classList.remove('open');
+});
 
 render();
 </script>
