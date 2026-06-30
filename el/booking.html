@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κράτηση Μεταφοράς · AthensTaxi</title>
+<meta name="theme-color" content="#0a192f">
+<meta name="robots" content="noindex">
+
+<!-- ============================================================
+     ΔΟΚΙΜΑΣΤΙΚΗ ΦΟΡΜΑ ΜΕΤΑΦΟΡΑΣ — booking.html
+     Στατική σελίδα στο site (taxiathenstransfers.com).
+     Στέλνει POST στο Cloud Function submitPublicBooking, που:
+       • γράφει τη δουλειά στο saved_jobs (origin:'public_form')
+       • στέλνει email + .ics στον master
+       • ειδοποιεί τον master (FCM type 'public_booking')
+     ΦΑΣΗ 1: τιμή = 0 (την βάζει ο master). Το «Εκτιμώμενο κόστος»
+     δείχνει 0,00€ ως ενδεικτικό.
+     ============================================================ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+  --primary-color:#ffd700;
+  --primary-hover:#e6c200;
+  --gold-gradient:linear-gradient(135deg,#ffd700 0%,#ffb400 50%,#ffd700 100%);
+  --dark-bg:#0a192f;
+  --dark-secondary:#112240;
+  --dark-tertiary:#1a2f4a;
+  --field-bg:#0f2138;
+  --field-border:#243a5a;
+  --text-light:#e6f1ff;
+  --text-muted:#8aa0c4;
+  --white:#fff;
+  --whatsapp:#25d366;
+  --font-main:'Outfit',sans-serif;
+  --radius-sm:9px;
+  --radius-md:14px;
+  color-scheme:light;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:var(--font-main);
+  background:var(--dark-bg);
+  color:var(--text-light);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- NAVBAR (ίδιο πνεύμα με το site) ---------- */
+.navbar{
+  position:sticky;top:0;width:100%;
+  padding:16px 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:1000;
+  background:rgba(10,25,47,0.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,215,0,0.08);
+}
+.logo{
+  font-size:1.6rem;font-weight:800;color:var(--white);
+  display:flex;align-items:center;gap:9px;text-decoration:none;
+}
+.logo i{color:var(--primary-color);}
+.logo span{color:var(--primary-color);}
+.nav-actions{display:flex;align-items:center;gap:18px;}
+
+/* ---------- LANGUAGE SWITCHER (1:1 από το site) ---------- */
+.lang-switcher{position:relative;display:inline-block;}
+.dropbtn{
+  background-color:transparent;color:var(--white);
+  font-size:16px;font-weight:700;border:none;cursor:pointer;
+  display:flex !important;align-items:center !important;justify-content:center !important;
+  gap:10px !important;font-family:'Outfit',sans-serif;
+  transition:all .3s ease;padding:8px 0;min-width:auto;
+}
+.dropbtn img{border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.dropbtn i.fa-globe{font-size:18px;}
+.dropbtn i.fa-chevron-down{font-size:12px;}
+.lang-switcher:hover .dropbtn{color:var(--primary-color);transform:translateY(-2px) scale(1.05);}
+.dropdown-content{
+  display:none;position:absolute;right:-10px;top:calc(100% + 10px);
+  background:rgba(255,255,255,.98);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  min-width:260px;
+  box-shadow:0 15px 50px rgba(0,0,0,.25),0 0 0 1px rgba(255,215,0,.1);
+  z-index:1000;border-radius:var(--radius-md);
+  opacity:0;transform:translateY(15px) scale(.95);
+  transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);
+  padding:8px;
+  border:1px solid rgba(255,215,0,.15);border-top:2px solid var(--primary-color);
+  grid-template-columns:1fr 1fr;gap:0;
+}
+.lang-switcher:not(:hover) .dropdown-content{display:none !important;}
+.lang-switcher:hover .dropdown-content{display:grid;opacity:1;transform:translateY(0) scale(1);}
+.lang-switcher::after{content:'';position:absolute;bottom:-15px;left:0;right:0;height:15px;background:transparent;z-index:999;display:none;}
+.lang-switcher:hover::after{display:block;}
+.dropdown-content a{
+  color:var(--dark-bg) !important;padding:8px 12px !important;text-decoration:none !important;
+  display:flex !important;align-items:center !important;justify-content:flex-start !important;
+  gap:8px !important;font-size:14px;font-weight:700;transition:all .25s ease;border-radius:7px;
+}
+.dropdown-content a:hover{background:rgba(255,215,0,.18) !important;transform:translateX(3px);}
+
+/* ---------- FORM CARD ---------- */
+.wrap{max-width:760px;margin:0 auto;padding:34px 18px 60px;}
+.intro{text-align:center;margin-bottom:26px;}
+.intro h1{font-size:1.9rem;font-weight:800;color:var(--white);margin-bottom:8px;}
+.intro h1 b{color:var(--primary-color);}
+.intro p{color:var(--text-muted);font-size:.98rem;}
+
+.card{
+  background:var(--dark-secondary);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  border:1px solid rgba(255,215,0,.08);
+  animation:cardIn .6s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.card-head{
+  padding:20px 26px;border-bottom:2px solid var(--primary-color);
+  display:flex;align-items:center;gap:13px;background:var(--dark-bg);
+}
+.card-head .ic{
+  width:44px;height:44px;border-radius:11px;background:var(--gold-gradient);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.card-head .ic i{font-size:24px;color:var(--dark-bg);}
+.card-head h2{font-size:1.25rem;font-weight:700;color:var(--white);line-height:1.2;}
+.card-head .sub{color:var(--primary-color);font-size:.8rem;font-weight:600;}
+
+.card-body{padding:24px 26px 28px;}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media (max-width:620px){.col2{grid-template-columns:1fr;gap:16px;}}
+.colstack{display:flex;flex-direction:column;gap:15px;}
+
+.fld label{
+  color:#cdd6ee;font-size:.78rem;font-weight:600;
+  display:flex;align-items:center;gap:7px;margin-bottom:6px;
+}
+.fld label .li{color:var(--primary-color);font-size:14px;width:15px;text-align:center;}
+.fld label .opt{color:var(--text-muted);font-weight:400;}
+.fld input,.fld textarea{
+  width:100%;background:var(--field-bg);border:1px solid var(--field-border);
+  color:var(--white);border-radius:var(--radius-sm);padding:11px 13px;
+  font-size:.92rem;font-family:inherit;transition:border-color .2s ease,box-shadow .2s ease;
+}
+.fld input::placeholder,.fld textarea::placeholder{color:#6b7da0;}
+.fld input:focus,.fld textarea:focus{
+  outline:none;border-color:var(--primary-color);
+  box-shadow:0 0 0 3px rgba(255,215,0,.12);
+}
+.fld textarea{resize:vertical;min-height:70px;}
+
+.duo{display:flex;gap:11px;}
+.duo>div{flex:1;}
+
+/* Counters */
+.counter{background:var(--field-bg);border:1px solid var(--field-border);border-radius:var(--radius-sm);padding:10px 12px;}
+.counter .ct{color:#cdd6ee;font-size:.72rem;font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.counter .ct i{color:var(--primary-color);font-size:13px;}
+.counter .row{display:flex;align-items:center;justify-content:space-between;}
+.stp{width:28px;height:28px;border-radius:8px;background:var(--gold-gradient);display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;transition:transform .1s ease,filter .2s ease;}
+.stp:hover{filter:brightness(1.08);}
+.stp:active{transform:scale(.9);}
+.stp i{color:var(--dark-bg);font-size:14px;}
+.stp.dis{background:#26405e;cursor:default;filter:none;}
+.stp.dis i{color:#5d7393;}
+.cval{color:var(--white);font-size:1.15rem;font-weight:700;min-width:24px;text-align:center;}
+
+/* Vehicle */
+.veh-wrap{display:flex;gap:10px;}
+.veh{flex:1;text-align:center;padding:12px 0;border-radius:var(--radius-sm);cursor:pointer;border:1px solid var(--field-border);background:var(--field-bg);transition:all .18s ease;}
+.veh i{font-size:20px;color:#cdd6ee;}
+.veh div{font-size:.78rem;color:#cdd6ee;margin-top:3px;font-weight:600;}
+.veh.sel{background:var(--gold-gradient);border-color:var(--primary-color);}
+.veh.sel i,.veh.sel div{color:var(--dark-bg);}
+.auto-hint{color:var(--primary-color);font-size:.66rem;font-weight:600;}
+
+.van-msg{margin-top:11px;background:var(--dark-tertiary);border:1px solid var(--whatsapp);border-radius:11px;padding:13px 15px;display:none;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+.van-msg p{color:#cdd6ee;font-size:.82rem;line-height:1.5;margin-bottom:10px;}
+.van-msg p b{color:var(--primary-color);}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--whatsapp);color:#073b22;text-decoration:none;border-radius:9px;padding:11px;font-size:.9rem;font-weight:700;transition:filter .2s ease;}
+.wa-btn:hover{filter:brightness(1.06);}
+
+/* Price box */
+.price-box{margin-top:20px;background:var(--field-bg);border:1px dashed var(--primary-color);border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;}
+.price-box .pl{color:#cdd6ee;font-size:.78rem;font-weight:600;}
+.price-box .ps{color:var(--text-muted);font-size:.68rem;}
+.price-box .pv{color:var(--primary-color);font-size:1.7rem;font-weight:800;}
+
+/* Submit */
+.submit{
+  margin-top:16px;width:100%;background:var(--gold-gradient);color:var(--dark-bg);
+  border:none;border-radius:12px;padding:16px;font-size:1.02rem;font-weight:800;cursor:pointer;
+  font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .12s ease,box-shadow .25s ease,filter .2s ease;
+  box-shadow:0 10px 30px -5px rgba(255,215,0,.3);
+}
+.submit:hover{filter:brightness(1.04);transform:translateY(-2px);box-shadow:0 14px 36px -6px rgba(255,215,0,.42);}
+.submit:active{transform:translateY(0) scale(.99);}
+.submit:disabled{filter:grayscale(.4);cursor:default;transform:none;}
+.submit.ok{background:#34c759;color:#fff;box-shadow:none;}
+.submit.err{background:#e24b4a;color:#fff;box-shadow:none;}
+
+.note{text-align:center;color:var(--text-muted);font-size:.74rem;margin-top:14px;line-height:1.5;}
+
+.foot{text-align:center;color:var(--text-muted);font-size:.78rem;padding:24px 18px 36px;}
+.foot a{color:var(--primary-color);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar">
+  <a href="index.html" class="logo"><i class="fas fa-taxi"></i> Athens<span>Taxi</span></a>
+  <div class="nav-actions">
+    <!-- Language switcher: ίδιος με το site. ΦΑΣΗ 1: τα links δεν οδηγούν
+         κάπου ακόμη (href="#") — όταν μεταφραστεί η σελίδα στις 14 γλώσσες,
+         βάζουμε τα κανονικά paths (de/booking.html κ.λπ.). -->
+    <div class="lang-switcher">
+      <button class="dropbtn" type="button"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/gr.png" width="18" style="margin:0 5px;"> EL <i class="fas fa-chevron-down"></i></button>
+      <div class="dropdown-content">
+        <a href="#"><img src="https://flagcdn.com/w20/gb.png" width="20" alt="EN"> EN</a>
+        <a href="#"><img src="https://flagcdn.com/w20/de.png" width="20" alt="DE"> DE</a>
+        <a href="#"><img src="https://flagcdn.com/w20/es.png" width="20" alt="ES"> ES</a>
+        <a href="#"><img src="https://flagcdn.com/w20/pt.png" width="20" alt="PT"> PT</a>
+        <a href="#"><img src="https://flagcdn.com/w20/fr.png" width="20" alt="FR"> FR</a>
+        <a href="#"><img src="https://flagcdn.com/w20/it.png" width="20" alt="IT"> IT</a>
+        <a href="#"><img src="https://flagcdn.com/w20/pl.png" width="20" alt="PL"> PL</a>
+        <a href="#"><img src="https://flagcdn.com/w20/no.png" width="20" alt="NO"> NO</a>
+        <a href="#"><img src="https://flagcdn.com/w20/il.png" width="20" alt="HE"> HE</a>
+        <a href="#"><img src="https://flagcdn.com/w20/gr.png" width="20" alt="EL"> EL</a>
+        <a href="#"><img src="https://flagcdn.com/w20/cn.png" width="20" alt="ZH"> ZH</a>
+        <a href="#"><img src="https://flagcdn.com/w20/jp.png" width="20" alt="JA"> JA</a>
+        <a href="#"><img src="https://flagcdn.com/w20/hu.png" width="20" alt="HU"> HU</a>
+        <a href="#"><img src="https://flagcdn.com/w20/ru.png" width="20" alt="RU"> RU</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FORM ============ -->
+<div class="wrap">
+  <div class="intro">
+    <h1>Κράτηση <b>μεταφοράς</b></h1>
+    <p>Συμπληρώστε τα στοιχεία της διαδρομής και θα επικοινωνήσουμε για επιβεβαίωση.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="ic"><i class="fas fa-car"></i></div>
+      <div>
+        <h2>Στοιχεία διαδρομής</h2>
+        <div class="sub">AthensTaxi · γρήγορα και εύκολα</div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="col2">
+
+        <!-- ΑΡΙΣΤΕΡΑ: διαδρομή / χρόνος / πλήθος / όχημα -->
+        <div class="colstack">
+          <div class="fld">
+            <label><i class="fas fa-dot-circle li"></i>Από</label>
+            <input type="text" id="from" placeholder="π.χ. Αεροδρόμιο Ελ. Βενιζέλος" autocomplete="off">
+          </div>
+          <div class="fld">
+            <label><i class="fas fa-map-marker-alt li" style="color:#ff5a5a;"></i>Προς</label>
+            <input type="text" id="to" placeholder="π.χ. Σύνταγμα, Αθήνα" autocomplete="off">
+          </div>
+          <div class="duo">
+            <div class="fld"><label><i class="far fa-calendar li"></i>Ημερομηνία</label><input type="date" id="date"></div>
+            <div class="fld"><label><i class="far fa-clock li"></i>Ώρα</label><input type="time" id="time"></div>
+          </div>
+
+          <div class="duo">
+            <div class="counter">
+              <div class="ct"><i class="fas fa-users"></i> Άτομα</div>
+              <div class="row">
+                <span class="stp" data-t="persons" data-d="-1"><i class="fas fa-minus"></i></span>
+                <span class="cval" id="v-persons">2</span>
+                <span class="stp" data-t="persons" data-d="1"><i class="fas fa-plus"></i></span>
+              </div>
+            </div>
+            <div class="counter">
+              <div class="ct"><i class="fas fa-suitcase-rolling"></i> Βαλίτσες</div>
+              <div class="row">
+                <span class="stp" data-t="luggage" data-d="-1"><i class="fas fa-minus"></i></span>
+                <span class="cval" id="v-luggage">2</span>
+                <span class="stp" data-t="luggage" data-d="1"><i class="fas fa-plus"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="counter">
+            <div class="ct"><i class="fas fa-baby"></i> Παιδικά καθίσματα</div>
+            <div class="row">
+              <span class="stp" data-t="seats" data-d="-1"><i class="fas fa-minus"></i></span>
+              <span class="cval" id="v-seats">0</span>
+              <span class="stp" data-t="seats" data-d="1"><i class="fas fa-plus"></i></span>
+            </div>
+          </div>
+
+          <div class="fld">
+            <label style="margin-bottom:7px;">Τύπος οχήματος <span class="auto-hint" id="autoHint"></span></label>
+            <div class="veh-wrap">
+              <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Ταξί</div></div>
+              <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Βαν</div></div>
+            </div>
+            <div class="van-msg" id="vanMsg">
+              <p>Για τόσα άτομα ή βαλίτσες προτείνεται <b>Βαν</b>. Αν θέλετε οπωσδήποτε απλό ταξί, επικοινωνήστε μαζί μας:</p>
+              <a class="wa-btn" href="https://wa.me/306936123322?text=Γεια%20σας!%20Θέλω%20απλό%20ταξί%20για%20τη%20διαδρομή%20μου." target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Επικοινωνία στο WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ΔΕΞΙΑ: στοιχεία πελάτη -->
+        <div class="colstack">
+          <div class="fld"><label><i class="fas fa-user li"></i>Ονοματεπώνυμο</label><input type="text" id="name" placeholder="Το όνομά σας" autocomplete="name"></div>
+          <div class="fld"><label><i class="fas fa-phone li"></i>Τηλέφωνο</label><input type="tel" id="phone" placeholder="69XXXXXXXX" autocomplete="tel"></div>
+          <div class="fld"><label><i class="fas fa-envelope li"></i>Email <span class="opt">(προαιρετικό)</span></label><input type="email" id="email" placeholder="name@email.com" autocomplete="email"></div>
+          <div class="fld"><label><i class="fas fa-plane li"></i>Πτήση / Πλοίο <span class="opt">(προαιρετικό)</span></label><input type="text" id="flight" placeholder="π.χ. A3 712"></div>
+          <div class="fld"><label><i class="fas fa-comment-dots li"></i>Σχόλια <span class="opt">(προαιρετικό)</span></label><textarea id="note" placeholder="Επιπλέον πληροφορίες για τον οδηγό…"></textarea></div>
+        </div>
+
+      </div>
+
+      <div class="price-box">
+        <div>
+          <div class="pl">Εκτιμώμενο κόστος</div>
+          <div class="ps">ενδεικτικό · θα επιβεβαιωθεί από τον πάροχο</div>
+        </div>
+        <div class="pv" id="priceView">0,00 €</div>
+      </div>
+
+      <button class="submit" id="sendBtn" type="button"><i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή</button>
+      <div class="note">Πατώντας «Αποδοχή και αποστολή» στέλνετε αίτημα κράτησης. Θα λάβετε επιβεβαίωση από την ομάδα μας.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">© AthensTaxi · <a href="index.html">Επιστροφή στην αρχική</a></div>
+
+<script>
+/* ====== ΡΥΘΜΙΣΕΙΣ ====== */
+/* Το endpoint του Cloud Function. region: us-central1 (callables σου).
+   Αν αλλάξει, ενημέρωσε ΜΟΝΟ αυτή τη γραμμή. */
+const ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/submitPublicBooking";
+
+/* Όρια οχήματος (συμφωνημένη λογική) */
+const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Βαν
+const LUGGAGE_VAN_THRESHOLD = 5;  // βαλίτσες >= 5 -> Βαν
+
+const MAX = { persons:8, luggage:12, seats:4 };
+const MIN = { persons:1, luggage:0,  seats:0 };
+
+const state = { persons:2, luggage:2, seats:0, veh:'taxi', autoVan:false };
+
+/* ---- Counters ---- */
+function clampStep(t,d){
+  const nv = state[t] + d;
+  state[t] = Math.max(MIN[t], Math.min(MAX[t], nv));
+}
+function recomputeVehicle(){
+  const wasAuto = state.autoVan;
+  state.autoVan = (state.persons >= PERSON_VAN_THRESHOLD ||
+                   state.luggage >= LUGGAGE_VAN_THRESHOLD);
+  if (state.autoVan){
+    state.veh = 'van';                 // κλειδώνει σε Βαν
+  } else if (wasAuto && !state.autoVan){
+    state.veh = 'taxi';                // έπεσε κάτω από το όριο -> ξανά Ταξί
+  }
+}
+function render(){
+  for (const t of ['persons','luggage','seats']){
+    document.getElementById('v-'+t).textContent = state[t];
+  }
+  // disable στα steppers στα όρια
+  document.querySelectorAll('.stp').forEach(b=>{
+    const t=b.dataset.t, d=parseInt(b.dataset.d,10);
+    const atMax = d>0 && state[t]>=MAX[t];
+    const atMin = d<0 && state[t]<=MIN[t];
+    b.classList.toggle('dis', atMax||atMin);
+  });
+  document.getElementById('vehTaxi').classList.toggle('sel', state.veh==='taxi');
+  document.getElementById('vehVan').classList.toggle('sel', state.veh==='van');
+  document.getElementById('autoHint').textContent = state.autoVan ? '· προτείνεται Βαν' : '';
+  document.getElementById('vanMsg').style.display = state.autoVan ? 'block' : 'none';
+}
+
+document.querySelectorAll('.stp').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    if (b.classList.contains('dis')) return;
+    clampStep(b.dataset.t, parseInt(b.dataset.d,10));
+    recomputeVehicle();
+    render();
+  });
+});
+
+document.getElementById('vehTaxi').addEventListener('click', ()=>{
+  if (state.autoVan){ document.getElementById('vanMsg').style.display='block'; return; }
+  state.veh='taxi'; render();
+});
+document.getElementById('vehVan').addEventListener('click', ()=>{
+  state.veh='van'; render();
+});
+
+/* ---- Submit ---- */
+const btn = document.getElementById('sendBtn');
+
+function gather(){
+  return {
+    from:    document.getElementById('from').value.trim(),
+    to:      document.getElementById('to').value.trim(),
+    date:    document.getElementById('date').value,   // YYYY-MM-DD
+    time:    document.getElementById('time').value,   // HH:MM
+    persons: state.persons,
+    luggage: state.luggage,
+    childSeatCount: state.seats,
+    vehicleType: state.veh,            // 'taxi' | 'van'
+    name:    document.getElementById('name').value.trim(),
+    phone:   document.getElementById('phone').value.trim(),
+    email:   document.getElementById('email').value.trim(),
+    flight:  document.getElementById('flight').value.trim(),
+    note:    document.getElementById('note').value.trim(),
+    lang:    document.documentElement.lang || 'el'
+  };
+}
+
+function setBtn(state_, html){
+  btn.className = 'submit' + (state_?(' '+state_):'');
+  btn.innerHTML = html;
+}
+
+btn.addEventListener('click', async ()=>{
+  const data = gather();
+
+  // Ελάχιστη επικύρωση
+  if (!data.from || !data.to){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε Από και Προς'); return; }
+  if (!data.name || !data.phone){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε όνομα και τηλέφωνο'); return; }
+  if (!data.date || !data.time){ flash('err','<i class="fas fa-exclamation-circle"></i> Επιλέξτε ημερομηνία και ώρα'); return; }
+
+  btn.disabled = true;
+  setBtn('', '<i class="fas fa-spinner fa-spin"></i> Αποστολή…');
+
+  try{
+    const res = await fetch(ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    setBtn('ok', '<i class="fas fa-check"></i> Στάλθηκε! Θα επικοινωνήσουμε σύντομα');
+    setTimeout(resetForm, 2600);
+  }catch(e){
+    console.error(e);
+    btn.disabled = false;
+    flash('err','<i class="fas fa-exclamation-circle"></i> Σφάλμα αποστολής — δοκιμάστε ξανά');
+  }
+});
+
+function flash(kind, html){
+  setBtn(kind, html);
+  setTimeout(()=>{ if(!btn.disabled||kind==='err'){ btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή'); } }, 2400);
+}
+function resetForm(){
+  ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
+  state.persons=2; state.luggage=2; state.seats=0; state.veh='taxi'; state.autoVan=false;
+  btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή');
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
