@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κράτηση Μεταφοράς · AthensTaxi</title>
+<title>Κράτηση Μεταφοράς · TaxiAthensTransfers.com</title>
 <meta name="theme-color" content="#0a192f">
 <meta name="robots" content="noindex">
 
@@ -60,11 +60,13 @@ body{
   border-bottom:1px solid rgba(255,215,0,0.08);
 }
 .logo{
-  font-size:1.6rem;font-weight:800;color:var(--white);
-  display:flex;align-items:center;gap:9px;text-decoration:none;
+  font-size:1.8rem;font-weight:800;color:var(--white);
+  display:flex;align-items:center;gap:15px;text-decoration:none;
 }
-.logo i{color:var(--primary-color);}
-.logo span{color:var(--primary-color);}
+.brand-logo{height:50px;width:auto;object-fit:contain;border-radius:8px;}
+.logo-text{font-size:1.5rem;font-weight:800;}
+.logo-text span{color:var(--primary-color);}
+@media (max-width:620px){.brand-logo{height:40px;}.logo-text{font-size:1.15rem;}}
 .nav-actions{display:flex;align-items:center;gap:18px;}
 
 /* ---------- LANGUAGE SWITCHER (1:1 από το site) ---------- */
@@ -103,6 +105,26 @@ body{
   gap:8px !important;font-size:14px;font-weight:700;transition:all .25s ease;border-radius:7px;
 }
 .dropdown-content a:hover{background:rgba(255,215,0,.18) !important;transform:translateX(3px);}
+/* Animation εισόδου γλωσσών (1:1 από το site) */
+.lang-switcher:hover .dropdown-content a{animation:langItemSlideIn .4s cubic-bezier(.16,1,.3,1) forwards;}
+.lang-switcher:hover .dropdown-content a:nth-child(1){animation-delay:.05s;}
+.lang-switcher:hover .dropdown-content a:nth-child(2){animation-delay:.05s;}
+.lang-switcher:hover .dropdown-content a:nth-child(3){animation-delay:.10s;}
+.lang-switcher:hover .dropdown-content a:nth-child(4){animation-delay:.10s;}
+.lang-switcher:hover .dropdown-content a:nth-child(5){animation-delay:.15s;}
+.lang-switcher:hover .dropdown-content a:nth-child(6){animation-delay:.15s;}
+.lang-switcher:hover .dropdown-content a:nth-child(7){animation-delay:.20s;}
+.lang-switcher:hover .dropdown-content a:nth-child(8){animation-delay:.20s;}
+.lang-switcher:hover .dropdown-content a:nth-child(9){animation-delay:.25s;}
+.lang-switcher:hover .dropdown-content a:nth-child(10){animation-delay:.25s;}
+.lang-switcher:hover .dropdown-content a:nth-child(11){animation-delay:.30s;}
+.lang-switcher:hover .dropdown-content a:nth-child(12){animation-delay:.30s;}
+.lang-switcher:hover .dropdown-content a:nth-child(13){animation-delay:.35s;}
+.lang-switcher:hover .dropdown-content a:nth-child(14){animation-delay:.35s;}
+@keyframes langItemSlideIn{
+  0%{opacity:0;transform:translateX(-12px);}
+  100%{opacity:1;transform:translateX(0);}
+}
 
 /* ---------- FORM CARD ---------- */
 .wrap{max-width:760px;margin:0 auto;padding:34px 18px 60px;}
@@ -216,7 +238,10 @@ body{
 
 <!-- ============ NAVBAR ============ -->
 <header class="navbar">
-  <a href="index.html" class="logo"><i class="fas fa-taxi"></i> Athens<span>Taxi</span></a>
+  <a href="index.html" class="logo">
+    <img src="../images/logo.jpg" alt="Logo Taxi & Van Transfers" class="brand-logo">
+    <div class="logo-text">Taxi <span>&amp; Van Transfers</span></div>
+  </a>
   <div class="nav-actions">
     <!-- Language switcher: ίδιος με το site. ΦΑΣΗ 1: τα links δεν οδηγούν
          κάπου ακόμη (href="#") — όταν μεταφραστεί η σελίδα στις 14 γλώσσες,
@@ -255,7 +280,7 @@ body{
       <div class="ic"><i class="fas fa-car"></i></div>
       <div>
         <h2>Στοιχεία διαδρομής</h2>
-        <div class="sub">AthensTaxi · γρήγορα και εύκολα</div>
+        <div class="sub">TaxiAthensTransfers.com · γρήγορα και εύκολα</div>
       </div>
     </div>
 
@@ -343,7 +368,7 @@ body{
   </div>
 </div>
 
-<div class="foot">© AthensTaxi · <a href="index.html">Επιστροφή στην αρχική</a></div>
+<div class="foot">© TaxiAthensTransfers.com · <a href="index.html">Επιστροφή στην αρχική</a></div>
 
 <script>
 /* ====== ΡΥΘΜΙΣΕΙΣ ====== */
