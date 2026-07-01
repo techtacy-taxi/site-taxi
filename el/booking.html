@@ -219,11 +219,18 @@ body{
 .price-box .pl{color:#cdd6ee;font-size:.78rem;font-weight:600;}
 .price-box .ps{color:var(--text-muted);font-size:.68rem;}
 .price-box .pv-row{display:flex;align-items:baseline;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
-.price-box .pv-original{color:var(--text-muted);font-size:.95rem;text-decoration:line-through;}
+.price-box .pv-original{color:var(--text-muted);font-size:1.5rem;text-decoration:line-through;}
 .price-box .pv-discount{color:var(--whatsapp);background:rgba(37,211,102,.14);font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
 .price-box .pv{color:var(--primary-color);font-size:1.7rem;font-weight:800;}
 .price-box .pv-night{color:var(--text-muted);font-size:.68rem;font-weight:600;white-space:nowrap;}
 .price-footnote{color:var(--text-muted);font-size:.66rem;margin-top:6px;text-align:right;}
+/* Scrollable time picker */
+.time-wrap{position:relative;}
+.time-scroll{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:40;max-height:220px;overflow-y:auto;background:var(--field-bg,#1a2438);border:1px solid var(--primary-color);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);-webkit-overflow-scrolling:touch;}
+.time-wrap.open .time-scroll{display:block;}
+.time-opt{padding:10px 14px;cursor:pointer;color:#e8edf7;font-size:.95rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.time-opt:hover{background:rgba(255,183,0,.15);}
+.time-opt.sel{background:var(--primary-color);color:#1a2438;font-weight:700;}
 
 /* Submit */
 .submit{
@@ -479,7 +486,12 @@ body.is-mobile .map-gps{display:flex;}
           </div>
           <div class="duo">
             <div class="fld"><label><i class="far fa-calendar li"></i>Ημερομηνία</label><input type="date" id="date"></div>
-            <div class="fld"><label><i class="far fa-clock li"></i>Ώρα</label><input type="time" id="time"></div>
+            <div class="fld"><label><i class="far fa-clock li"></i>Ώρα</label>
+              <div class="time-wrap">
+                <input type="text" id="time" readonly placeholder="Επιλέξτε ώρα" autocomplete="off">
+                <div class="time-scroll" id="timeScroll"></div>
+              </div>
+            </div>
           </div>
 
           <div class="duo">
@@ -847,6 +859,8 @@ function flash(kind, html){
 }
 function resetForm(){
   ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
+  const _ts = document.getElementById('timeScroll');
+  if (_ts) _ts.querySelectorAll('.time-opt.sel').forEach(o=>o.classList.remove('sel'));
   state.persons=2; state.luggage=2; state.seats=0; state.veh='taxi'; state.autoVan=false;
   state.fromLat=state.fromLng=state.toLat=state.toLng=null;
   lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
@@ -1415,8 +1429,48 @@ document.addEventListener('click', (e)=>{
   if (!ccBtn.contains(e.target) && !ccList.contains(e.target)) ccList.classList.remove('open');
 });
 
+/* ---- Scrollable time picker (5λεπτα intervals) ---- */
+(function(){
+  const wrap = document.querySelector('.time-wrap');
+  const input = document.getElementById('time');
+  const scroll = document.getElementById('timeScroll');
+  if (!wrap || !input || !scroll) return;
+
+  for (let h=0; h<24; h++){
+    for (let m=0; m<60; m+=5){
+      const hh = String(h).padStart(2,'0');
+      const mm = String(m).padStart(2,'0');
+      const val = hh+':'+mm;
+      const opt = document.createElement('div');
+      opt.className = 'time-opt';
+      opt.textContent = val;
+      opt.dataset.val = val;
+      opt.addEventListener('click', ()=>{
+        input.value = val;
+        scroll.querySelectorAll('.time-opt').forEach(o=>o.classList.remove('sel'));
+        opt.classList.add('sel');
+        wrap.classList.remove('open');
+        if (typeof scheduleEstimate === 'function') scheduleEstimate();
+      });
+      scroll.appendChild(opt);
+    }
+  }
+
+  input.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const wasOpen = wrap.classList.contains('open');
+    wrap.classList.toggle('open');
+    if (!wasOpen){
+      const sel = scroll.querySelector('.time-opt.sel') || scroll.querySelector('.time-opt');
+      if (sel) setTimeout(()=>{ sel.scrollIntoView({block:'center'}); }, 20);
+    }
+  });
+  document.addEventListener('click', (e)=>{
+    if (!wrap.contains(e.target)) wrap.classList.remove('open');
+  });
+})();
+
 document.getElementById('date').addEventListener('change', scheduleEstimate);
-document.getElementById('time').addEventListener('change', scheduleEstimate);
 
 render();
 </script>
