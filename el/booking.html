@@ -218,7 +218,12 @@ body{
 .price-box{margin-top:20px;background:var(--field-bg);border:1px dashed var(--primary-color);border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;}
 .price-box .pl{color:#cdd6ee;font-size:.78rem;font-weight:600;}
 .price-box .ps{color:var(--text-muted);font-size:.68rem;}
+.price-box .pv-row{display:flex;align-items:baseline;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+.price-box .pv-original{color:var(--text-muted);font-size:.95rem;text-decoration:line-through;}
+.price-box .pv-discount{color:var(--whatsapp);background:rgba(37,211,102,.14);font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
 .price-box .pv{color:var(--primary-color);font-size:1.7rem;font-weight:800;}
+.price-box .pv-night{color:var(--text-muted);font-size:.68rem;font-weight:600;white-space:nowrap;}
+.price-footnote{color:var(--text-muted);font-size:.66rem;margin-top:6px;text-align:right;}
 
 /* Submit */
 .submit{
@@ -511,10 +516,6 @@ body.is-mobile .map-gps{display:flex;}
               <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Ταξί</div></div>
               <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Βαν</div></div>
             </div>
-            <div class="van-msg" id="vanMsg">
-              <p>Για τόσα άτομα ή βαλίτσες προτείνεται <b>Βαν</b>. Αν θέλετε οπωσδήποτε απλό ταξί, επικοινωνήστε μαζί μας:</p>
-              <a class="wa-btn" href="https://wa.me/306936123322?text=Γεια%20σας!%20Θέλω%20απλό%20ταξί%20για%20τη%20διαδρομή%20μου." target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Επικοινωνία στο WhatsApp</a>
-            </div>
           </div>
         </div>
 
@@ -556,11 +557,26 @@ body.is-mobile .map-gps{display:flex;}
           <div class="pl">Εκτιμώμενο κόστος</div>
           <div class="ps">ενδεικτικό · θα επιβεβαιωθεί από τον πάροχο</div>
         </div>
-        <div class="pv" id="priceView">0,00 €</div>
+        <div>
+          <div class="pv-row">
+            <span class="pv-original" id="priceOriginal" style="display:none;"></span>
+            <span class="pv-discount" id="priceDiscountLabel" style="display:none;"></span>
+            <div class="pv" id="priceView">0,00 €</div>
+            <div class="pv-night" id="priceNightLabel" style="display:none;">Νυχτερινός τιμοκατάλογος *</div>
+          </div>
+        </div>
       </div>
+      <div class="price-footnote" id="minChargeNote" style="display:none;">Είναι η μικρότερη τιμή για δέσμευση οχήματος.</div>
+      <div class="price-footnote" id="priceFootnote" style="display:none;">* Ισχύει το νυχτερινό τιμολόγιο (23:30–05:30), όπως ορίζει η κυβέρνηση.</div>
 
-      <button class="submit" id="sendBtn" type="button"><i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή</button>
-      <div class="note">Πατώντας «Αποδοχή και αποστολή» στέλνετε αίτημα κράτησης. Θα λάβετε επιβεβαίωση από την ομάδα μας.</div>
+      <div id="actionArea">
+        <button class="submit" id="sendBtn" type="button"><i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή</button>
+        <div class="note">Πατώντας «Αποδοχή και αποστολή» στέλνετε αίτημα κράτησης. Θα λάβετε επιβεβαίωση από την ομάδα μας.</div>
+      </div>
+      <div class="van-msg" id="waArea" style="display:none;">
+        <p id="waReasonText">Η κράτηση δεν μπορεί να σταλεί αυτόματα — επικοινωνήστε μαζί μας.</p>
+        <a class="wa-btn" id="waLink" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Επικοινωνία στο WhatsApp</a>
+      </div>
     </div>
   </div>
 </div>
@@ -603,6 +619,7 @@ if (IS_MOBILE) document.body.classList.add('is-mobile');
 /* Το endpoint του Cloud Function. region: us-central1 (callables σου).
    Αν αλλάξει, ενημέρωσε ΜΟΝΟ αυτή τη γραμμή. */
 const ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/submitPublicBooking";
+const ESTIMATE_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/estimatePrice";
 
 /* Όρια οχήματος (συμφωνημένη λογική) */
 const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Βαν
@@ -644,7 +661,7 @@ function render(){
   document.getElementById('vehTaxi').classList.toggle('sel', state.veh==='taxi');
   document.getElementById('vehVan').classList.toggle('sel', state.veh==='van');
   document.getElementById('autoHint').textContent = state.autoVan ? '· προτείνεται Βαν' : '';
-  document.getElementById('vanMsg').style.display = state.autoVan ? 'block' : 'none';
+  scheduleEstimate();
 }
 
 document.querySelectorAll('.stp').forEach(b=>{
@@ -657,12 +674,107 @@ document.querySelectorAll('.stp').forEach(b=>{
 });
 
 document.getElementById('vehTaxi').addEventListener('click', ()=>{
-  if (state.autoVan){ document.getElementById('vanMsg').style.display='block'; return; }
+  if (state.autoVan) return;   // κλειδωμένο σε Βαν — βλ. actionArea/waArea
   state.veh='taxi'; render();
 });
 document.getElementById('vehVan').addEventListener('click', ()=>{
   state.veh='van'; render();
 });
+
+/* ---- Ζωντανή εκτίμηση τιμής (ζώνες/δυναμικός τύπος/νυχτερινό/μπλάκαουτ) ---- */
+let lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
+  displayOriginal:0, discountPercent:8, minChargeApplied:false };
+let estimateDebounce=null, estimateSeq=0;
+
+function fmtEUR(v){ return Math.max(0, v).toFixed(2).replace('.', ',') + ' €'; }
+
+function scheduleEstimate(){
+  if (estimateDebounce) clearTimeout(estimateDebounce);
+  estimateDebounce = setTimeout(fetchEstimate, 400);
+}
+
+async function fetchEstimate(){
+  const data = gather();
+  if (data.fromLat==null || data.fromLng==null || data.toLat==null || data.toLng==null){
+    lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
+      displayOriginal:0, discountPercent:8, minChargeApplied:false };
+    renderPrice();
+    return;
+  }
+  const mySeq = ++estimateSeq;
+  try{
+    const res = await fetch(ESTIMATE_ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        fromLat:data.fromLat, fromLng:data.fromLng, toLat:data.toLat, toLng:data.toLng,
+        persons:data.persons, luggage:data.luggage, childSeatCount:data.childSeatCount,
+        vehicleType:data.vehicleType, lang:data.lang, dialCode:state.dialCode,
+        date:data.date, time:data.time,
+      }),
+    });
+    if (mySeq !== estimateSeq) return;   // ξεπερασμένη απάντηση (ο χρήστης άλλαξε κάτι στο μεταξύ)
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const j = await res.json();
+    if (!j.ok) throw new Error(j.error || 'estimate_error');
+    lastEstimate = { price:j.price||0, nightApplies:!!j.nightApplies, blocked:!!j.blocked, reasons:j.reasons||[],
+      displayOriginal:j.displayOriginal||0, discountPercent:j.discountPercent||8, minChargeApplied:!!j.minChargeApplied };
+  }catch(e){
+    console.error('estimate error:', e);
+  }
+  renderPrice();
+}
+
+function reasonLabel(code){
+  if (code==='blackout')       return 'Εκτός ωραρίου φόρμας για αυτή την ώρα';
+  if (code==='lead_time')      return 'Λιγότερο από 2 ώρες προθεσμία';
+  if (code==='large_order')    return 'Μεγάλη παραγγελία — χρειάζεται προσωπική επιβεβαίωση';
+  if (code==='outside_attica') return 'Διαδρομή εκτός Αττικής — χρειάζεται προσωπική επιβεβαίωση';
+  return 'Χρειάζεται προσωπική επιβεβαίωση';
+}
+
+function buildWhatsAppMessage(){
+  const data = gather();
+  const lines = [
+    'Νέο αίτημα κράτησης (εκτός φόρμας)',
+    'Από: '   + (data.from || '-'),
+    'Προς: '  + (data.to   || '-'),
+    'Ημερομηνία/ώρα: ' + (data.date||'-') + ' ' + (data.time||'-'),
+    'Άτομα: '            + data.persons,
+    'Βαλίτσες: '         + data.luggage,
+    'Παιδικά καθίσματα: '+ data.childSeatCount,
+    'Όχημα: ' + (data.vehicleType==='van' ? 'Βαν' : 'Ταξί'),
+    'Όνομα: '     + (data.name  || '-'),
+    'Τηλέφωνο: '  + (data.phone || '-'),
+    'Εκτιμώμενη τιμή: ' + fmtEUR(lastEstimate.price),
+    'Λόγος: ' + (lastEstimate.reasons.map(reasonLabel).join(' · ') || '-'),
+  ];
+  return lines.join('\n');
+}
+
+function renderPrice(){
+  document.getElementById('priceView').textContent = fmtEUR(lastEstimate.price);
+
+  const showDiscount = lastEstimate.displayOriginal > lastEstimate.price && lastEstimate.price > 0;
+  document.getElementById('priceOriginal').style.display = showDiscount ? 'inline' : 'none';
+  document.getElementById('priceOriginal').textContent   = showDiscount ? fmtEUR(lastEstimate.displayOriginal) : '';
+  document.getElementById('priceDiscountLabel').style.display = showDiscount ? 'inline' : 'none';
+  document.getElementById('priceDiscountLabel').textContent   = showDiscount
+    ? ('Έκπτωση γνωριμίας ' + lastEstimate.discountPercent + '%') : '';
+
+  document.getElementById('priceNightLabel').style.display = lastEstimate.nightApplies ? 'inline' : 'none';
+  document.getElementById('priceFootnote').style.display   = lastEstimate.nightApplies ? 'block'  : 'none';
+  document.getElementById('minChargeNote').style.display   = lastEstimate.minChargeApplied ? 'block' : 'none';
+
+  const blocked = lastEstimate.blocked;
+  document.getElementById('actionArea').style.display = blocked ? 'none'  : 'block';
+  document.getElementById('waArea').style.display      = blocked ? 'block' : 'none';
+  if (blocked){
+    document.getElementById('waReasonText').textContent = reasonLabel(lastEstimate.reasons[0]) + '.';
+    const msg = buildWhatsAppMessage();
+    document.getElementById('waLink').href = 'https://wa.me/306936123322?text=' + encodeURIComponent(msg);
+  }
+}
 
 /* ---- Submit ---- */
 const btn = document.getElementById('sendBtn');
@@ -699,6 +811,7 @@ function isValidEmail(e){
 }
 
 btn.addEventListener('click', async ()=>{
+  if (lastEstimate.blocked){ return; }  // ασφάλεια — το UI ήδη δείχνει WhatsApp σε αυτή την περίπτωση
   const data = gather();
 
   // Επικύρωση
@@ -736,6 +849,8 @@ function resetForm(){
   ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
   state.persons=2; state.luggage=2; state.seats=0; state.veh='taxi'; state.autoVan=false;
   state.fromLat=state.fromLng=state.toLat=state.toLng=null;
+  lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
+    displayOriginal:0, discountPercent:8, minChargeApplied:false };
   btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή');
   render();
 }
@@ -748,6 +863,7 @@ document.getElementById('swapBtn').addEventListener('click', ()=>{
   [fi.value, ti.value] = [ti.value, fi.value];
   [state.fromLat, state.toLat] = [state.toLat, state.fromLat];
   [state.fromLng, state.toLng] = [state.toLng, state.fromLng];
+  scheduleEstimate();
 });
 
 /* ============ GOOGLE MAPS: autocomplete (Places New) + χάρτης ============ */
@@ -863,6 +979,7 @@ async function pickSuggestion(id, idx){
     document.getElementById(id).value = text;
     if (id==='from'){ state.fromLat=lat; state.fromLng=lng; }
     else { state.toLat=lat; state.toLng=lng; }
+    scheduleEstimate();
   }catch(e){ console.warn('place details error:', e); }
   closeAc(id);
   newSession();   // νέο session μετά από επιλογή (χρέωση ανά session)
@@ -942,6 +1059,7 @@ function confirmMap(){
   document.getElementById(mapTargetId).value = mapPickedAddr;
   if (mapTargetId==='from'){ state.fromLat=lat; state.fromLng=lng; }
   else { state.toLat=lat; state.toLng=lng; }
+  scheduleEstimate();
   closeMap();
 }
 
@@ -980,6 +1098,7 @@ document.querySelectorAll('.gps-btn').forEach(b=>{
           document.getElementById(id).value = text;
           if (id==='from'){ state.fromLat=lat; state.fromLng=lng; }
           else { state.toLat=lat; state.toLng=lng; }
+          scheduleEstimate();
         });
       },
       (code)=>{ b.classList.remove('busy'); gpsError(code); }
@@ -1280,6 +1399,7 @@ function renderCountries(filter){
       document.getElementById('ccFlag').alt = co.c;
       document.getElementById('ccCode').textContent = co.d;
       ccList.classList.remove('open');
+      scheduleEstimate();
     });
     ccItems.appendChild(row);
   });
@@ -1294,6 +1414,9 @@ ccSearch.addEventListener('click', (e)=>e.stopPropagation());
 document.addEventListener('click', (e)=>{
   if (!ccBtn.contains(e.target) && !ccList.contains(e.target)) ccList.classList.remove('open');
 });
+
+document.getElementById('date').addEventListener('change', scheduleEstimate);
+document.getElementById('time').addEventListener('change', scheduleEstimate);
 
 render();
 </script>
