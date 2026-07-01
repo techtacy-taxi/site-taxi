@@ -513,7 +513,7 @@ body.is-mobile .map-gps{display:flex;}
           <div class="fld">
             <label style="margin-bottom:7px;">Τύπος οχήματος <span class="auto-hint" id="autoHint"></span></label>
             <div class="veh-wrap">
-              <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Ταξί</div></div>
+              <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Ταξί / Sedan</div></div>
               <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Βαν</div></div>
             </div>
           </div>
@@ -743,7 +743,7 @@ function buildWhatsAppMessage(){
     'Άτομα: '            + data.persons,
     'Βαλίτσες: '         + data.luggage,
     'Παιδικά καθίσματα: '+ data.childSeatCount,
-    'Όχημα: ' + (data.vehicleType==='van' ? 'Βαν' : 'Ταξί'),
+    'Όχημα: ' + (data.vehicleType==='van' ? 'Βαν' : 'Ταξί / Sedan'),
     'Όνομα: '     + (data.name  || '-'),
     'Τηλέφωνο: '  + (data.phone || '-'),
     'Εκτιμώμενη τιμή: ' + fmtEUR(lastEstimate.price),
