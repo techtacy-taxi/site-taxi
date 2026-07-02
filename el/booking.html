@@ -1082,8 +1082,22 @@ document.querySelectorAll('.map-btn').forEach(b=>{
 });
 document.getElementById('mapClose').addEventListener('click', closeMap);
 document.getElementById('mapConfirm').addEventListener('click', confirmMap);
-document.getElementById('mapModal').addEventListener('click', (e)=>{
-  if (e.target.id==='mapModal') closeMap();
+
+// ΣΗΜΑΝΤΙΚΟ: κλείνουμε το modal ΜΟΝΟ αν το «πάτημα» ξεκίνησε ΚΑΙ τελείωσε
+// πάνω στο ίδιο το backdrop (γκρι φόντο) — όχι αν ξεκίνησε μέσα στον χάρτη
+// και απλώς το mouseup/touchend «προσγειώθηκε» εκεί λόγω μετακίνησης
+// (σύρσιμο χάρτη). Αλλιώς το drag του χάρτη έκλεινε κατά λάθος το modal,
+// τόσο με ποντίκι όσο και με δάχτυλο.
+let _mapModalPressStartedOnBackdrop = false;
+const _mapModalEl = document.getElementById('mapModal');
+['mousedown','touchstart'].forEach(evt=>{
+  _mapModalEl.addEventListener(evt, (e)=>{
+    _mapModalPressStartedOnBackdrop = (e.target.id === 'mapModal');
+  }, { passive: true });
+});
+_mapModalEl.addEventListener('click', (e)=>{
+  if (e.target.id==='mapModal' && _mapModalPressStartedOnBackdrop) closeMap();
+  _mapModalPressStartedOnBackdrop = false;
 });
 
 /* ============ GPS: «η τοποθεσία μου» (μόνο κινητό) ============ */
