@@ -885,6 +885,12 @@ document.getElementById('swapBtn').addEventListener('click', ()=>{
 const GREECE_BOUNDS = { south:34.7, west:19.3, north:41.8, east:29.7 };
 let geocoder=null, mapObj=null, mapTargetId=null, mapPickedAddr='', mapDebounce=null;
 
+// Κωδικός τοποθεσίας Google Maps (Plus Code / Open Location Code), π.χ.
+// "M3W4+9W Λαύριο" ή global "8FVC9G8F+6X". Το Places Autocomplete δεν τους
+// καταλαβαίνει καλά σαν ελεύθερο κείμενο — λύνονται ξεχωριστά με τον
+// Geocoder (που ήδη φορτώνεται παρακάτω, βιβλιοθήκη 'geocoding').
+const PLUS_CODE_RE = /\b[23456789CFGHJMPQRVWX]{4,8}\+[23456789CFGHJMPQRVWX]{2,3}\b/i;
+
 // Places New API references (φορτώνονται στο initBooking)
 let AutocompleteSuggestion=null, AutocompleteSessionToken=null, PlaceClass=null, LatLngBoundsClass=null;
 let acSessionToken=null;
@@ -929,7 +935,89 @@ function onAcInput(id){
   const st = acState[id];
   if (st.timer) clearTimeout(st.timer);
   if (q.length < 3){ closeAc(id); return; }   // ξεκινά από 3 χαρακτήρες
+  if (PLUS_CODE_RE.test(q)){ st.timer = setTimeout(()=>fetchPlusCode(id, q), 280); return; }
   st.timer = setTimeout(()=>fetchSuggestions(id, q), 280);
+}
+
+// Κωδικός τοποθεσίας (Plus Code) → Geocoder απευθείας (δέχεται και τη
+// σύντομη μορφή με τοπωνύμιο μετά, π.χ. "M3W4+9W Λαύριο").
+//
+// ΣΗΜΑΝΤΙΚΟ: όταν κάποιος κάνει copy-paste μια τοποθεσία απευθείας από το
+// Google Maps, συχνά έρχεται σαν "M3W4+9W, Λαύριο 195 00" — δηλαδή με ΚΟΜΜΑ
+// και ΤΑΧΥΔΡΟΜΙΚΟ ΚΩΔΙΚΑ στο τέλος. Το Geocoding API περιμένει τη μορφή
+// "ΚΩΔΙΚΟΣ ΤΟΠΩΝΥΜΙΟ" (χωρίς κόμμα, χωρίς Τ.Κ.) και με τον Τ.Κ. στο τέλος
+// συχνά επιστρέφει ZERO_RESULTS — οπότε δεν εμφανιζόταν ΚΑΝΕΝΑ αποτέλεσμα.
+// Καθαρίζουμε το κείμενο πριν το στείλουμε, και αν παρόλα αυτά αποτύχει,
+// ξαναδοκιμάζουμε μόνο με τον γυμνό κωδικό (δουλεύει για global κωδικούς).
+function cleanPlusCodeQuery(q){
+  const m = PLUS_CODE_RE.exec(q);
+  if (!m) return { code: null, compound: q };
+  const code = m[0];
+  let rest = q.slice(m.index + code.length);
+  rest = rest.replace(/^[\s,]+/, '');          // κόμμα/κενά αμέσως μετά τον κωδικό
+  rest = rest.replace(/[\d\s]{3,}$/, '');       // Τ.Κ. στο τέλος ("195 00", "19500")
+  rest = rest.replace(/[,.\s]+$/, '').trim();   // υπολειπόμενα σημεία στίξης
+  return { code, compound: rest ? (code + ' ' + rest) : code };
+}
+
+function fetchPlusCode(id, q){
+  if (!geocoder) return;
+  const { code, compound } = cleanPlusCodeQuery(q);
+  geocoder.geocode({ address:compound, region:'gr' }, (results, status)=>{
+    if (status==='OK' && results && results.length){
+      const r = results[0];
+      renderPlusCodeResult(id, {
+        text: r.formatted_address || compound,
+        lat:  r.geometry.location.lat(),
+        lng:  r.geometry.location.lng(),
+      });
+      return;
+    }
+    // Fallback: μόνο ο γυμνός κωδικός (χωρίς τοπωνύμιο) — καλύπτει τους
+    // global κωδικούς (π.χ. "8FVC9G8F+6X") και περιπτώσεις που το τοπωνύμιο
+    // μπέρδεψε τον Geocoder.
+    if (code && compound !== code){
+      geocoder.geocode({ address:code, region:'gr' }, (results2, status2)=>{
+        if (status2==='OK' && results2 && results2.length){
+          const r2 = results2[0];
+          renderPlusCodeResult(id, {
+            text: r2.formatted_address || code,
+            lat:  r2.geometry.location.lat(),
+            lng:  r2.geometry.location.lng(),
+          });
+        } else {
+          renderPlusCodeResult(id, null);
+        }
+      });
+    } else {
+      renderPlusCodeResult(id, null);
+    }
+  });
+}
+
+function renderPlusCodeResult(id, resolved){
+  const list = document.getElementById('ac-'+id);
+  const st = acState[id];
+  st.items = resolved ? [{ plusCode: resolved }] : [];
+  st.active = -1;
+  if (!resolved){
+    list.innerHTML = '<div class="ac-item" style="opacity:.7;cursor:default">'+
+      '<i class="fas fa-triangle-exclamation"></i><div><div class="ac-main">'+
+      'Δεν βρέθηκε ο κωδικός τοποθεσίας</div></div></div>';
+    list.classList.add('open');
+    return;
+  }
+  list.innerHTML = '';
+  const row = document.createElement('div');
+  row.className = 'ac-item';
+  row.innerHTML =
+    '<i class="fas fa-location-crosshairs"></i><div>' +
+    '<div class="ac-main">'+escapeHtml(resolved.text)+'</div>' +
+    '<div class="ac-sub">Κωδικός τοποθεσίας (Plus Code)</div>' +
+    '</div>';
+  row.addEventListener('mousedown', (e)=>{ e.preventDefault(); pickSuggestion(id, 0); });
+  list.appendChild(row);
+  list.classList.add('open');
 }
 
 async function fetchSuggestions(id, q){
@@ -983,7 +1071,20 @@ function renderSuggestions(id, suggestions){
 async function pickSuggestion(id, idx){
   const st = acState[id];
   const s = st.items[idx];
-  if (!s || !s.placePrediction) return;
+  if (!s) return;
+
+  // Κωδικός τοποθεσίας (Plus Code) — ήδη λυμένος από τον Geocoder, γέμισε
+  // απευθείας χωρίς fetchFields (δεν υπάρχει place/placePrediction εδώ).
+  if (s.plusCode){
+    document.getElementById(id).value = s.plusCode.text;
+    if (id==='from'){ state.fromLat=s.plusCode.lat; state.fromLng=s.plusCode.lng; }
+    else { state.toLat=s.plusCode.lat; state.toLng=s.plusCode.lng; }
+    scheduleEstimate();
+    closeAc(id);
+    return;
+  }
+
+  if (!s.placePrediction) return;
   try{
     const place = s.placePrediction.toPlace();
     await place.fetchFields({ fields:['formattedAddress','location','displayName'] });
