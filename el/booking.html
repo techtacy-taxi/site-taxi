@@ -604,6 +604,7 @@ body.is-mobile .map-gps{display:flex;}
       <div id="actionArea">
         <button class="submit" id="sendBtn" type="button"><i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή</button>
         <div class="note" id="payNote">Θα μεταφερθείτε στη σελίδα ασφαλούς πληρωμής (Viva). Η κράτηση οριστικοποιείται μόνο μετά την επιτυχή πληρωμή της προκαταβολής.</div>
+        <div class="note" style="margin-top:6px;">Πατώντας το κουμπί αποδέχεστε τους <a href="terms.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Όρους &amp; Προϋποθέσεις</a> και την <a href="privacy-policy.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Πολιτική Απορρήτου</a>.</div>
       </div>
       <div class="van-msg" id="waArea" style="display:none;">
         <p id="waReasonText">Η κράτηση δεν μπορεί να σταλεί αυτόματα — επικοινωνήστε μαζί μας.</p>
@@ -1683,5 +1684,19 @@ render();
 <script async
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW2YdAX_5beQrjkKmNyykTMqRixc-K88Y&loading=async&libraries=places,core,geocoding&callback=initBooking&region=GR&language=el">
 </script>
+
+<footer style="max-width:760px;margin:30px auto 0;padding:16px 18px calc(16px + env(safe-area-inset-bottom));text-align:center;font-size:.78rem;color:var(--text-muted);border-top:1px solid var(--field-border);">
+  <div style="margin-bottom:8px;">
+    <a href="index.html" style="color:inherit;text-decoration:none;margin:0 8px;">Αρχική</a> ·
+    <a href="terms.html" style="color:inherit;text-decoration:none;margin:0 8px;">Όροι &amp; Προϋποθέσεις</a> ·
+    <a href="privacy-policy.html" style="color:inherit;text-decoration:none;margin:0 8px;">Πολιτική Απορρήτου</a>
+  </div>
+  <div>
+    <i class="fas fa-phone"></i> <a href="tel:+306936123322" style="color:inherit;text-decoration:none;">+30 6936123322</a>
+    &nbsp;·&nbsp;
+    <i class="fas fa-envelope"></i> <a href="mailto:book@taxiathenstransfers.com" style="color:inherit;text-decoration:none;">book@taxiathenstransfers.com</a>
+  </div>
+  <div style="margin-top:8px;opacity:.7;">&copy; 2026 Taxi &amp; Van Transfers</div>
+</footer>
 </body>
 </html>
