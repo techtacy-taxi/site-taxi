@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Κράτηση Μεταφοράς · TaxiAthensTransfers.com</title>
 <meta name="theme-color" content="#0a192f">
 <meta name="robots" content="noindex">
@@ -133,7 +133,7 @@ body{
 }
 
 /* ---------- FORM CARD ---------- */
-.wrap{max-width:760px;margin:0 auto;padding:34px 18px 60px;}
+.wrap{max-width:760px;margin:0 auto;padding:34px 18px calc(60px + env(safe-area-inset-bottom));}
 .intro{text-align:center;margin-bottom:26px;}
 .intro h1{font-size:1.9rem;font-weight:800;color:var(--white);margin-bottom:8px;}
 .intro h1 b{color:var(--primary-color);}
@@ -224,6 +224,18 @@ body{
 .price-box .pv{color:var(--primary-color);font-size:1.7rem;font-weight:800;}
 .price-box .pv-night{color:var(--text-muted);font-size:.68rem;font-weight:600;white-space:nowrap;}
 .price-footnote{color:var(--text-muted);font-size:.66rem;margin-top:6px;text-align:right;}
+.deposit-banner{margin-top:14px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.35);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:11px;}
+.deposit-banner i{color:var(--primary-color);font-size:18px;margin-top:2px;flex-shrink:0;}
+.deposit-banner .db-title{color:var(--white);font-weight:700;font-size:.85rem;margin-bottom:3px;}
+.deposit-banner .db-amt{color:var(--text-muted);font-size:.76rem;line-height:1.4;}
+.deposit-banner .db-amt b{color:var(--primary-color);}
+.viva-result-banner{max-width:760px;margin:18px auto 0;padding:18px 20px;border-radius:12px;font-size:.9rem;line-height:1.6;}
+.viva-result-banner.ok{background:rgba(37,211,102,.14);border:1px solid var(--whatsapp);color:#d7ffe6;}
+.viva-result-banner.fail{background:rgba(255,90,90,.12);border:1px solid #ff5a5a;color:#ffd9d9;}
+.viva-result-banner .vrb-title{font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.viva-result-banner .vrb-row{display:flex;gap:8px;margin-top:3px;}
+.viva-result-banner .vrb-row .k{color:var(--text-muted);min-width:110px;flex-shrink:0;}
+
 /* Scrollable time picker */
 .time-wrap{position:relative;}
 .time-scroll{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:40;max-height:220px;overflow-y:auto;background:var(--field-bg,#1a2438);border:1px solid var(--primary-color);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4);-webkit-overflow-scrolling:touch;}
@@ -581,9 +593,17 @@ body.is-mobile .map-gps{display:flex;}
       <div class="price-footnote" id="minChargeNote" style="display:none;">Είναι η μικρότερη τιμή για δέσμευση οχήματος.</div>
       <div class="price-footnote" id="priceFootnote" style="display:none;">* Ισχύει το νυχτερινό τιμολόγιο (23:30–05:30), όπως ορίζει η κυβέρνηση.</div>
 
+      <div class="deposit-banner" id="depositBanner">
+        <i class="fas fa-shield-halved"></i>
+        <div>
+          <div class="db-title">Για την κράτηση απαιτείται προκαταβολή 10%</div>
+          <div class="db-amt">Θα πληρώσετε τώρα <b id="depositAmt">0,00 €</b> μέσω ασφαλούς πληρωμής (Viva) — το υπόλοιπο στον οδηγό.</div>
+        </div>
+      </div>
+
       <div id="actionArea">
-        <button class="submit" id="sendBtn" type="button"><i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή</button>
-        <div class="note">Πατώντας «Αποδοχή και αποστολή» στέλνετε αίτημα κράτησης. Θα λάβετε επιβεβαίωση από την ομάδα μας.</div>
+        <button class="submit" id="sendBtn" type="button"><i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή</button>
+        <div class="note" id="payNote">Θα μεταφερθείτε στη σελίδα ασφαλούς πληρωμής (Viva). Η κράτηση οριστικοποιείται μόνο μετά την επιτυχή πληρωμή της προκαταβολής.</div>
       </div>
       <div class="van-msg" id="waArea" style="display:none;">
         <p id="waReasonText">Η κράτηση δεν μπορεί να σταλεί αυτόματα — επικοινωνήστε μαζί μας.</p>
@@ -632,6 +652,7 @@ if (IS_MOBILE) document.body.classList.add('is-mobile');
    Αν αλλάξει, ενημέρωσε ΜΟΝΟ αυτή τη γραμμή. */
 const ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/submitPublicBooking";
 const ESTIMATE_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/estimatePrice";
+const VIVA_ORDER_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/createVivaOrder";
 
 /* Όρια οχήματος (συμφωνημένη λογική) */
 const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Βαν
@@ -780,12 +801,18 @@ function renderPrice(){
 
   const blocked = lastEstimate.blocked;
   document.getElementById('actionArea').style.display = blocked ? 'none'  : 'block';
+  document.getElementById('depositBanner').style.display = blocked ? 'none' : 'flex';
   document.getElementById('waArea').style.display      = blocked ? 'block' : 'none';
   if (blocked){
     document.getElementById('waReasonText').textContent = reasonLabel(lastEstimate.reasons[0]) + '.';
     const msg = buildWhatsAppMessage();
     document.getElementById('waLink').href = 'https://wa.me/306936123322?text=' + encodeURIComponent(msg);
   }
+
+  // Ενδεικτική προκαταβολή 10% (στρογγυλοποίηση πάνω στο επόμενο ευρώ) — ο
+  // server (createVivaOrder) την ξαναϋπολογίζει και αυτή είναι η επίσημη.
+  const depositEur = lastEstimate.price > 0 ? Math.ceil(lastEstimate.price * 0.10) : 0;
+  document.getElementById('depositAmt').textContent = fmtEUR(depositEur);
 }
 
 /* ---- Submit ---- */
@@ -835,28 +862,88 @@ btn.addEventListener('click', async ()=>{
   if (!data.flight){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε πτήση/πλοίο (ή 0)'); return; }
 
   btn.disabled = true;
-  setBtn('', '<i class="fas fa-spinner fa-spin"></i> Αποστολή…');
+  setBtn('', '<i class="fas fa-spinner fa-spin"></i> Δημιουργία πληρωμής…');
 
   try{
-    const res = await fetch(ENDPOINT, {
+    // ΔΕΝ καλούμε πια το submitPublicBooking απευθείας. Πρώτα δημιουργούμε
+    // Viva payment order για το 10% προκαταβολή· η δουλειά αποθηκεύεται στο
+    // saved_jobs ΜΟΝΟ μετά από επιτυχή πληρωμή (webhook vivaWebhook στο index.js).
+    const res = await fetch(VIVA_ORDER_ENDPOINT, {
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
       body: JSON.stringify(data)
     });
-    if (!res.ok) throw new Error('HTTP '+res.status);
-    setBtn('ok', '<i class="fas fa-check"></i> Στάλθηκε! Θα επικοινωνήσουμε σύντομα');
-    setTimeout(resetForm, 2600);
+    const j = await res.json().catch(()=>({}));
+    if (!res.ok || !j.ok || !j.checkoutUrl) throw new Error(j.error || ('HTTP '+res.status));
+
+    // Κρατάμε στοιχεία της κράτησης ΜΟΝΟ τοπικά (sessionStorage) ώστε, όταν
+    // ο πελάτης επιστρέψει από τη Viva, να δείξουμε πλήρες μήνυμα (διαδρομή,
+    // ημερομηνία/ώρα, ποσό) χωρίς να χρειάζεται νέο ερώτημα στον server.
+    try{
+      sessionStorage.setItem('athenstaxi_pending_booking', JSON.stringify({
+        from: data.from, to: data.to, date: data.date, time: data.time,
+        depositAmount: j.depositAmount || 0,
+      }));
+    }catch(e){}
+
+    setBtn('ok', '<i class="fas fa-check"></i> Μεταφορά στη σελίδα πληρωμής…');
+    window.location.href = j.checkoutUrl;
   }catch(e){
     console.error(e);
     btn.disabled = false;
-    flash('err','<i class="fas fa-exclamation-circle"></i> Σφάλμα αποστολής — δοκιμάστε ξανά');
+    if (String(e && e.message) === 'outside_booking_window'){
+      flash('err','<i class="fas fa-exclamation-circle"></i> Η κράτηση χρειάζεται προσωπική επιβεβαίωση — δείτε την επιλογή WhatsApp');
+    } else {
+      flash('err','<i class="fas fa-exclamation-circle"></i> Σφάλμα σύνδεσης με την πληρωμή — δοκιμάστε ξανά');
+    }
   }
 });
 
 function flash(kind, html){
   setBtn(kind, html);
-  setTimeout(()=>{ if(!btn.disabled||kind==='err'){ btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή'); } }, 2400);
+  setTimeout(()=>{ if(!btn.disabled||kind==='err'){ btn.disabled=false; setBtn('', '<i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή'); } }, 2400);
 }
+
+/* ---- Αποτέλεσμα επιστροφής από τη Viva (Success/Failure URL) ----
+   Ρύθμισε αυτή τη σελίδα ως Success URL ΚΑΙ ως Failure URL στο Source του
+   Viva dashboard. Η Viva προσθέτει query params όταν επιστρέφει:
+     επιτυχία: ?t=<transactionId>          (η πληρωμή έγινε)
+     αποτυχία: ?eventId=<id>  (χωρίς t)    (η πληρωμή ΔΕΝ έγινε) */
+(function showVivaReturnBanner(){
+  const params = new URLSearchParams(window.location.search);
+  const t = params.get('t');
+  const eventId = params.get('eventId');
+  if (!t && !eventId) return; // δεν ήρθαμε από Viva redirect — κανονική φόρτωση φόρμας
+
+  let info = null;
+  try{ info = JSON.parse(sessionStorage.getItem('athenstaxi_pending_booking') || 'null'); }catch(e){}
+  const from = info && info.from || '-';
+  const to   = info && info.to   || '-';
+  const when = info && info.date ? (info.date + (info.time ? ' ' + info.time : '')) : '-';
+  const amt  = info && info.depositAmount ? fmtEUR(info.depositAmount) : '-';
+
+  const box = document.createElement('div');
+  box.className = 'viva-result-banner ' + (t ? 'ok' : 'fail');
+  if (t){
+    box.innerHTML =
+      '<div class="vrb-title"><i class="fas fa-check-circle"></i> Η ΚΡΑΤΗΣΗ ΕΓΙΝΕ — η προκαταβολή πληρώθηκε</div>' +
+      '<div class="vrb-row"><span class="k">Διαδρομή:</span><span>' + from + ' → ' + to + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Πληρώθηκε:</span><span>' + amt + '</span></div>' +
+      '<div class="vrb-row" style="margin-top:8px;">Θα επικοινωνήσουμε μαζί σας σύντομα για επιβεβαίωση.</div>';
+    document.getElementById('actionArea').style.display = 'none';
+    document.getElementById('depositBanner').style.display = 'none';
+  } else {
+    box.innerHTML =
+      '<div class="vrb-title"><i class="fas fa-times-circle"></i> Η ΚΡΑΤΗΣΗ ΔΕΝ ΕΓΙΝΕ — η πληρωμή δεν ολοκληρώθηκε</div>' +
+      '<div class="vrb-row"><span class="k">Διαδρομή:</span><span>' + from + ' → ' + to + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
+      '<div class="vrb-row" style="margin-top:8px;">Συμπληρώστε ξανά τη φόρμα παρακάτω για νέα προσπάθεια πληρωμής.</div>';
+  }
+  const cardEl = document.querySelector('.card');
+  if (cardEl) cardEl.parentNode.insertBefore(box, cardEl.nextSibling);
+  try{ sessionStorage.removeItem('athenstaxi_pending_booking'); }catch(e){}
+})();
 function resetForm(){
   ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
   const _ts = document.getElementById('timeScroll');
@@ -865,7 +952,7 @@ function resetForm(){
   state.fromLat=state.fromLng=state.toLat=state.toLng=null;
   lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
     displayOriginal:0, discountPercent:8, minChargeApplied:false };
-  btn.disabled=false; setBtn('', '<i class="fas fa-paper-plane"></i> Αποδοχή και αποστολή');
+  btn.disabled=false; setBtn('', '<i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή');
   render();
 }
 
