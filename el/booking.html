@@ -516,6 +516,25 @@ body.is-mobile .map-gps{display:flex;}
               </div>
             </div>
           </div>
+
+          <div id="routeMapWrap" style="display:none;">
+            <div id="routeMapBox" style="border-radius:12px;overflow:hidden;position:relative;height:170px;background:#12213d;margin-top:2px;">
+              <div id="routeMap" style="width:100%;height:100%;"></div>
+              <div id="routeMapEta" style="position:absolute;top:8px;right:8px;background:#fff;color:#1b2f52;font-size:11px;font-weight:700;padding:4px 9px;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.25);"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <div style="flex:1;background:var(--dark-secondary);border:1px solid var(--field-border);border-radius:10px;padding:9px 8px;text-align:center;">
+                <div style="color:#4a90d9;font-size:15px;margin-bottom:2px;"><i class="fas fa-road"></i></div>
+                <div id="routeDistanceVal" style="color:var(--white);font-size:13px;font-weight:700;">—</div>
+                <div style="color:var(--text-muted);font-size:9.5px;">Διαδρομή</div>
+              </div>
+              <div style="flex:1;background:var(--dark-secondary);border:1px solid var(--field-border);border-radius:10px;padding:9px 8px;text-align:center;">
+                <div style="color:var(--primary-color);font-size:15px;margin-bottom:2px;"><i class="fas fa-clock"></i></div>
+                <div id="routeDurationVal" style="color:var(--white);font-size:13px;font-weight:700;">—</div>
+                <div id="routeDurationLabel" style="color:var(--text-muted);font-size:9.5px;">Ώρα ραντεβού</div>
+              </div>
+            </div>
+          </div>
           <div class="duo">
             <div class="fld"><label><i class="far fa-calendar li"></i>Ημερομηνία</label><input type="date" id="date"></div>
             <div class="fld"><label><i class="far fa-clock li"></i>Ώρα</label>
@@ -545,6 +564,10 @@ body.is-mobile .map-gps{display:flex;}
             </div>
           </div>
 
+        </div>
+
+        <!-- ΔΕΞΙΑ: στοιχεία πελάτη -->
+        <div class="colstack">
           <div class="counter">
             <div class="ct"><i class="fas fa-baby"></i> Παιδικά καθίσματα</div>
             <div class="row">
@@ -561,10 +584,7 @@ body.is-mobile .map-gps{display:flex;}
               <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Βαν</div></div>
             </div>
           </div>
-        </div>
 
-        <!-- ΔΕΞΙΑ: στοιχεία πελάτη -->
-        <div class="colstack">
           <div class="fld"><label><i class="fas fa-user li"></i>Ονοματεπώνυμο</label><input type="text" id="name" placeholder="Το όνομά σας" autocomplete="name"></div>
           <div class="fld">
             <label><i class="fas fa-phone li"></i>Τηλέφωνο</label>
@@ -756,7 +776,8 @@ document.getElementById('payModeFull').addEventListener('click', ()=>{
 
 /* ---- Ζωντανή εκτίμηση τιμής (ζώνες/δυναμικός τύπος/νυχτερινό/μπλάκαουτ) ---- */
 let lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
-  displayOriginal:0, discountPercent:8, minChargeApplied:false };
+  displayOriginal:0, discountPercent:8, minChargeApplied:false,
+  distanceKm:0, durationMin:0, routePolyline:null };
 let estimateDebounce=null, estimateSeq=0;
 
 function fmtEUR(v){ return Math.max(0, v).toFixed(2).replace('.', ',') + ' €'; }
@@ -770,7 +791,8 @@ async function fetchEstimate(){
   const data = gather();
   if (data.fromLat==null || data.fromLng==null || data.toLat==null || data.toLng==null){
     lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
-      displayOriginal:0, discountPercent:8, minChargeApplied:false };
+      displayOriginal:0, discountPercent:8, minChargeApplied:false,
+      distanceKm:0, durationMin:0, routePolyline:null };
     renderPrice();
     return;
   }
@@ -791,11 +813,70 @@ async function fetchEstimate(){
     const j = await res.json();
     if (!j.ok) throw new Error(j.error || 'estimate_error');
     lastEstimate = { price:j.price||0, nightApplies:!!j.nightApplies, blocked:!!j.blocked, reasons:j.reasons||[],
-      displayOriginal:j.displayOriginal||0, discountPercent:j.discountPercent||8, minChargeApplied:!!j.minChargeApplied };
+      displayOriginal:j.displayOriginal||0, discountPercent:j.discountPercent||8, minChargeApplied:!!j.minChargeApplied,
+      distanceKm:j.distanceKm||0, durationMin:j.durationMin||0, routePolyline:j.routePolyline||null };
   }catch(e){
     console.error('estimate error:', e);
   }
   renderPrice();
+}
+
+/* ---- Μίνι χάρτης + απόσταση + χρόνος (για την ώρα ραντεβού) ---- */
+let _routeMap = null, _routeMarkerFrom = null, _routeMarkerTo = null, _routePolylineObj = null;
+
+function fmtMinutes(min){
+  const m = Math.round(min);
+  if (m < 60) return m + ' λεπτά';
+  const h = Math.floor(m/60), r = m%60;
+  return h + 'ω ' + (r ? r+'λ' : '');
+}
+
+function renderRouteMap(){
+  const wrap = document.getElementById('routeMapWrap');
+  const hasRoute = state.fromLat!=null && state.fromLng!=null &&
+                   state.toLat!=null   && state.toLng!=null   &&
+                   lastEstimate.distanceKm > 0;
+  if (!hasRoute || typeof google === 'undefined' || !google.maps){
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = 'block';
+
+  document.getElementById('routeDistanceVal').textContent = lastEstimate.distanceKm.toFixed(1) + ' χλμ';
+  document.getElementById('routeDurationVal').textContent = lastEstimate.durationMin > 0 ? fmtMinutes(lastEstimate.durationMin) : '—';
+  document.getElementById('routeDurationLabel').textContent = document.getElementById('date').value && document.getElementById('time').value
+    ? 'Χρόνος (ώρα ραντεβού)' : 'Χρόνος (τώρα)';
+  document.getElementById('routeMapEta').textContent = lastEstimate.durationMin > 0 ? fmtMinutes(lastEstimate.durationMin) : '';
+
+  const from = { lat: state.fromLat, lng: state.fromLng };
+  const to   = { lat: state.toLat,   lng: state.toLng };
+
+  if (!_routeMap){
+    _routeMap = new google.maps.Map(document.getElementById('routeMap'), {
+      center: from, zoom: 12, disableDefaultUI: true, gestureHandling: 'cooperative',
+    });
+    _routeMarkerFrom = new google.maps.Marker({ map: _routeMap, position: from,
+      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 7, fillColor: '#34d399', fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2 } });
+    _routeMarkerTo = new google.maps.Marker({ map: _routeMap, position: to,
+      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 7, fillColor: '#f87171', fillOpacity: 1, strokeColor: '#fff', strokeWeight: 2 } });
+    _routePolylineObj = new google.maps.Polyline({ map: _routeMap, strokeColor: '#4a90d9', strokeWeight: 4, strokeOpacity: .9 });
+  } else {
+    _routeMarkerFrom.setPosition(from);
+    _routeMarkerTo.setPosition(to);
+  }
+
+  let path;
+  if (lastEstimate.routePolyline && google.maps.geometry && google.maps.geometry.encoding){
+    try{ path = google.maps.geometry.encoding.decodePath(lastEstimate.routePolyline); }catch(e){ path = [from, to]; }
+  } else {
+    path = [from, to];
+  }
+  _routePolylineObj.setPath(path);
+
+  const bounds = new google.maps.LatLngBounds();
+  path.forEach(p => bounds.extend(p));
+  bounds.extend(from); bounds.extend(to);
+  _routeMap.fitBounds(bounds, 28);
 }
 
 function reasonLabel(code){
@@ -864,6 +945,7 @@ function renderPrice(){
   if (!btn.disabled){
     setBtn('', '<i class="fas fa-credit-card"></i> ' + (state.payFull ? 'Πληρωμή ολόκληρου ποσού &amp; αποστολή' : 'Πληρωμή προκαταβολής &amp; αποστολή'));
   }
+  renderRouteMap();
 }
 
 /* ---- Submit ---- */
@@ -1075,7 +1157,8 @@ function resetForm(){
   document.getElementById('payModeDeposit').classList.add('sel');
   document.getElementById('payModeFull').classList.remove('sel');
   lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
-    displayOriginal:0, discountPercent:8, minChargeApplied:false };
+    displayOriginal:0, discountPercent:8, minChargeApplied:false,
+    distanceKm:0, durationMin:0, routePolyline:null };
   btn.disabled=false; setBtn('', '<i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή');
   render();
 }
@@ -1805,7 +1888,7 @@ render();
      Φορτώνει async· οι βιβλιοθήκες (places/core/geocoding) έρχονται με
      importLibrary μέσα στο initBooking. -->
 <script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW2YdAX_5beQrjkKmNyykTMqRixc-K88Y&loading=async&libraries=places,core,geocoding&callback=initBooking&region=GR&language=el">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW2YdAX_5beQrjkKmNyykTMqRixc-K88Y&loading=async&libraries=places,core,geocoding,geometry&callback=initBooking&region=GR&language=el">
 </script>
 
 <footer style="max-width:760px;margin:30px auto 0;padding:16px 18px calc(16px + env(safe-area-inset-bottom));text-align:center;font-size:.78rem;color:var(--text-muted);border-top:1px solid var(--field-border);">
