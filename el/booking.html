@@ -779,6 +779,7 @@ let lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
   displayOriginal:0, discountPercent:8, minChargeApplied:false,
   distanceKm:0, durationMin:0, routePolyline:null };
 let estimateDebounce=null, estimateSeq=0;
+let _lastRouteSig = null; // cache: αλλαγή μόνο ημερομηνίας/ώρας δεν ξαναφέρνει Routes API
 
 function fmtEUR(v){ return Math.max(0, v).toFixed(2).replace('.', ',') + ' €'; }
 
@@ -793,10 +794,23 @@ async function fetchEstimate(){
     lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
       displayOriginal:0, discountPercent:8, minChargeApplied:false,
       distanceKm:0, durationMin:0, routePolyline:null };
+    _lastRouteSig = null;
     renderPrice();
     return;
   }
   const mySeq = ++estimateSeq;
+
+  // ── Cache διαδρομής: αν το Από/Προς/όχημα ΔΕΝ άλλαξε από την προηγούμενη
+  // φορά (μόνο ημερομηνία/ώρα/άτομα/βαλίτσες άλλαξαν), ΔΕΝ χρειάζεται νέα
+  // κλήση Routes API — στέλνουμε στον server τα ήδη υπολογισμένα km/λεπτά/
+  // polyline και τα ξαναχρησιμοποιεί αντί να ρωτήσει ξανά τη Google.
+  const routeSig = [data.fromLat,data.fromLng,data.toLat,data.toLng,data.vehicleType].join('|');
+  const sameRoute = routeSig === _lastRouteSig;
+
+  // ── Ο χάρτης/απόσταση εμφανίζεται μόνο αφού μπει Ονοματεπώνυμο — σαφής
+  // ένδειξη ότι ο πελάτης προχωράει πραγματικά σε κράτηση, όχι απλή δοκιμή.
+  const nameFilled = !!document.getElementById('name').value.trim();
+
   try{
     const res = await fetch(ESTIMATE_ENDPOINT, {
       method:'POST',
@@ -806,6 +820,12 @@ async function fetchEstimate(){
         persons:data.persons, luggage:data.luggage, childSeatCount:data.childSeatCount,
         vehicleType:data.vehicleType, lang:data.lang, dialCode:state.dialCode,
         date:data.date, time:data.time,
+        needMap: nameFilled,
+        ...(sameRoute ? {
+          cachedDistanceKm:   lastEstimate.distanceKm,
+          cachedDurationMin:  lastEstimate.durationMin,
+          cachedRoutePolyline: lastEstimate.routePolyline,
+        } : {}),
       }),
     });
     if (mySeq !== estimateSeq) return;   // ξεπερασμένη απάντηση (ο χρήστης άλλαξε κάτι στο μεταξύ)
@@ -815,6 +835,7 @@ async function fetchEstimate(){
     lastEstimate = { price:j.price||0, nightApplies:!!j.nightApplies, blocked:!!j.blocked, reasons:j.reasons||[],
       displayOriginal:j.displayOriginal||0, discountPercent:j.discountPercent||8, minChargeApplied:!!j.minChargeApplied,
       distanceKm:j.distanceKm||0, durationMin:j.durationMin||0, routePolyline:j.routePolyline||null };
+    if (j.distanceKm > 0) _lastRouteSig = routeSig; // κρατάμε το route sig ΜΟΝΟ αν όντως πήραμε δεδομένα
   }catch(e){
     console.error('estimate error:', e);
   }
@@ -833,7 +854,9 @@ function fmtMinutes(min){
 
 function renderRouteMap(){
   const wrap = document.getElementById('routeMapWrap');
-  const hasRoute = state.fromLat!=null && state.fromLng!=null &&
+  const nameFilled = !!document.getElementById('name').value.trim();
+  const hasRoute = nameFilled &&
+                   state.fromLat!=null && state.fromLng!=null &&
                    state.toLat!=null   && state.toLng!=null   &&
                    lastEstimate.distanceKm > 0;
   if (!hasRoute || typeof google === 'undefined' || !google.maps){
@@ -1880,6 +1903,15 @@ document.addEventListener('click', (e)=>{
 })();
 
 document.getElementById('date').addEventListener('change', scheduleEstimate);
+
+// Μόλις ο πελάτης γράψει το όνομά του (σαφής ένδειξη πρόθεσης κράτησης),
+// ζητάμε τα δεδομένα χάρτη/απόστασης που πριν δεν είχαμε ζητήσει.
+let _nameWasFilled = false;
+document.getElementById('name').addEventListener('input', ()=>{
+  const filled = !!document.getElementById('name').value.trim();
+  if (filled && !_nameWasFilled) scheduleEstimate();
+  _nameWasFilled = filled;
+});
 
 render();
 </script>
