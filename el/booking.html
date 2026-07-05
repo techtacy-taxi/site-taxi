@@ -701,6 +701,14 @@ const ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/submi
 const ESTIMATE_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/estimatePrice";
 const VIVA_ORDER_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/createVivaOrder";
 
+/* ── Multi-tenant (Φάση 4) ─────────────────────────────────────────────────
+   ΜΟΝΟ αυτή η γραμμή αλλάζει ανάμεσα σε booking.html (εσένα) και σε κάθε
+   νέο booking2.html/booking3.html κλπ. (άλλου πελάτη). Ο server (index.js)
+   διαβάζει αυτό το tenantId για να φορτώσει τις σωστές ζώνες/τιμές/Viva
+   credentials του κάθε πελάτη — βλ. Cloud Functions Φάση 3.
+   Ο δικός σου λογαριασμός ΠΑΝΤΑ "default". */
+const TENANT_ID = "default";
+
 /* Όρια οχήματος (συμφωνημένη λογική) */
 const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Βαν
 const LUGGAGE_VAN_THRESHOLD = 5;  // βαλίτσες >= 5 -> Βαν
@@ -816,6 +824,7 @@ async function fetchEstimate(){
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
       body: JSON.stringify({
+        tenantId: TENANT_ID,
         fromLat:data.fromLat, fromLng:data.fromLng, toLat:data.toLat, toLng:data.toLng,
         persons:data.persons, luggage:data.luggage, childSeatCount:data.childSeatCount,
         vehicleType:data.vehicleType, lang:data.lang, dialCode:state.dialCode,
@@ -994,6 +1003,7 @@ function gather(){
     note:    document.getElementById('note').value.trim(),
     lang:    document.documentElement.lang || 'el',
     payFull: !!state.payFull,
+    tenantId: TENANT_ID,
   };
 }
 
