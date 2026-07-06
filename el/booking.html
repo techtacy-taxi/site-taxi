@@ -483,6 +483,16 @@ body.is-mobile .map-gps{display:flex;}
 
         <!-- ΑΡΙΣΤΕΡΑ: διαδρομή / χρόνος / πλήθος / όχημα -->
         <div class="colstack">
+          <div class="fld" id="frequentRoutesWrap" style="display:none;">
+            <label><i class="fas fa-star li" style="color:var(--primary-color);"></i>Συχνές διαδρομές</label>
+            <select id="frequentClientSelect" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--field-border);background:var(--dark-secondary);color:var(--white);font-size:.9rem;">
+              <option value="">— Επιλέξτε αν είστε γνωστός πελάτης —</option>
+            </select>
+            <div id="frequentClientActions" style="display:none;gap:8px;margin-top:8px;">
+              <button type="button" id="btnUseAsFrom" class="submit" style="flex:1;padding:9px;font-size:.82rem;"><i class="fas fa-dot-circle"></i> Χρήση ως Από</button>
+              <button type="button" id="btnUseAsTo" class="submit" style="flex:1;padding:9px;font-size:.82rem;background:#ff5a5a;"><i class="fas fa-map-marker-alt"></i> Χρήση ως Προς</button>
+            </div>
+          </div>
           <div class="route-block">
             <div class="fld">
               <label><i class="fas fa-dot-circle li"></i>Από</label>
@@ -699,6 +709,7 @@ if (IS_MOBILE) document.body.classList.add('is-mobile');
    Αν αλλάξει, ενημέρωσε ΜΟΝΟ αυτή τη γραμμή. */
 const ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/submitPublicBooking";
 const ESTIMATE_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/estimatePrice";
+const CLIENTS_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/listClients";
 const VIVA_ORDER_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfunctions.net/createVivaOrder";
 
 /* ── Multi-tenant (Φάση 4) ─────────────────────────────────────────────────
@@ -1922,6 +1933,55 @@ document.getElementById('name').addEventListener('input', ()=>{
   if (filled && !_nameWasFilled) scheduleEstimate();
   _nameWasFilled = filled;
 });
+
+/* ---- Συχνές διαδρομές (γνωστοί πελάτες — ξενοδοχεία κλπ) ---- */
+let _frequentClients = [];
+async function loadFrequentClients(){
+  try{
+    const res = await fetch(CLIENTS_ENDPOINT, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ tenantId: TENANT_ID }),
+    });
+    const j = await res.json();
+    if (!j.ok || !Array.isArray(j.clients) || !j.clients.length) return;
+    _frequentClients = j.clients;
+    const sel = document.getElementById('frequentClientSelect');
+    j.clients.forEach((c, i) => {
+      const opt = document.createElement('option');
+      opt.value = String(i);
+      opt.textContent = c.name;
+      sel.appendChild(opt);
+    });
+    document.getElementById('frequentRoutesWrap').style.display = 'block';
+  }catch(e){ console.error('loadFrequentClients error:', e); }
+}
+
+document.getElementById('frequentClientSelect').addEventListener('change', (e)=>{
+  const actions = document.getElementById('frequentClientActions');
+  actions.style.display = e.target.value === '' ? 'none' : 'flex';
+});
+
+function _applyClientToField(targetId, client){
+  const inp = document.getElementById(targetId);
+  inp.value = client.fromName || client.name;
+  if (targetId === 'from'){ state.fromLat = client.fromLat; state.fromLng = client.fromLng; }
+  else { state.toLat = client.fromLat; state.toLng = client.fromLng; }
+  scheduleEstimate();
+}
+
+document.getElementById('btnUseAsFrom').addEventListener('click', ()=>{
+  const idx = document.getElementById('frequentClientSelect').value;
+  if (idx === '') return;
+  _applyClientToField('from', _frequentClients[Number(idx)]);
+});
+document.getElementById('btnUseAsTo').addEventListener('click', ()=>{
+  const idx = document.getElementById('frequentClientSelect').value;
+  if (idx === '') return;
+  _applyClientToField('to', _frequentClients[Number(idx)]);
+});
+
+loadFrequentClients();
 
 render();
 </script>
