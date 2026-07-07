@@ -483,16 +483,6 @@ body.is-mobile .map-gps{display:flex;}
 
         <!-- ΑΡΙΣΤΕΡΑ: διαδρομή / χρόνος / πλήθος / όχημα -->
         <div class="colstack">
-          <div class="fld" id="frequentRoutesWrap" style="display:none;">
-            <label><i class="fas fa-star li" style="color:var(--primary-color);"></i>Συχνές διαδρομές</label>
-            <select id="frequentClientSelect" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--field-border);background:var(--dark-secondary);color:var(--white);font-size:.9rem;">
-              <option value="">— Επιλέξτε αν είστε γνωστός πελάτης —</option>
-            </select>
-            <div id="frequentClientActions" style="display:none;gap:8px;margin-top:8px;">
-              <button type="button" id="btnUseAsFrom" class="submit" style="flex:1;padding:9px;font-size:.82rem;"><i class="fas fa-dot-circle"></i> Χρήση ως Από</button>
-              <button type="button" id="btnUseAsTo" class="submit" style="flex:1;padding:9px;font-size:.82rem;background:#ff5a5a;"><i class="fas fa-map-marker-alt"></i> Χρήση ως Προς</button>
-            </div>
-          </div>
           <div class="route-block">
             <div class="fld">
               <label><i class="fas fa-dot-circle li"></i>Από</label>
@@ -1255,6 +1245,7 @@ async function initBooking(){
     inp.addEventListener('input', ()=>onAcInput(id));
     inp.addEventListener('keydown', (e)=>onAcKey(id, e));
     inp.addEventListener('blur', ()=>setTimeout(()=>closeAc(id), 180));
+    inp.addEventListener('focus', ()=>{ if (!inp.value.trim()) renderSuggestions(id, []); });
   });
 }
 
@@ -1272,7 +1263,12 @@ function onAcInput(id){
   const q = inp.value.trim();
   const st = acState[id];
   if (st.timer) clearTimeout(st.timer);
-  if (q.length < 3){ closeAc(id); return; }   // ξεκινά από 3 χαρακτήρες
+
+  // Οι πελάτες εμφανίζονται ΑΜΕΣΩΣ (χωρίς αναμονή), ίδιο με το Android app —
+  // τα κανονικά αποτελέσματα Google Places προστίθενται μετά, με debounce.
+  renderSuggestions(id, []);
+
+  if (q.length < 3){ return; }   // Places autocomplete ξεκινά από 3 χαρακτήρες
   if (PLUS_CODE_RE.test(q)){ st.timer = setTimeout(()=>fetchPlusCode(id, q), 280); return; }
   st.timer = setTimeout(()=>fetchSuggestions(id, q), 280);
 }
@@ -1384,22 +1380,45 @@ async function fetchSuggestions(id, q){
 function renderSuggestions(id, suggestions){
   const list = document.getElementById('ac-'+id);
   const st = acState[id];
-  st.items = suggestions.filter(s=>s.placePrediction);
+  const q = document.getElementById(id).value.trim();
+  const clientItems = matchingClients(q).map(c => ({ client:c }));
+  const placeItems  = (suggestions || []).filter(s=>s.placePrediction);
+  st.items = [...clientItems, ...placeItems];
   st.active = -1;
   if (!st.items.length){ closeAc(id); return; }
 
   list.innerHTML = '';
+  if (clientItems.length){
+    const header = document.createElement('div');
+    header.className = 'ac-section-label';
+    header.style.cssText = 'padding:6px 14px;font-size:.72rem;font-weight:700;color:var(--primary-color);text-transform:uppercase;letter-spacing:.4px;';
+    header.innerHTML = '<i class="fas fa-star"></i> Πελάτες';
+    list.appendChild(header);
+  }
   st.items.forEach((s, idx)=>{
-    const pp = s.placePrediction;
-    const main = pp.mainText ? pp.mainText.text : pp.text.text;
-    const sub  = pp.secondaryText ? pp.secondaryText.text : '';
     const row = document.createElement('div');
     row.className = 'ac-item';
-    row.innerHTML =
-      '<i class="fas fa-location-dot"></i><div>' +
-      '<div class="ac-main">'+escapeHtml(main)+'</div>' +
-      (sub ? '<div class="ac-sub">'+escapeHtml(sub)+'</div>' : '') +
-      '</div>';
+    if (s.client){
+      const c = s.client;
+      const routeBadge = (c.routes && c.routes.length)
+        ? '<span style="margin-left:auto;flex-shrink:0;font-size:.68rem;color:var(--primary-color);background:rgba(212,175,55,.12);padding:2px 8px;border-radius:10px;">'+c.routes.length+' διαδρομές</span>'
+        : '';
+      row.innerHTML =
+        '<i class="fas fa-star" style="color:var(--primary-color);"></i>' +
+        '<div style="display:flex;align-items:center;flex:1;gap:8px;">' +
+        '<div><div class="ac-main">'+escapeHtml(c.name)+'</div>' +
+        (c.fromName ? '<div class="ac-sub">'+escapeHtml(c.fromName)+'</div>' : '') +
+        '</div>' + routeBadge + '</div>';
+    } else {
+      const pp = s.placePrediction;
+      const main = pp.mainText ? pp.mainText.text : pp.text.text;
+      const sub  = pp.secondaryText ? pp.secondaryText.text : '';
+      row.innerHTML =
+        '<i class="fas fa-location-dot"></i><div>' +
+        '<div class="ac-main">'+escapeHtml(main)+'</div>' +
+        (sub ? '<div class="ac-sub">'+escapeHtml(sub)+'</div>' : '') +
+        '</div>';
+    }
     row.addEventListener('mousedown', (e)=>{ e.preventDefault(); pickSuggestion(id, idx); });
     list.appendChild(row);
   });
@@ -1410,6 +1429,18 @@ async function pickSuggestion(id, idx){
   const st = acState[id];
   const s = st.items[idx];
   if (!s) return;
+
+  // Επιλογή γνωστού πελάτη (π.χ. "AIRSTAY") — γέμισε απευθείας με τη
+  // διεύθυνση/συντεταγμένες βάσης του, χωρίς κλήση Places.
+  if (s.client){
+    const c = s.client;
+    document.getElementById(id).value = c.fromName || c.name;
+    if (id==='from'){ state.fromLat=c.fromLat; state.fromLng=c.fromLng; }
+    else { state.toLat=c.fromLat; state.toLng=c.fromLng; }
+    scheduleEstimate();
+    closeAc(id);
+    return;
+  }
 
   // Κωδικός τοποθεσίας (Plus Code) — ήδη λυμένος από τον Geocoder, γέμισε
   // απευθείας χωρίς fetchFields (δεν υπάρχει place/placePrediction εδώ).
@@ -1923,18 +1954,9 @@ document.addEventListener('click', (e)=>{
   });
 })();
 
-document.getElementById('date').addEventListener('change', scheduleEstimate);
-
-// Μόλις ο πελάτης γράψει το όνομά του (σαφής ένδειξη πρόθεσης κράτησης),
-// ζητάμε τα δεδομένα χάρτη/απόστασης που πριν δεν είχαμε ζητήσει.
-let _nameWasFilled = false;
-document.getElementById('name').addEventListener('input', ()=>{
-  const filled = !!document.getElementById('name').value.trim();
-  if (filled && !_nameWasFilled) scheduleEstimate();
-  _nameWasFilled = filled;
-});
-
-/* ---- Συχνές διαδρομές (γνωστοί πελάτες — ξενοδοχεία κλπ) ---- */
+/* ---- Συχνές διαδρομές (γνωστοί πελάτες) — ΕΝΣΩΜΑΤΩΜΕΝΟΙ μέσα στη λίστα
+   αυτόματης συμπλήρωσης (ac-list), ίδιο με το Android app: εμφανίζονται
+   κάτω από «★ Πελάτες» πάνω από τα κανονικά αποτελέσματα Google Places. ---- */
 let _frequentClients = [];
 async function loadFrequentClients(){
   try{
@@ -1944,41 +1966,27 @@ async function loadFrequentClients(){
       body: JSON.stringify({ tenantId: TENANT_ID }),
     });
     const j = await res.json();
-    if (!j.ok || !Array.isArray(j.clients) || !j.clients.length) return;
+    if (!j.ok || !Array.isArray(j.clients)) return;
     _frequentClients = j.clients;
-    const sel = document.getElementById('frequentClientSelect');
-    j.clients.forEach((c, i) => {
-      const opt = document.createElement('option');
-      opt.value = String(i);
-      opt.textContent = c.name;
-      sel.appendChild(opt);
-    });
-    document.getElementById('frequentRoutesWrap').style.display = 'block';
   }catch(e){ console.error('loadFrequentClients error:', e); }
 }
 
-document.getElementById('frequentClientSelect').addEventListener('change', (e)=>{
-  const actions = document.getElementById('frequentClientActions');
-  actions.style.display = e.target.value === '' ? 'none' : 'flex';
-});
-
-function _applyClientToField(targetId, client){
-  const inp = document.getElementById(targetId);
-  inp.value = client.fromName || client.name;
-  if (targetId === 'from'){ state.fromLat = client.fromLat; state.fromLng = client.fromLng; }
-  else { state.toLat = client.fromLat; state.toLng = client.fromLng; }
-  scheduleEstimate();
+function matchingClients(query){
+  const q = (query || '').trim().toLowerCase();
+  if (!_frequentClients.length) return [];
+  if (!q) return _frequentClients; // άδειο πεδίο → δείξε όλους (σαν το Android)
+  return _frequentClients.filter(c => (c.name || '').toLowerCase().includes(q));
 }
 
-document.getElementById('btnUseAsFrom').addEventListener('click', ()=>{
-  const idx = document.getElementById('frequentClientSelect').value;
-  if (idx === '') return;
-  _applyClientToField('from', _frequentClients[Number(idx)]);
-});
-document.getElementById('btnUseAsTo').addEventListener('click', ()=>{
-  const idx = document.getElementById('frequentClientSelect').value;
-  if (idx === '') return;
-  _applyClientToField('to', _frequentClients[Number(idx)]);
+document.getElementById('date').addEventListener('change', scheduleEstimate);
+
+// Μόλις ο πελάτης γράψει το όνομά του (σαφής ένδειξη πρόθεσης κράτησης),
+// ζητάμε τα δεδομένα χάρτη/απόστασης που πριν δεν είχαμε ζητήσει.
+let _nameWasFilled = false;
+document.getElementById('name').addEventListener('input', ()=>{
+  const filled = !!document.getElementById('name').value.trim();
+  if (filled && !_nameWasFilled) scheduleEstimate();
+  _nameWasFilled = filled;
 });
 
 loadFrequentClients();
