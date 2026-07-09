@@ -787,6 +787,7 @@ document.getElementById('payModeFull').addEventListener('click', ()=>{
 let lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
   displayOriginal:0, discountPercent:8, minChargeApplied:false,
   distanceKm:0, durationMin:0, routePolyline:null };
+let _depositPercent = 10; // ενημερώνεται από το estimatePrice
 let estimateDebounce=null, estimateSeq=0;
 let _lastRouteSig = null; // cache: αλλαγή μόνο ημερομηνίας/ώρας δεν ξαναφέρνει Routes API
 
@@ -845,6 +846,7 @@ async function fetchEstimate(){
     lastEstimate = { price:j.price||0, nightApplies:!!j.nightApplies, blocked:!!j.blocked, reasons:j.reasons||[],
       displayOriginal:j.displayOriginal||0, discountPercent:j.discountPercent||8, minChargeApplied:!!j.minChargeApplied,
       distanceKm:j.distanceKm||0, durationMin:j.durationMin||0, routePolyline:j.routePolyline||null };
+    if (j.depositPercent > 0) _depositPercent = j.depositPercent;
     // ── Πάνω από 8 άτομα: το Βαν παίρνει ΜΕΧΡΙ 8 — χρειάζεται Mini Bus, που
     // ΔΕΝ διαχειρίζεται η φόρμα. Μπλοκάρουμε την online πληρωμή ΠΑΝΤΑ σε
     // αυτή την περίπτωση, ό,τι κι αν είπε ο server, και στέλνουμε στο
@@ -975,18 +977,23 @@ function renderPrice(){
     document.getElementById('waLink').href = 'https://wa.me/306936123322?text=' + encodeURIComponent(msg);
   }
 
-  // Ενδεικτικό ποσό πληρωμής — 10% (στρογγυλοποίηση πάνω στο επόμενο ευρώ)
-  // ή ολόκληρο το ποσό, ανάλογα με την επιλογή του πελάτη (state.payFull).
-  // Ο server (createVivaOrder) ξαναϋπολογίζει το επίσημο ποσό ούτως ή άλλως.
-  const depositEur = lastEstimate.price > 0 ? Math.ceil(lastEstimate.price * 0.10) : 0;
+  // Ενδεικτικό ποσό πληρωμής — ρυθμιζόμενο ποσοστό (προεπιλογή 10%),
+  // στρογγυλοποίηση πάνω στο επόμενο ευρώ — ή ολόκληρο το ποσό, ανάλογα με
+  // την επιλογή του πελάτη (state.payFull). Ο server (createVivaOrder)
+  // ξαναϋπολογίζει το επίσημο ποσό ούτως ή άλλως.
+  const depositEur = lastEstimate.price > 0 ? Math.ceil(lastEstimate.price * (_depositPercent / 100)) : 0;
   const fullEur    = lastEstimate.price > 0 ? Math.ceil(lastEstimate.price) : 0;
   const payAmt = state.payFull ? fullEur : depositEur;
   document.getElementById('depositTitle').textContent = state.payFull
     ? 'Πληρωμή ολόκληρου ποσού'
-    : 'Για την κράτηση απαιτείται προκαταβολή 10%';
+    : 'Για την κράτηση απαιτείται προκαταβολή ' + _depositPercent + '%';
   document.getElementById('depositAmtLine').innerHTML = state.payFull
     ? 'Θα πληρώσετε τώρα <b id="depositAmt">' + fmtEUR(payAmt) + '</b> μέσω ασφαλούς πληρωμής (Viva) — τίποτα άλλο στον οδηγό.'
     : 'Θα πληρώσετε τώρα <b id="depositAmt">' + fmtEUR(payAmt) + '</b> μέσω ασφαλούς πληρωμής (Viva) — το υπόλοιπο στον οδηγό.';
+  const depositModeBtn = document.getElementById('payModeDeposit');
+  if (depositModeBtn) {
+    depositModeBtn.innerHTML = 'Προκαταβολή ' + _depositPercent + '%<span class="pm-sub">το υπόλοιπο στον οδηγό</span>';
+  }
   if (!btn.disabled){
     setBtn('', '<i class="fas fa-credit-card"></i> ' + (state.payFull ? 'Πληρωμή ολόκληρου ποσού &amp; αποστολή' : 'Πληρωμή προκαταβολής &amp; αποστολή'));
   }
@@ -1118,10 +1125,12 @@ function showVivaModal(success, html){
      επιτυχία: ?t=<transactionId>          (η πληρωμή έγινε)
      αποτυχία: ?eventId=<id>  (χωρίς t)    (η πληρωμή ΔΕΝ έγινε) */
 (function handleVivaReturn(){
+try{
   const params = new URLSearchParams(window.location.search);
   const t = params.get('t') || params.get('transactionId') || params.get('TransactionId');
   const eventId = params.get('eventId') || params.get('EventId');
   const orderCode = params.get('s') || params.get('orderCode') || params.get('OrderCode');
+  console.log('[handleVivaReturn] params:', { t, eventId, orderCode, search: window.location.search });
   if (!t && !eventId && !orderCode) return;
   const isSuccess = !!t || (!!orderCode && !eventId);
 
@@ -1135,6 +1144,7 @@ function showVivaModal(success, html){
 
   const box = document.createElement('div');
   box.className = 'viva-result-banner ' + (isSuccess ? 'ok' : 'fail');
+  box.style.cssText = 'position:relative;z-index:9999;';
 
   if (isSuccess){
     // ── ΕΠΙΤΥΧΙΑ ─────────────────────────────────────────────────────────
@@ -1147,13 +1157,17 @@ function showVivaModal(success, html){
       '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
       '<div class="vrb-row"><span class="k">Πληρώθηκε:</span><span>' + amt + '</span></div>' +
       '<div class="vrb-row" style="margin-top:8px;">' + waHtml + '</div>';
-    document.getElementById('actionArea').style.display = 'none';
-    document.getElementById('depositBanner').style.display = 'none';
+    const actionAreaEl = document.getElementById('actionArea');
+    const depositBannerEl = document.getElementById('depositBanner');
+    if (actionAreaEl) actionAreaEl.style.display = 'none';
+    if (depositBannerEl) depositBannerEl.style.display = 'none';
 
-    showVivaModal(true,
-      '<div class="viva-modal-title">Η πληρωμή ολοκληρώθηκε!</div>' +
-      '<div class="viva-modal-text">Η κράτησή σας <b>' + from + ' → ' + to + '</b> επιβεβαιώθηκε.<br>' +
-      'Πληρώσατε <b>' + amt + '</b> προκαταβολή. ' + waHtml + '</div>');
+    try {
+      showVivaModal(true,
+        '<div class="viva-modal-title">Η πληρωμή ολοκληρώθηκε!</div>' +
+        '<div class="viva-modal-text">Η κράτησή σας <b>' + from + ' → ' + to + '</b> επιβεβαιώθηκε.<br>' +
+        'Πληρώσατε <b>' + amt + '</b> προκαταβολή. ' + waHtml + '</div>');
+    } catch (e) { console.error('[handleVivaReturn] showVivaModal failed:', e); }
 
     try{ sessionStorage.removeItem('athenstaxi_pending_booking'); }catch(e){}
 
@@ -1165,10 +1179,12 @@ function showVivaModal(success, html){
       '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
       '<div class="vrb-row" style="margin-top:8px;">Η φόρμα παρακάτω ξαναγέμισε αυτόματα — πατήστε ξανά το κουμπί πληρωμής για νέα προσπάθεια.</div>';
 
-    showVivaModal(false,
-      '<div class="viva-modal-title">Η πληρωμή απέτυχε</div>' +
-      '<div class="viva-modal-text">Η προκαταβολή για <b>' + from + ' → ' + to + '</b> δεν ολοκληρώθηκε.<br>' +
-      'Η φόρμα παρέμεινε συμπληρωμένη — δοκιμάστε ξανά με άλλη κάρτα.</div>');
+    try {
+      showVivaModal(false,
+        '<div class="viva-modal-title">Η πληρωμή απέτυχε</div>' +
+        '<div class="viva-modal-text">Η προκαταβολή για <b>' + from + ' → ' + to + '</b> δεν ολοκληρώθηκε.<br>' +
+        'Η φόρμα παρέμεινε συμπληρωμένη — δοκιμάστε ξανά με άλλη κάρτα.</div>');
+    } catch (e) { console.error('[handleVivaReturn] showVivaModal failed:', e); }
 
     // ── Ξαναγέμισμα όλων των πεδίων της φόρμας από το snapshot ──
     if (info){
@@ -1196,11 +1212,25 @@ function showVivaModal(success, html){
   }
 
   const cardEl = document.querySelector('.card');
-  if (cardEl) cardEl.parentNode.insertBefore(box, cardEl.nextSibling);
+  if (cardEl && cardEl.parentNode) {
+    cardEl.parentNode.insertBefore(box, cardEl.nextSibling);
+  } else {
+    console.warn('[handleVivaReturn] δεν βρέθηκε .card — fallback insertion στην κορυφή του body');
+    document.body.insertBefore(box, document.body.firstChild);
+  }
 
   // ── Καθάρισμα του ?t=/?eventId= από το URL — αλλιώς μπορεί να ξαναφανεί
   // το ΠΑΛΙΟ αποτέλεσμα πληρωμής (π.χ. browser back/forward, PWA resume).
   try{ window.history.replaceState({}, document.title, window.location.pathname); }catch(e){}
+} catch (err) {
+  console.error('[handleVivaReturn] ΣΦΑΛΜΑ:', err);
+  try {
+    const fallback = document.createElement('div');
+    fallback.style.cssText = 'background:#c62828;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:14px;';
+    fallback.textContent = 'Η πληρωμή πιθανώς ολοκληρώθηκε, αλλά υπήρξε τεχνικό πρόβλημα στην εμφάνιση του μηνύματος. Επικοινωνήστε μαζί μας για επιβεβαίωση.';
+    document.body.insertBefore(fallback, document.body.firstChild);
+  } catch (e2) { /* δεν μπορούμε να κάνουμε τίποτα άλλο */ }
+}
 })();
 function resetForm(){
   ['from','to','date','time','name','phone','email','flight','note'].forEach(id=>document.getElementById(id).value='');
