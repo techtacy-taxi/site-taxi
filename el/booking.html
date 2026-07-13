@@ -993,7 +993,7 @@ async function fetchEstimate(){
     lastEstimate = { price:j.price||0, nightApplies:!!j.nightApplies, blocked:!!j.blocked, reasons:j.reasons||[],
       displayOriginal:j.displayOriginal||0, discountPercent:(j.discountPercent!=null?j.discountPercent:8), minChargeApplied:!!j.minChargeApplied,
       distanceKm:j.distanceKm||0, durationMin:j.durationMin||0, routePolyline:j.routePolyline||null };
-    if (j.depositPercent > 0) _depositPercent = j.depositPercent;
+    if (j.depositPercent != null && j.depositPercent >= 0) _depositPercent = j.depositPercent;
     state.fullPaymentEnabled = j.fullPaymentEnabled !== false;
     state.paymentProvider = j.paymentProvider === 'stripe' ? 'stripe' : 'viva';
     // ── Shuttle: διαθέσιμο μόνο αν ο server βρήκε ρητή τιμή/άτομο για αυτή
