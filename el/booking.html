@@ -1237,6 +1237,10 @@ function renderPrice(){
 const btn = document.getElementById('sendBtn');
 
 function fieldText(id){
+  // Νέο dropdown πελατολογίου (clientsOnly/catalog): αν έχει γίνει επιλογή,
+  // αυτή μετράει — ανεξάρτητα από το τι έχει το (κρυμμένο) input.
+  const selIdx = id === 'from' ? _fromSelectedIdx : _toSelectedIdx;
+  if (selIdx != null && _locationOptions[selIdx]) return _locationOptions[selIdx].name || '';
   const sel = document.getElementById(id+'ClientSelect');
   if (sel && sel.style.display !== 'none'){
     if (sel.value === '' || sel.value === 'other') return '';
@@ -2334,16 +2338,19 @@ function buildLocationOptions(){
     const key = (c.name || '').toLowerCase().trim();
     if (key && c.fromLat != null && !seen.has(key)){
       seen.add(key);
-      opts.push({ name: c.name, fromName: c.fromName, fromLat: c.fromLat, fromLng: c.fromLng, hasShuttleBus: !!c.hasShuttleBus });
+      opts.push({ name: c.name, fromName: c.fromName, fromLat: c.fromLat, fromLng: c.fromLng, hasShuttleBus: !!c.hasShuttleBus, isRoutePoint: false });
     }
     (c.routes || []).forEach(r => {
       const rkey = (r.toName || '').toLowerCase().trim();
       if (rkey && r.toLat != null && !seen.has(rkey)){
         seen.add(rkey);
-        opts.push({ name: r.toName, fromName: '', fromLat: r.toLat, fromLng: r.toLng, hasShuttleBus: false });
+        opts.push({ name: r.toName, fromName: '', fromLat: r.toLat, fromLng: r.toLng, hasShuttleBus: false, isRoutePoint: true });
       }
     });
   });
+  // Πρώτα οι ΠΕΛΑΤΕΣ, μετά τα ΣΗΜΕΙΑ/ΔΙΑΔΡΟΜΕΣ — ίδια εμφάνιση με το
+  // booking2 template (ξεχωριστές επικεφαλίδες ομάδων στο dropdown).
+  opts.sort((a, b) => (a.isRoutePoint === b.isRoutePoint) ? 0 : (a.isRoutePoint ? 1 : -1));
   return opts;
 }
 
@@ -2521,6 +2528,7 @@ function activateClientsOnlyMode(){
       onSelect: (value) => {
         state.userPickedVeh = false;
         if (value === ''){
+          document.getElementById(id).value = '';
           if (id==='from'){ state.fromLat=null; state.fromLng=null; _fromSelectedIdx=null; }
           else { state.toLat=null; state.toLng=null; _toSelectedIdx=null; }
           if (id==='from' && _toDropdown) _toDropdown.refresh();
@@ -2528,6 +2536,10 @@ function activateClientsOnlyMode(){
           return;
         }
         const c = _locationOptions[Number(value)];
+        // ⚠️ Γράφουμε ΚΑΙ το όνομα στο (κρυμμένο) input — το gather()/fieldText()
+        // διαβάζει από εκεί όταν placesEnabled=true· χωρίς αυτό το κουμπί
+        // έβγαζε «Συμπληρώστε Από και Προς» παρότι είχαν επιλεγεί.
+        document.getElementById(id).value = c.name || '';
         if (id==='from'){ state.fromLat=c.fromLat; state.fromLng=c.fromLng; state.fromClientShuttle=!!c.hasShuttleBus; _fromSelectedIdx=Number(value); }
         else { state.toLat=c.fromLat; state.toLng=c.fromLng; state.toClientShuttle=!!c.hasShuttleBus; _toSelectedIdx=Number(value); }
         state.clientHasShuttle = !!(state.fromClientShuttle || state.toClientShuttle);
@@ -2573,6 +2585,7 @@ function activateCatalogMode(){
           input.focus();
           if (gpsBtn) gpsBtn.style.display = '';
           if (mapBtn) mapBtn.style.display = '';
+          document.getElementById(id).value = '';
           if (id==='from'){ state.fromLat=null; state.fromLng=null; _fromSelectedIdx=null; }
           else { state.toLat=null; state.toLng=null; _toSelectedIdx=null; }
           if (id==='from' && _toDropdown) _toDropdown.refresh();
@@ -2580,6 +2593,7 @@ function activateCatalogMode(){
           return;
         }
         if (value === ''){
+          document.getElementById(id).value = '';
           if (id==='from'){ state.fromLat=null; state.fromLng=null; _fromSelectedIdx=null; }
           else { state.toLat=null; state.toLng=null; _toSelectedIdx=null; }
           if (id==='from' && _toDropdown) _toDropdown.refresh();
@@ -2587,6 +2601,10 @@ function activateCatalogMode(){
           return;
         }
         const c = _locationOptions[Number(value)];
+        // ⚠️ Γράφουμε ΚΑΙ το όνομα στο (κρυμμένο) input — το gather()/fieldText()
+        // διαβάζει από εκεί όταν placesEnabled=true· χωρίς αυτό το κουμπί
+        // έβγαζε «Συμπληρώστε Από και Προς» παρότι είχαν επιλεγεί.
+        document.getElementById(id).value = c.name || '';
         if (id==='from'){ state.fromLat=c.fromLat; state.fromLng=c.fromLng; state.fromClientShuttle=!!c.hasShuttleBus; _fromSelectedIdx=Number(value); }
         else { state.toLat=c.fromLat; state.toLng=c.fromLng; state.toClientShuttle=!!c.hasShuttleBus; _toSelectedIdx=Number(value); }
         state.clientHasShuttle = !!(state.fromClientShuttle || state.toClientShuttle);
