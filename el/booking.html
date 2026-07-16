@@ -473,21 +473,8 @@ body.is-mobile .map-gps{display:flex;}
          βάζουμε τα κανονικά paths (de/booking.html κ.λπ.). -->
     <div class="lang-switcher">
       <button class="dropbtn" type="button"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/gr.png" width="18" style="margin:0 5px;"> EL <i class="fas fa-chevron-down"></i></button>
-      <div class="dropdown-content">
-        <a href="#"><img src="https://flagcdn.com/w20/gb.png" width="20" alt="EN"> EN</a>
-        <a href="#"><img src="https://flagcdn.com/w20/de.png" width="20" alt="DE"> DE</a>
-        <a href="#"><img src="https://flagcdn.com/w20/es.png" width="20" alt="ES"> ES</a>
-        <a href="#"><img src="https://flagcdn.com/w20/pt.png" width="20" alt="PT"> PT</a>
-        <a href="#"><img src="https://flagcdn.com/w20/fr.png" width="20" alt="FR"> FR</a>
-        <a href="#"><img src="https://flagcdn.com/w20/it.png" width="20" alt="IT"> IT</a>
-        <a href="#"><img src="https://flagcdn.com/w20/pl.png" width="20" alt="PL"> PL</a>
-        <a href="#"><img src="https://flagcdn.com/w20/no.png" width="20" alt="NO"> NO</a>
-        <a href="#"><img src="https://flagcdn.com/w20/il.png" width="20" alt="HE"> HE</a>
-        <a href="#"><img src="https://flagcdn.com/w20/gr.png" width="20" alt="EL"> EL</a>
-        <a href="#"><img src="https://flagcdn.com/w20/cn.png" width="20" alt="ZH"> ZH</a>
-        <a href="#"><img src="https://flagcdn.com/w20/jp.png" width="20" alt="JA"> JA</a>
-        <a href="#"><img src="https://flagcdn.com/w20/hu.png" width="20" alt="HU"> HU</a>
-        <a href="#"><img src="https://flagcdn.com/w20/ru.png" width="20" alt="RU"> RU</a>
+      <div class="dropdown-content" style="grid-template-columns:1fr;">
+        <a href="../booking.html"><img src="https://flagcdn.com/w20/gb.png" width="20" alt="EN"> EN</a>
       </div>
     </div>
   </div>
@@ -1335,7 +1322,7 @@ btn.addEventListener('click', async ()=>{
       showVivaModal(true,
         '<div class="viva-modal-title">Η κράτηση καταχωρήθηκε!</div>' +
         '<div class="viva-modal-text">Δεν χρειάζεται καμία online πληρωμή. <b>' + data.from + ' \u2192 ' + data.to + '</b><br>' +
-        'Από εδώ και πέρα η επικοινωνία θα γίνεται μέσω WhatsApp: ' +
+        'Θα είμαστε σε επικοινωνία μαζί σας μέσω WhatsApp για οποιαδήποτε ενημέρωση χρειαστεί: ' +
         '<a href="https://wa.me/306936123322" target="_blank" style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a></div>',
         () => window.location.reload());
       return;
@@ -1443,7 +1430,7 @@ try{
 
   if (isSuccess){
     // ── ΕΠΙΤΥΧΙΑ ─────────────────────────────────────────────────────────
-    const waHtml = 'Από εδώ και πέρα η επικοινωνία θα γίνεται μέσω WhatsApp: ' +
+    const waHtml = 'Θα είμαστε σε επικοινωνία μαζί σας μέσω WhatsApp για οποιαδήποτε ενημέρωση χρειαστεί: ' +
       '<a href="https://wa.me/306936123322" target="_blank" ' +
       'style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a>';
     box.innerHTML =
@@ -2582,7 +2569,7 @@ function activateCatalogMode(){
       options: _locationOptions,
       getLabel: (c) => ({ main: c.name, sub: c.fromName || '' }),
       getGroupLabel: (c) => c.isRoutePoint ? 'Σημεία / Διαδρομές' : 'Πελάτες',
-      extraOption: { label: 'Άλλο (γράψτε διεύθυνση)', value: 'other' },
+      extraOption: { label: 'Διαφορετική διεύθυνση…', value: 'other' },
       isDisabled: (c, i) => {
         const otherIdx = id === 'from' ? _toSelectedIdx : _fromSelectedIdx;
         return otherIdx === i;
