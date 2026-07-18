@@ -1296,7 +1296,7 @@ btn.addEventListener('click', async ()=>{
     return;
   }
   if (data.wantsInvoice && data.invoiceAfm && !isValidGreekAfm(data.invoiceAfm)){
-    flash('err','<i class="fas fa-exclamation-circle"></i> The VAT number isn't valid — please check it');
+    flash('err','<i class="fas fa-exclamation-circle"></i> The VAT number isn\'t valid — please check it');
     return;
   }
   if (!data.name){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in your full name'); return; }
@@ -1322,7 +1322,7 @@ btn.addEventListener('click', async ()=>{
       showVivaModal(true,
         '<div class="viva-modal-title">Booking confirmed!</div>' +
         '<div class="viva-modal-text">No online payment is required. <b>' + data.from + ' \u2192 ' + data.to + '</b><br>' +
-        'We'll be in touch with you via WhatsApp for any updates you may need: ' +
+        'We\'ll be in touch with you via WhatsApp for any updates you may need: ' +
         '<a href="https://wa.me/306936123322" target="_blank" style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a></div>',
         () => window.location.reload());
       return;
@@ -1390,7 +1390,7 @@ function showVivaModal(success, html, onClose){
     '<div class="viva-modal-box ' + (success?'ok':'fail') + '">' +
       '<div class="viva-modal-icon"><i class="fas ' + (success?'fa-check-circle':'fa-times-circle') + '"></i></div>' +
       html +
-      (success ? '<div class="viva-modal-text" style="opacity:.7;font-size:.85em;margin-top:8px;"><i class="fas fa-envelope"></i> Can't find it? Please check your Spam/Junk folder.</div>' : '') +
+      (success ? '<div class="viva-modal-text" style="opacity:.7;font-size:.85em;margin-top:8px;"><i class="fas fa-envelope"></i> Can\'t find it? Please check your Spam/Junk folder.</div>' : '') +
       '<button type="button" class="viva-modal-btn">' + (success?'Great!':'Got it') + '</button>' +
     '</div>';
   document.body.appendChild(overlay);
@@ -1430,7 +1430,7 @@ try{
 
   if (isSuccess){
     // ── ΕΠΙΤΥΧΙΑ ─────────────────────────────────────────────────────────
-    const waHtml = 'We'll be in touch with you via WhatsApp for any updates you may need: ' +
+    const waHtml = 'We\'ll be in touch with you via WhatsApp for any updates you may need: ' +
       '<a href="https://wa.me/306936123322" target="_blank" ' +
       'style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a>';
     box.innerHTML =
