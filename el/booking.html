@@ -2481,8 +2481,17 @@ async function loadFrequentClients(){
     const tagGroups = getUrlPartnerTagGroups();
     _frequentClients = tagGroups.length ? j.clients.filter(c => clientMatchesTagGroups(c, tagGroups)) : j.clients;
     _locationOptions = buildLocationOptions();
-    _clientsOnlyBooking = j.clientsOnlyBooking === true;
-    _clientsCatalogMode = !_clientsOnlyBooking && j.clientsCatalogMode === true;
+    // ⚠️ ΑΣΦΑΛΕΙΑ: αν ένα φίλτρο URL (#tag) δεν ταιριάξει με ΚΑΝΕΝΑΝ πελάτη,
+    // ο κατάλογος θα έβγαινε ΑΔΕΙΟΣ και ο επισκέπτης δεν θα μπορούσε να
+    // κάνει καμία κράτηση. Σε αυτή την περίπτωση γυρνάμε στην ΚΛΑΣΙΚΗ
+    // λειτουργία (ελεύθερη πληκτρολόγηση + αναζήτηση Google Places).
+    const _hasClients = Array.isArray(_frequentClients) && _frequentClients.length > 0;
+    _clientsOnlyBooking = _hasClients && j.clientsOnlyBooking === true;
+    _clientsCatalogMode = _hasClients && !_clientsOnlyBooking && j.clientsCatalogMode === true;
+    if (!_hasClients) {
+      console.warn('Κανένας πελάτης δεν ταιριάζει με το φίλτρο — '
+                 + 'επιστροφή σε κλασική αναζήτηση (Places).');
+    }
     if (_clientsOnlyBooking) activateClientsOnlyMode();
     else if (_clientsCatalogMode) activateCatalogMode();
   }catch(e){ console.error('loadFrequentClients error:', e); }
