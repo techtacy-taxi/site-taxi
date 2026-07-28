@@ -473,8 +473,20 @@ body.is-mobile .map-gps{display:flex;}
          βάζουμε τα κανονικά paths (de/booking.html κ.λπ.). -->
     <div class="lang-switcher">
       <button class="dropbtn" type="button"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/gb.png" width="18" style="margin:0 5px;"> EN <i class="fas fa-chevron-down"></i></button>
-      <div class="dropdown-content" style="grid-template-columns:1fr;">
+      <div class="dropdown-content">
         <a href="el/booking.html" onclick="this.href='el/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/gr.png" width="20" alt="EL"> EL</a>
+        <a href="de/booking.html" onclick="this.href='de/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/de.png" width="20" alt="DE"> DE</a>
+        <a href="es/booking.html" onclick="this.href='es/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/es.png" width="20" alt="ES"> ES</a>
+        <a href="fr/booking.html" onclick="this.href='fr/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/fr.png" width="20" alt="FR"> FR</a>
+        <a href="he/booking.html" onclick="this.href='he/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/il.png" width="20" alt="HE"> HE</a>
+        <a href="hu/booking.html" onclick="this.href='hu/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/hu.png" width="20" alt="HU"> HU</a>
+        <a href="it/booking.html" onclick="this.href='it/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/it.png" width="20" alt="IT"> IT</a>
+        <a href="ja/booking.html" onclick="this.href='ja/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/jp.png" width="20" alt="JA"> JA</a>
+        <a href="no/booking.html" onclick="this.href='no/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/no.png" width="20" alt="NO"> NO</a>
+        <a href="pl/booking.html" onclick="this.href='pl/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/pl.png" width="20" alt="PL"> PL</a>
+        <a href="pt/booking.html" onclick="this.href='pt/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/pt.png" width="20" alt="PT"> PT</a>
+        <a href="ru/booking.html" onclick="this.href='ru/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/ru.png" width="20" alt="RU"> RU</a>
+        <a href="zh/booking.html" onclick="this.href='zh/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/cn.png" width="20" alt="ZH"> ZH</a>
       </div>
     </div>
   </div>
@@ -656,7 +668,7 @@ body.is-mobile .map-gps{display:flex;}
               If you don't give us your flight/ship we can't assist you. If you're not using one, write <b style="color:var(--primary-color);">0</b>.
             </div>
           </div>
-          <div class="fld"><label><i class="fas fa-comment-dots li"></i>Comments <span class="opt">(optional)</span></label><textarea id="note" placeholder="Επιπλέον πληροφορίες για τον οδηγό…"></textarea></div>
+          <div class="fld"><label><i class="fas fa-comment-dots li"></i>Comments <span class="opt">(optional)</span></label><textarea id="note" placeholder="Additional info for the driver…"></textarea></div>
           <div id="invoiceOptionWrap" style="display:none;">
             <div class="fld">
               <label style="margin-bottom:7px;">Document type</label>
@@ -690,7 +702,7 @@ body.is-mobile .map-gps{display:flex;}
         </div>
       </div>
       <div class="price-footnote" id="minChargeNote" style="display:none;">This is the minimum charge to book a vehicle.</div>
-      <div class="price-footnote" id="priceFootnote" style="display:none;">* Ισχύει το νυχτερινό τιμολόγιο (23:30–05:30), όπως ορίζει η κυβέρνηση.</div>
+      <div class="price-footnote" id="priceFootnote" style="display:none;">* Night rate applies (23:30-05:30), as set by Greek law.</div>
 
       <div class="deposit-banner" id="depositBanner" style="display:none;">
         <i class="fas fa-shield-halved"></i>
@@ -713,7 +725,7 @@ body.is-mobile .map-gps{display:flex;}
       </div>
       <div class="van-msg" id="waArea" style="display:none;">
         <p id="waReasonText">The booking can't be sent automatically — please contact us.</p>
-        <a class="wa-btn" id="waLink" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Επικοινωνία στο WhatsApp</a>
+        <a class="wa-btn" id="waLink" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Contact us on WhatsApp</a>
       </div>
     </div>
   </div>
@@ -828,7 +840,7 @@ function updateVehButtons(){
   shuttleBox.classList.toggle('sel', state.veh==='shuttle');
   if (canShowShuttle && state.shuttlePricePerPerson > 0){
     document.getElementById('vehShuttleSub').textContent =
-      'Fixed schedule · '+fmtEUR(state.shuttlePricePerPerson)+' /άτομο';
+      'Fixed schedule · '+fmtEUR(state.shuttlePricePerPerson)+' /person';
   }
   updateShuttleSlotUI();
 }
@@ -869,7 +881,7 @@ function render(){
     b.classList.toggle('dis', atMax||atMin);
   });
   updateVehButtons();
-  document.getElementById('autoHint').textContent = state.autoVan ? '· προτείνεται Van' : '';
+  document.getElementById('autoHint').textContent = state.autoVan ? '· Van suggested' : '';
   scheduleEstimate();
 }
 
@@ -1219,7 +1231,7 @@ function renderPrice(){
       state.noPaymentMode ? 'Complete booking' :
       state.payFull ? 'Full payment &amp; submit' : 'Pay deposit &amp; submit'));
   } else if (shuttleNeedsSlot) {
-    setBtn('', '<i class="fas fa-clock"></i> Διαλέξτε ώρα Shuttle παραπάνω');
+    setBtn('', '<i class="fas fa-clock"></i> Choose a Shuttle time above');
   }
   renderRouteMap();
 }
@@ -1300,7 +1312,7 @@ btn.addEventListener('click', async ()=>{
     return;
   }
   if (!data.name){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in your full name'); return; }
-  if (!document.getElementById('phone').value.trim()){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε τηλέφωνο'); return; }
+  if (!document.getElementById('phone').value.trim()){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in your phone number'); return; }
   if (!data.date || !data.time){ flash('err','<i class="fas fa-exclamation-circle"></i> Please select a date and time'); return; }
   if (!isValidEmail(data.email)){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in a valid email'); return; }
   if (!data.flight){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in flight/ship (or 0)'); return; }
@@ -1459,12 +1471,12 @@ try{
       '<div class="vrb-title"><i class="fas fa-times-circle"></i> BOOKING NOT CONFIRMED — payment not completed</div>' +
       '<div class="vrb-row"><span class="k">Route:</span><span>' + from + ' → ' + to + '</span></div>' +
       '<div class="vrb-row"><span class="k">Date/time:</span><span>' + when + '</span></div>' +
-      '<div class="vrb-row" style="margin-top:8px;">The form below was refilled automatically — please press the payment button againηρωμής για νέα προσπάθεια.</div>';
+      '<div class="vrb-row" style="margin-top:8px;">The form below was refilled automatically — please press the payment button again.</div>';
 
     try {
       showVivaModal(false,
         '<div class="viva-modal-title">Payment failed</div>' +
-        '<div class="viva-modal-text">Η προκαταβολή για <b>' + from + ' → ' + to + '</b> was not completed.<br>' +
+        '<div class="viva-modal-text">The deposit for <b>' + from + ' → ' + to + '</b> was not completed.<br>' +
         'The form remains filled in — please try again with another card.</div>');
     } catch (e) { console.error('[handleVivaReturn] showVivaModal failed:', e); }
 
@@ -1509,7 +1521,7 @@ try{
   try {
     const fallback = document.createElement('div');
     fallback.style.cssText = 'background:#c62828;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:14px;';
-    fallback.textContent = 'Your payment likely went through, but there was a technical issue displaying the confirmation messageος. Επικοινωνήστε μαζί μας για επιβεβαίωση.';
+    fallback.textContent = 'Your payment likely went through, but there was a technical issue displaying the confirmation message. Please contact us to confirm.';
     document.body.insertBefore(fallback, document.body.firstChild);
   } catch (e2) { /* δεν μπορούμε να κάνουμε τίποτα άλλο */ }
 }

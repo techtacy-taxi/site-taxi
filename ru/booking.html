@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Κράτηση Μεταφοράς · TaxiAthensTransfers.com</title>
+<title>Book a Transfer · TaxiAthensTransfers.com</title>
 <meta name="theme-color" content="#0a192f">
 <meta name="robots" content="noindex">
 
@@ -19,7 +19,7 @@
        • γράφει τη δουλειά στο saved_jobs (origin:'public_form')
        • στέλνει email + .ics στον master
        • ειδοποιεί τον master (FCM type 'public_booking')
-     ΦΑΣΗ 1: τιμή = 0 (την βάζει ο master). Το «Εκτιμώμενο κόστος»
+     ΦΑΣΗ 1: τιμή = 0 (την βάζει ο master). Το «Estimated cost»
      δείχνει 0,00€ ως ενδεικτικό.
      ============================================================ -->
 
@@ -296,7 +296,7 @@ body{
 .foot{text-align:center;color:var(--text-muted);font-size:.78rem;padding:24px 18px 36px;}
 .foot a{color:var(--primary-color);text-decoration:none;}
 
-/* ---------- Route block: Από/Προς + εναλλαγή ---------- */
+/* ---------- Route block: From/To + εναλλαγή ---------- */
 .route-block{display:flex;flex-direction:column;}
 .input-with-map{position:relative;}
 .input-with-map input{padding-right:42px;}
@@ -472,9 +472,10 @@ body.is-mobile .map-gps{display:flex;}
          κάπου ακόμη (href="#") — όταν μεταφραστεί η σελίδα στις 14 γλώσσες,
          βάζουμε τα κανονικά paths (de/booking.html κ.λπ.). -->
     <div class="lang-switcher">
-      <button class="dropbtn" type="button"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/gr.png" width="18" style="margin:0 5px;"> EL <i class="fas fa-chevron-down"></i></button>
+      <button class="dropbtn" type="button"><i class="fas fa-globe"></i> <img src="https://flagcdn.com/w20/ru.png" width="18" style="margin:0 5px;"> RU <i class="fas fa-chevron-down"></i></button>
       <div class="dropdown-content">
         <a href="../booking.html" onclick="this.href='../booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/gb.png" width="20" alt="EN"> EN</a>
+        <a href="../el/booking.html" onclick="this.href='../el/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/gr.png" width="20" alt="EL"> EL</a>
         <a href="../de/booking.html" onclick="this.href='../de/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/de.png" width="20" alt="DE"> DE</a>
         <a href="../es/booking.html" onclick="this.href='../es/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/es.png" width="20" alt="ES"> ES</a>
         <a href="../fr/booking.html" onclick="this.href='../fr/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/fr.png" width="20" alt="FR"> FR</a>
@@ -485,7 +486,6 @@ body.is-mobile .map-gps{display:flex;}
         <a href="../no/booking.html" onclick="this.href='../no/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/no.png" width="20" alt="NO"> NO</a>
         <a href="../pl/booking.html" onclick="this.href='../pl/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/pl.png" width="20" alt="PL"> PL</a>
         <a href="../pt/booking.html" onclick="this.href='../pt/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/pt.png" width="20" alt="PT"> PT</a>
-        <a href="../ru/booking.html" onclick="this.href='../ru/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/ru.png" width="20" alt="RU"> RU</a>
         <a href="../zh/booking.html" onclick="this.href='../zh/booking.html'+(window.location.hash||'');"><img src="https://flagcdn.com/w20/cn.png" width="20" alt="ZH"> ZH</a>
       </div>
     </div>
@@ -495,16 +495,16 @@ body.is-mobile .map-gps{display:flex;}
 <!-- ============ FORM ============ -->
 <div class="wrap">
   <div class="intro">
-    <h1>Κράτηση <b>μεταφοράς</b></h1>
-    <p>Συμπληρώστε τα στοιχεία της διαδρομής και θα επικοινωνήσουμε για επιβεβαίωση.</p>
+    <h1>Забронировать <b>трансфер</b></h1>
+    <p>Укажите детали поездки, и мы свяжемся с вами для подтверждения.</p>
   </div>
 
   <div class="card">
     <div class="card-head">
       <div class="ic"><i class="fas fa-car"></i></div>
       <div>
-        <h2>Στοιχεία διαδρομής</h2>
-        <div class="sub">TaxiAthensTransfers.com · γρήγορα και εύκολα</div>
+        <h2>Детали поездки</h2>
+        <div class="sub">TaxiAthensTransfers.com · быстро и просто</div>
       </div>
     </div>
 
@@ -515,12 +515,12 @@ body.is-mobile .map-gps{display:flex;}
         <div class="colstack">
           <div class="route-block">
             <div class="fld">
-              <label><i class="fas fa-dot-circle li"></i>Από</label>
+              <label><i class="fas fa-dot-circle li"></i>Откуда</label>
               <div class="ac-wrap">
                 <div class="input-with-map">
-                  <input type="text" id="from" placeholder="π.χ. Αεροδρόμιο Ελ. Βενιζέλος" autocomplete="off">
-                  <button type="button" class="gps-btn" data-target="from" title="Η τοποθεσία μου"><i class="fas fa-location-crosshairs"></i></button>
-                  <button type="button" class="map-btn" data-target="from" title="Επιλογή στον χάρτη"><i class="fas fa-map-marker-alt"></i></button>
+                  <input type="text" id="from" placeholder="напр. Аэропорт Афин" autocomplete="off">
+                  <button type="button" class="gps-btn" data-target="from" title="My location"><i class="fas fa-location-crosshairs"></i></button>
+                  <button type="button" class="map-btn" data-target="from" title="Pick on map"><i class="fas fa-map-marker-alt"></i></button>
                 </div>
                 <div class="ac-list" id="ac-from"></div>
               </div>
@@ -528,19 +528,19 @@ body.is-mobile .map-gps{display:flex;}
 
             <div class="swap-row">
               <span class="swap-line"></span>
-              <button type="button" id="swapBtn" class="swap-btn" title="Εναλλαγή Από/Προς">
+              <button type="button" id="swapBtn" class="swap-btn" title="Swap From/To">
                 <i class="fas fa-exchange-alt"></i>
               </button>
               <span class="swap-line"></span>
             </div>
 
             <div class="fld">
-              <label><i class="fas fa-map-marker-alt li" style="color:#ff5a5a;"></i>Προς</label>
+              <label><i class="fas fa-map-marker-alt li" style="color:#ff5a5a;"></i>Куда</label>
               <div class="ac-wrap">
                 <div class="input-with-map">
-                  <input type="text" id="to" placeholder="π.χ. Σύνταγμα, Αθήνα" autocomplete="off">
-                  <button type="button" class="gps-btn" data-target="to" title="Η τοποθεσία μου"><i class="fas fa-location-crosshairs"></i></button>
-                  <button type="button" class="map-btn" data-target="to" title="Επιλογή στον χάρτη"><i class="fas fa-map-marker-alt"></i></button>
+                  <input type="text" id="to" placeholder="напр. Синтагма, Афины" autocomplete="off">
+                  <button type="button" class="gps-btn" data-target="to" title="My location"><i class="fas fa-location-crosshairs"></i></button>
+                  <button type="button" class="map-btn" data-target="to" title="Pick on map"><i class="fas fa-map-marker-alt"></i></button>
                 </div>
                 <div class="ac-list" id="ac-to"></div>
               </div>
@@ -556,20 +556,20 @@ body.is-mobile .map-gps{display:flex;}
               <div style="flex:1;background:var(--dark-secondary);border:1px solid var(--field-border);border-radius:10px;padding:9px 8px;text-align:center;">
                 <div style="color:#4a90d9;font-size:15px;margin-bottom:2px;"><i class="fas fa-road"></i></div>
                 <div id="routeDistanceVal" style="color:var(--white);font-size:13px;font-weight:700;">—</div>
-                <div style="color:var(--text-muted);font-size:9.5px;">Διαδρομή</div>
+                <div style="color:var(--text-muted);font-size:9.5px;">Route</div>
               </div>
               <div style="flex:1;background:var(--dark-secondary);border:1px solid var(--field-border);border-radius:10px;padding:9px 8px;text-align:center;">
                 <div style="color:var(--primary-color);font-size:15px;margin-bottom:2px;"><i class="fas fa-clock"></i></div>
                 <div id="routeDurationVal" style="color:var(--white);font-size:13px;font-weight:700;">—</div>
-                <div id="routeDurationLabel" style="color:var(--text-muted);font-size:9.5px;">Ώρα ραντεβού</div>
+                <div id="routeDurationLabel" style="color:var(--text-muted);font-size:9.5px;">Appointment time</div>
               </div>
             </div>
           </div>
           <div class="duo">
-            <div class="fld"><label><i class="far fa-calendar li"></i>Ημερομηνία</label><input type="date" id="date"></div>
-            <div class="fld"><label><i class="far fa-clock li"></i>Ώρα</label>
+            <div class="fld"><label><i class="far fa-calendar li"></i>Дата</label><input type="text" id="date" placeholder="dd/mm/yyyy" onfocus="this.type='date';try{this.showPicker&&this.showPicker();}catch(e){}" onblur="if(!this.value)this.type='text';"></div>
+            <div class="fld"><label><i class="far fa-clock li"></i>Время</label>
               <div class="time-wrap">
-                <input type="text" id="time" readonly placeholder="Επιλέξτε ώρα" autocomplete="off">
+                <input type="text" id="time" readonly placeholder="Выбрать время" autocomplete="off">
                 <div class="time-scroll" id="timeScroll"></div>
               </div>
             </div>
@@ -577,20 +577,20 @@ body.is-mobile .map-gps{display:flex;}
           <div id="shuttleSlotArea" style="display:none;background:var(--dark-secondary);border:1.5px solid var(--primary-color);border-radius:10px;padding:10px 12px;margin-top:-6px;">
             <div style="font-size:12px;color:var(--white);font-weight:700;margin-bottom:8px;">
               <i class="fas fa-bus" style="color:var(--primary-color);"></i>
-              Το Shuttle περνάει σε συγκεκριμένες ώρες — διαλέξτε μία:
+              Шаттл ходит по расписанию — выберите один вариант:
             </div>
             <div style="display:flex;gap:8px;">
               <button type="button" class="shuttle-slot-btn" id="shuttleSlotBefore" data-time=""></button>
               <button type="button" class="shuttle-slot-btn" id="shuttleSlotAfter" data-time=""></button>
             </div>
             <div style="font-size:10.5px;color:var(--text-muted);margin-top:6px;">
-              Αν καμία δεν σας βολεύει, επιλέξτε Ταξί ή Βαν παραπάνω αντί για Shuttle.
+              Если ни один не подходит, выберите Такси или Минивэн выше вместо шаттла.
             </div>
           </div>
 
           <div class="duo">
             <div class="counter">
-              <div class="ct"><i class="fas fa-users"></i> Άτομα</div>
+              <div class="ct"><i class="fas fa-users"></i> Пассажиры</div>
               <div class="row">
                 <span class="stp" data-t="persons" data-d="-1"><i class="fas fa-minus"></i></span>
                 <span class="cval" id="v-persons">2</span>
@@ -598,7 +598,7 @@ body.is-mobile .map-gps{display:flex;}
               </div>
             </div>
             <div class="counter">
-              <div class="ct"><i class="fas fa-suitcase-rolling"></i> Βαλίτσες</div>
+              <div class="ct"><i class="fas fa-suitcase-rolling"></i> Багаж</div>
               <div class="row">
                 <span class="stp" data-t="luggage" data-d="-1"><i class="fas fa-minus"></i></span>
                 <span class="cval" id="v-luggage">2</span>
@@ -612,7 +612,7 @@ body.is-mobile .map-gps{display:flex;}
         <!-- ΔΕΞΙΑ: στοιχεία πελάτη -->
         <div class="colstack">
           <div class="counter">
-            <div class="ct"><i class="fas fa-baby"></i> Παιδικά καθίσματα</div>
+            <div class="ct"><i class="fas fa-baby"></i> Детские кресла</div>
             <div class="row">
               <span class="stp" data-t="seats" data-d="-1"><i class="fas fa-minus"></i></span>
               <span class="cval" id="v-seats">0</span>
@@ -621,30 +621,30 @@ body.is-mobile .map-gps{display:flex;}
           </div>
 
           <div class="fld">
-            <label style="margin-bottom:7px;">Τύπος οχήματος <span class="auto-hint" id="autoHint"></span></label>
+            <label style="margin-bottom:7px;">Тип автомобиля <span class="auto-hint" id="autoHint"></span></label>
             <div class="veh-shuttle" id="vehShuttle" style="display:none;">
               <i class="fas fa-shuttle-van"></i>
               <div>
-                <div class="veh-shuttle-title">Υπηρεσία Shuttle</div>
-                <div class="veh-shuttle-sub" id="vehShuttleSub">Άφιξη ±15 λεπτά από την ώρα που ορίζετε · τιμή ανά άτομο</div>
+                <div class="veh-shuttle-title">Шаттл</div>
+                <div class="veh-shuttle-sub" id="vehShuttleSub">Прибытие ±15 мин от указанного времени · цена за человека</div>
               </div>
             </div>
             <div class="veh-wrap" id="vehWrapNormal">
-              <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Ταξί / Sedan</div></div>
-              <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Βαν</div></div>
+              <div class="veh sel" id="vehTaxi"><i class="fas fa-car"></i><div>Такси / Седан</div></div>
+              <div class="veh" id="vehVan"><i class="fas fa-shuttle-van"></i><div>Минивэн</div></div>
             </div>
             <div class="veh-shuttle" id="vehBusWrap" style="display:none;">
               <i class="fas fa-bus"></i>
               <div>
-                <div class="veh-shuttle-title">Λεωφορείο</div>
-                <div class="veh-shuttle-sub">Πάνω από 8 άτομα — απαραίτητο για τόσα άτομα μαζί</div>
+                <div class="veh-shuttle-title">Автобус</div>
+                <div class="veh-shuttle-sub">Более 8 человек — необходим для такой группы, путешествующей вместе</div>
               </div>
             </div>
           </div>
 
-          <div class="fld"><label><i class="fas fa-user li"></i>Ονοματεπώνυμο</label><input type="text" id="name" placeholder="Το όνομά σας" autocomplete="name"></div>
+          <div class="fld"><label><i class="fas fa-user li"></i>Полное имя</label><input type="text" id="name" placeholder="Ваше имя" autocomplete="name"></div>
           <div class="fld">
-            <label><i class="fas fa-phone li"></i>Τηλέφωνο</label>
+            <label><i class="fas fa-phone li"></i>Телефон</label>
             <div class="phone-row">
               <div class="cc-wrap">
                 <div class="cc-btn" id="ccBtn">
@@ -653,7 +653,7 @@ body.is-mobile .map-gps{display:flex;}
                   <span class="chev"><i class="fas fa-chevron-down"></i></span>
                 </div>
                 <div class="cc-list" id="ccList">
-                  <div class="cc-search"><input type="text" id="ccSearch" placeholder="Αναζήτηση χώρας…"></div>
+                  <div class="cc-search"><input type="text" id="ccSearch" placeholder="Поиск страны…"></div>
                   <div id="ccItems"></div>
                 </div>
               </div>
@@ -662,25 +662,25 @@ body.is-mobile .map-gps{display:flex;}
           </div>
           <div class="fld"><label><i class="fas fa-envelope li"></i>Email</label><input type="email" id="email" placeholder="name@email.com" autocomplete="email"></div>
           <div class="fld">
-            <label><i class="fas fa-plane li"></i>Πτήση / Πλοίο</label>
-            <input type="text" id="flight" placeholder="π.χ. A3 712">
+            <label><i class="fas fa-plane li"></i>Рейс / Судно</label>
+            <input type="text" id="flight" placeholder="напр. A3 712">
             <div style="color:var(--text-muted);font-size:.72rem;margin-top:5px;line-height:1.4;">
-              Αν δεν μας δώσετε πτήση/πλοίο δεν μπορούμε να εξυπηρετήσουμε. Αν δεν χρησιμοποιείτε κάτι, γράψτε <b style="color:var(--primary-color);">0</b>.
+              Без номера рейса/судна мы не сможем вам помочь. Если не применимо, напишите <b style="color:var(--primary-color);">0</b>.
             </div>
           </div>
-          <div class="fld"><label><i class="fas fa-comment-dots li"></i>Σχόλια <span class="opt">(προαιρετικό)</span></label><textarea id="note" placeholder="Επιπλέον πληροφορίες για τον οδηγό…"></textarea></div>
+          <div class="fld"><label><i class="fas fa-comment-dots li"></i>Комментарии <span class="opt">(необязательно)</span></label><textarea id="note" placeholder="Дополнительная информация для водителя…"></textarea></div>
           <div id="invoiceOptionWrap" style="display:none;">
             <div class="fld">
-              <label style="margin-bottom:7px;">Παραστατικό</label>
+              <label style="margin-bottom:7px;">Тип документа</label>
               <div class="veh-wrap">
-                <div class="veh sel" id="docReceipt"><i class="fas fa-receipt"></i><div>Απόδειξη</div></div>
-                <div class="veh" id="docInvoice"><i class="fas fa-file-invoice"></i><div>Τιμολόγιο</div></div>
+                <div class="veh sel" id="docReceipt"><i class="fas fa-receipt"></i><div>Квитанция</div></div>
+                <div class="veh" id="docInvoice"><i class="fas fa-file-invoice"></i><div>Счёт-фактура</div></div>
               </div>
             </div>
             <div id="invoiceFields" style="display:none;">
-              <div class="fld"><label>Επωνυμία επιχείρησης</label><input type="text" id="invoiceCompanyName" placeholder="π.χ. ΕΤΑΙΡΕΙΑ Α.Ε."></div>
-              <div class="fld"><label>ΑΦΜ *</label><input type="text" id="invoiceAfm" inputmode="numeric" placeholder="π.χ. 123456789"></div>
-              <div class="fld"><label>Διεύθυνση</label><input type="text" id="invoiceAddress" placeholder="Οδός, αριθμός, πόλη, ΤΚ"></div>
+              <div class="fld"><label>Название компании</label><input type="text" id="invoiceCompanyName" placeholder="напр. КОМПАНИЯ ООО"></div>
+              <div class="fld"><label>ИНН/НДС номер *</label><input type="text" id="invoiceAfm" inputmode="numeric" placeholder="напр. 123456789"></div>
+              <div class="fld"><label>Адрес</label><input type="text" id="invoiceAddress" placeholder="Улица, номер, город, индекс"></div>
             </div>
           </div>
         </div>
@@ -689,43 +689,43 @@ body.is-mobile .map-gps{display:flex;}
 
       <div class="price-box">
         <div>
-          <div class="pl">Εκτιμώμενο κόστος</div>
-          <div class="ps">ενδεικτικό · θα επιβεβαιωθεί από τον πάροχο</div>
+          <div class="pl">Примерная стоимость</div>
+          <div class="ps">ориентировочно · будет подтверждено поставщиком</div>
         </div>
         <div>
           <div class="pv-row">
             <span class="pv-original" id="priceOriginal" style="display:none;"></span>
             <span class="pv-discount" id="priceDiscountLabel" style="display:none;"></span>
             <div class="pv" id="priceView">0,00 €</div>
-            <div class="pv-night" id="priceNightLabel" style="display:none;">Νυχτερινός τιμοκατάλογος *</div>
+            <div class="pv-night" id="priceNightLabel" style="display:none;">Ночной тариф *</div>
           </div>
         </div>
       </div>
-      <div class="price-footnote" id="minChargeNote" style="display:none;">Είναι η μικρότερη τιμή για δέσμευση οχήματος.</div>
-      <div class="price-footnote" id="priceFootnote" style="display:none;">* Ισχύει το νυχτερινό τιμολόγιο (23:30–05:30), όπως ορίζει η κυβέρνηση.</div>
+      <div class="price-footnote" id="minChargeNote" style="display:none;">Это минимальная плата за бронирование автомобиля.</div>
+      <div class="price-footnote" id="priceFootnote" style="display:none;">* Действует ночной тариф (23:30-05:30), согласно греческому законодательству.</div>
 
       <div class="deposit-banner" id="depositBanner" style="display:none;">
         <i class="fas fa-shield-halved"></i>
         <div style="flex:1;">
-          <div class="db-title" id="depositTitle">Για την κράτηση απαιτείται προκαταβολή 10%</div>
-          <div class="db-amt" id="depositAmtLine">Θα πληρώσετε τώρα <b id="depositAmt">0,00 €</b> μέσω ασφαλούς πληρωμής (Viva) — το υπόλοιπο στον οδηγό.</div>
+          <div class="db-title" id="depositTitle">A deposit is required for this booking 10%</div>
+          <div class="db-amt" id="depositAmtLine">You will pay now <b id="depositAmt">0,00 €</b> via secure payment (Viva) — the rest to the driver.</div>
           <div class="pay-mode">
-            <button type="button" class="sel" id="payModeDeposit" data-mode="deposit">Προκαταβολή 10%
-              <span class="pm-sub">το υπόλοιπο στον οδηγό</span></button>
-            <button type="button" id="payModeFull" data-mode="full">Πλήρης πληρωμή
-              <span class="pm-sub">τίποτα άλλο να πληρώσετε</span></button>
+            <button type="button" class="sel" id="payModeDeposit" data-mode="deposit">10% Deposit
+              <span class="pm-sub">the rest to the driver</span></button>
+            <button type="button" id="payModeFull" data-mode="full">Full payment
+              <span class="pm-sub">nothing else to pay</span></button>
           </div>
         </div>
       </div>
 
       <div id="actionArea">
-        <button class="submit" id="sendBtn" type="button"><i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή</button>
-        <div class="note" id="payNote">Θα μεταφερθείτε στη σελίδα ασφαλούς πληρωμής (Viva). Η κράτηση οριστικοποιείται μόνο μετά την επιτυχή πληρωμή.</div>
-        <div class="note" style="margin-top:6px;">Πατώντας το κουμπί αποδέχεστε τους <a href="terms.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Όρους &amp; Προϋποθέσεις</a> και την <a href="privacy-policy.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Πολιτική Απορρήτου</a>.</div>
+        <button class="submit" id="sendBtn" type="button"><i class="fas fa-credit-card"></i> Оплатить депозит и отправить</button>
+        <div class="note" id="payNote">Вы будете перенаправлены на защищённую страницу оплаты (Viva). Бронирование считается окончательным только после успешной оплаты.</div>
+        <div class="note" style="margin-top:6px;">Нажимая кнопку, вы принимаете <a href="terms.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Условия использования</a> и <a href="privacy-policy.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Политику конфиденциальности</a>.</div>
       </div>
       <div class="van-msg" id="waArea" style="display:none;">
-        <p id="waReasonText">Η κράτηση δεν μπορεί να σταλεί αυτόματα — επικοινωνήστε μαζί μας.</p>
-        <a class="wa-btn" id="waLink" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Επικοινωνία στο WhatsApp</a>
+        <p id="waReasonText">Бронирование не может быть отправлено автоматически — пожалуйста, свяжитесь с нами.</p>
+        <a class="wa-btn" id="waLink" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:18px;"></i> Связаться через WhatsApp</a>
       </div>
     </div>
   </div>
@@ -736,22 +736,22 @@ body.is-mobile .map-gps{display:flex;}
   <div class="map-box">
     <div class="map-box-head">
       <i class="fas fa-map-marked-alt" style="color:var(--primary-color);"></i>
-      <span class="t" id="mapTitle">Επιλογή σημείου</span>
+      <span class="t" id="mapTitle">Choose location</span>
       <button type="button" class="x" id="mapClose"><i class="fas fa-times"></i></button>
     </div>
     <div style="position:relative;">
       <div id="mapCanvas"></div>
       <i class="fas fa-map-marker-alt map-pin-hint"></i>
-      <button type="button" class="map-gps" id="mapGps" title="Η τοποθεσία μου"><i class="fas fa-location-crosshairs"></i></button>
+      <button type="button" class="map-gps" id="mapGps" title="My location"><i class="fas fa-location-crosshairs"></i></button>
     </div>
     <div class="map-box-foot">
-      <div class="map-addr" id="mapAddr"><i class="fas fa-location-dot"></i> <span>Μετακινήστε τον χάρτη…</span></div>
-      <button type="button" class="map-confirm" id="mapConfirm" disabled><i class="fas fa-check"></i> Επιβεβαίωση διεύθυνσης</button>
+      <div class="map-addr" id="mapAddr"><i class="fas fa-location-dot"></i> <span>Move the map…</span></div>
+      <button type="button" class="map-confirm" id="mapConfirm" disabled><i class="fas fa-check"></i> Confirm address</button>
     </div>
   </div>
 </div>
 
-<div class="foot">© TaxiAthensTransfers.com · <a href="index.html">Επιστροφή στην αρχική</a></div>
+<div class="foot">© TaxiAthensTransfers.com · <a href="index.html">Back to home</a></div>
 
 <script>
 /* ====== ΑΝΙΧΝΕΥΣΗ ΚΙΝΗΤΟΥ (για το κουμπί GPS) ====== */
@@ -783,8 +783,8 @@ const STRIPE_CHECKOUT_ENDPOINT = "https://us-central1-my-taxi-app-bbc7c.cloudfun
 const EFORM_ID = "default";
 
 /* Όρια οχήματος (συμφωνημένη λογική) */
-const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Βαν
-const LUGGAGE_VAN_THRESHOLD = 5;  // βαλίτσες >= 5 -> Βαν
+const PERSON_VAN_THRESHOLD  = 5;  // άτομα >= 5 -> Van
+const LUGGAGE_VAN_THRESHOLD = 5;  // βαλίτσες >= 5 -> Van
 
 const MAX = { persons:50, luggage:12, seats:4 };
 const MIN = { persons:1, luggage:0,  seats:0 };
@@ -796,7 +796,7 @@ const state = { persons:2, luggage:2, seats:0, veh:'taxi', autoVan:false,
   clientHasShuttle:false, fromClientShuttle:false, toClientShuttle:false,
   shuttleSlotOptions:null, selectedShuttleTime:null,
   noRouteAvailable:false, fullPaymentEnabled:true, wantsInvoice:false, paymentProvider:'viva' };
-const BUS_PERSON_THRESHOLD = 9; // άτομα >= 9 -> ΥΠΟΧΡΕΩΤΙΚΟ Λεωφορείο (το Βαν παίρνει μέχρι 8)
+const BUS_PERSON_THRESHOLD = 9; // άτομα >= 9 -> ΥΠΟΧΡΕΩΤΙΚΟ Bus (το Van παίρνει μέχρι 8)
 
 /* ---- Counters ---- */
 function clampStep(t,d){
@@ -811,12 +811,12 @@ function recomputeVehicle(){
     state.veh = 'bus';
   } else if (state.veh === 'bus' && !state.userPickedVeh){
     // Έπεσε κάτω από 9 άτομα ΚΑΙ δεν το διάλεξε ο ίδιος — βγαίνει από το
-    // υποχρεωτικό Λεωφορείο. Αν το διάλεξε ο ίδιος χειροκίνητα, το κρατάμε.
+    // υποχρεωτικό Bus. Αν το διάλεξε ο ίδιος χειροκίνητα, το κρατάμε.
     state.veh = state.autoVan ? 'van' : 'taxi';
   } else if (state.veh !== 'bus' && state.autoVan){
-    if (state.veh !== 'shuttle') state.veh = 'van';   // δεν κλειδώνει σε Βαν αν έχει επιλεγεί Shuttle
+    if (state.veh !== 'shuttle') state.veh = 'van';   // δεν κλειδώνει σε Van αν έχει επιλεγεί Shuttle
   } else if (state.veh !== 'bus' && wasAuto && !state.autoVan && state.veh !== 'shuttle'){
-    state.veh = 'taxi';                // έπεσε κάτω από το όριο -> ξανά Ταξί
+    state.veh = 'taxi';                // έπεσε κάτω από το όριο -> ξανά Taxi
   }
 }
 // ── Ενημερώνει ΜΟΝΟ τα κουμπιά οχήματος (εμφάνιση/επιλογή Shuttle) — ΔΕΝ
@@ -832,7 +832,7 @@ function updateVehButtons(){
   document.getElementById('vehVan').classList.toggle('sel', state.veh==='van');
   const shuttleBox = document.getElementById('vehShuttle');
   // ── Shuttle εμφανίζεται ΜΟΝΟ αν ΚΑΙ ο συγκεκριμένος πελάτης (που ταιριάξαμε
-  // στο «Από») έχει ενεργό τον διακόπτη Shuttle ΚΑΙ υπάρχει τιμή/άτομο για
+  // στο «From») έχει ενεργό τον διακόπτη Shuttle ΚΑΙ υπάρχει τιμή/άτομο για
   // αυτή τη ζώνη-διαδρομή. Χωρίς αναγνωρισμένο πελάτη με ενεργό Shuttle,
   // ΔΕΝ εμφανίζεται ποτέ, ό,τι τιμές κι αν υπάρχουν στη ζώνη.
   const canShowShuttle = !isBusForced && state.shuttleAvailable && state.clientHasShuttle;
@@ -840,7 +840,7 @@ function updateVehButtons(){
   shuttleBox.classList.toggle('sel', state.veh==='shuttle');
   if (canShowShuttle && state.shuttlePricePerPerson > 0){
     document.getElementById('vehShuttleSub').textContent =
-      'Σταθερό δρομολόγιο · '+fmtEUR(state.shuttlePricePerPerson)+' /άτομο';
+      'Fixed schedule · '+fmtEUR(state.shuttlePricePerPerson)+' /person';
   }
   updateShuttleSlotUI();
 }
@@ -881,7 +881,7 @@ function render(){
     b.classList.toggle('dis', atMax||atMin);
   });
   updateVehButtons();
-  document.getElementById('autoHint').textContent = state.autoVan ? '· προτείνεται Βαν' : '';
+  document.getElementById('autoHint').textContent = state.autoVan ? '· Van suggested' : '';
   scheduleEstimate();
 }
 
@@ -895,7 +895,7 @@ document.querySelectorAll('.stp').forEach(b=>{
 });
 
 document.getElementById('vehTaxi').addEventListener('click', ()=>{
-  if (state.autoVan) return;   // κλειδωμένο σε Βαν — βλ. actionArea/waArea
+  if (state.autoVan) return;   // κλειδωμένο σε Van — βλ. actionArea/waArea
   state.veh='taxi'; state.userPickedVeh=true; state.selectedShuttleTime=null; render();
 });
 document.getElementById('vehVan').addEventListener('click', ()=>{
@@ -963,14 +963,14 @@ async function fetchEstimate(){
   }
   const mySeq = ++estimateSeq;
 
-  // ── Cache διαδρομής: αν το Από/Προς/όχημα ΔΕΝ άλλαξε από την προηγούμενη
+  // ── Cache διαδρομής: αν το From/To/όχημα ΔΕΝ άλλαξε από την προηγούμενη
   // φορά (μόνο ημερομηνία/ώρα/άτομα/βαλίτσες άλλαξαν), ΔΕΝ χρειάζεται νέα
-  // κλήση Routes API — στέλνουμε στον server τα ήδη υπολογισμένα km/λεπτά/
+  // κλήση Routes API — στέλνουμε στον server τα ήδη υπολογισμένα km/min/
   // polyline και τα ξαναχρησιμοποιεί αντί να ρωτήσει ξανά τη Google.
   const routeSig = [data.fromLat,data.fromLng,data.toLat,data.toLng,data.vehicleType].join('|');
   const sameRoute = routeSig === _lastRouteSig;
 
-  // ── Ο χάρτης/απόσταση εμφανίζεται μόνο αφού μπει Ονοματεπώνυμο — σαφής
+  // ── Ο χάρτης/απόσταση εμφανίζεται μόνο αφού μπει Full name — σαφής
   // ένδειξη ότι ο πελάτης προχωράει πραγματικά σε κράτηση, όχι απλή δοκιμή.
   const nameFilled = !!document.getElementById('name').value.trim();
 
@@ -1036,7 +1036,7 @@ async function fetchEstimate(){
       state.veh = state.autoVan ? 'van' : 'taxi';
     }
     updateVehButtons();
-    // ── Λεωφορείο χωρίς ορισμένη διαδρομή ζώνης, Ή λειτουργία «μόνο πελάτες»
+    // ── Bus χωρίς ορισμένη διαδρομή ζώνης, Ή λειτουργία «μόνο πελάτες»
     // (Places off) χωρίς ταίριασμα διαδρομής πελάτη → WhatsApp fallback.
     if ((state.veh === 'bus' || _clientsOnlyBooking) && state.noRouteAvailable) {
       const rc = state.veh === 'bus' ? 'no_bus_route' : 'no_client_route';
@@ -1055,7 +1055,7 @@ let _routeMap = null, _routeMarkerFrom = null, _routeMarkerTo = null, _routePoly
 
 function fmtMinutes(min){
   const m = Math.round(min);
-  if (m < 60) return m + ' λεπτά';
+  if (m < 60) return m + ' min';
   const h = Math.floor(m/60), r = m%60;
   return h + 'ω ' + (r ? r+'λ' : '');
 }
@@ -1073,10 +1073,10 @@ function renderRouteMap(){
   }
   wrap.style.display = 'block';
 
-  document.getElementById('routeDistanceVal').textContent = lastEstimate.distanceKm.toFixed(1) + ' χλμ';
+  document.getElementById('routeDistanceVal').textContent = lastEstimate.distanceKm.toFixed(1) + ' km';
   document.getElementById('routeDurationVal').textContent = lastEstimate.durationMin > 0 ? fmtMinutes(lastEstimate.durationMin) : '—';
   document.getElementById('routeDurationLabel').textContent = document.getElementById('date').value && document.getElementById('time').value
-    ? 'Χρόνος (ώρα ραντεβού)' : 'Χρόνος (τώρα)';
+    ? 'Time (appointment time)' : 'Time (now)';
   document.getElementById('routeMapEta').textContent = lastEstimate.durationMin > 0 ? fmtMinutes(lastEstimate.durationMin) : '';
 
   const from = { lat: state.fromLat, lng: state.fromLng };
@@ -1121,34 +1121,34 @@ function isValidGreekAfm(afm){
 }
 
 function reasonLabel(code){
-  if (code==='blackout')       return 'Εκτός ωραρίου φόρμας για αυτή την ώρα';
-  if (code==='lead_time')      return 'Πολύ κοντινή ώρα — χρειάζεται μεγαλύτερη προθεσμία';
-  if (code==='large_order')    return 'Μεγάλη παραγγελία — χρειάζεται προσωπική επιβεβαίωση';
-  if (code==='outside_attica') return 'Διαδρομή εκτός Αττικής — χρειάζεται προσωπική επιβεβαίωση';
-  if (code==='van_capacity')   return 'Πάνω από 8 άτομα — το Βαν παίρνει μέχρι 8, χρειάζεται Λεωφορείο. Επικοινωνήστε μαζί μας';
-  if (code==='no_bus_route')   return 'Δεν υπάρχει διαθέσιμη διαδρομή λεωφορείου για αυτή τη διαδρομή — επικοινωνήστε μαζί μας';
-  if (code==='no_client_route') return 'Δεν βρέθηκε ορισμένη διαδρομή για αυτούς τους πελάτες — επικοινωνήστε μαζί μας';
-  return 'Χρειάζεται προσωπική επιβεβαίωση';
+  if (code==='blackout')       return 'Outside booking hours for this time';
+  if (code==='lead_time')      return 'Too soon — needs more notice';
+  if (code==='large_order')    return 'Large order — needs personal confirmation';
+  if (code==='outside_attica') return 'Route outside Attica — needs personal confirmation';
+  if (code==='van_capacity')   return 'Over 8 people — Van takes up to 8, Bus is required. Please contact us';
+  if (code==='no_bus_route')   return 'No available bus route for this trip — please contact us';
+  if (code==='no_client_route') return 'No defined route found for these clients — please contact us';
+  return 'Needs personal confirmation';
 }
 
 function buildWhatsAppMessage(){
   const data = gather();
   const lines = [
-    'Νέο αίτημα κράτησης (εκτός φόρμας)',
-    'Από: '   + (data.from || '-'),
-    'Προς: '  + (data.to   || '-'),
-    'Ημερομηνία/ώρα: ' + (data.date||'-') + ' ' + (data.time||'-'),
-    'Άτομα: '            + data.persons,
-    'Βαλίτσες: '         + data.luggage,
-    'Παιδικά καθίσματα: '+ data.childSeatCount,
-    'Όχημα: ' + (data.vehicleType==='van' ? 'Βαν' : data.vehicleType==='bus' ? 'Λεωφορείο' : data.vehicleType==='shuttle' ? 'Shuttle' : 'Ταξί / Sedan'),
-    'Όνομα: '     + (data.name  || '-'),
-    'Τηλέφωνο: '  + (data.phone || '-'),
-    'Εκτιμώμενη τιμή: ' + fmtEUR(lastEstimate.price),
-    'Λόγος: ' + (lastEstimate.reasons.map(reasonLabel).join(' · ') || '-'),
+    'New booking request (outside the form)',
+    'From: '   + (data.from || '-'),
+    'To: '  + (data.to   || '-'),
+    'Date/time: ' + (data.date||'-') + ' ' + (data.time||'-'),
+    'Persons: '            + data.persons,
+    'Luggage: '         + data.luggage,
+    'Child seats: '+ data.childSeatCount,
+    'Vehicle: ' + (data.vehicleType==='van' ? 'Van' : data.vehicleType==='bus' ? 'Bus' : data.vehicleType==='shuttle' ? 'Shuttle' : 'Taxi / Sedan'),
+    'Name: '     + (data.name  || '-'),
+    'Phone: '  + (data.phone || '-'),
+    'Estimated price: ' + fmtEUR(lastEstimate.price),
+    'Reason: ' + (lastEstimate.reasons.map(reasonLabel).join(' · ') || '-'),
   ];
   if (data.vehicleType === 'bus' && state.noRouteAvailable){
-    lines.push('', '⚠️ Δεν υπάρχει ορισμένη διαδρομή λεωφορείου — παρακαλώ επικοινωνήστε μαζί μου για διαθεσιμότητα/τιμή.');
+    lines.push('', '⚠️ No defined bus route — please contact me about availability/price.');
   }
   return lines.join('\n');
 }
@@ -1161,7 +1161,7 @@ function renderPrice(){
   document.getElementById('priceOriginal').textContent   = showDiscount ? fmtEUR(lastEstimate.displayOriginal) : '';
   document.getElementById('priceDiscountLabel').style.display = showDiscount ? 'inline' : 'none';
   document.getElementById('priceDiscountLabel').textContent   = showDiscount
-    ? ('Έκπτωση γνωριμίας ' + lastEstimate.discountPercent + '%') : '';
+    ? ('Loyalty discount ' + lastEstimate.discountPercent + '%') : '';
 
   document.getElementById('priceNightLabel').style.display = lastEstimate.nightApplies ? 'inline' : 'none';
   document.getElementById('priceFootnote').style.display   = lastEstimate.nightApplies ? 'block'  : 'none';
@@ -1169,7 +1169,7 @@ function renderPrice(){
 
   const blocked = lastEstimate.blocked;
   // ── Ρυθμιζόμενες επιλογές πληρωμής: 0% προκαταβολή ή/και απενεργοποιημένη
-  // «Πλήρης πληρωμή» μπορεί να αφήσουν μόνο ΜΙΑ επιλογή ή ΚΑΜΙΑ (noPaymentMode).
+  // «Full payment» μπορεί να αφήσουν μόνο ΜΙΑ επιλογή ή ΚΑΜΙΑ (noPaymentMode).
   // Μετακινήθηκε νωρίτερα ώστε η ορατότητα του banner να το χρησιμοποιεί.
   const noDeposit = _depositPercent <= 0;
   const noFull = !state.fullPaymentEnabled;
@@ -1209,29 +1209,29 @@ function renderPrice(){
   const fullEur    = lastEstimate.price > 0 ? Math.ceil(lastEstimate.price) : 0;
   const payAmt = state.payFull ? fullEur : depositEur;
   if (state.noPaymentMode) {
-    document.getElementById('depositTitle').textContent = 'Η κράτηση γίνεται χωρίς προπληρωμή';
+    document.getElementById('depositTitle').textContent = 'No prepayment required for this booking';
     document.getElementById('depositAmtLine').innerHTML =
-      'Η πληρωμή γίνεται απευθείας στον οδηγό — <b>' + fmtEUR(fullEur) + '</b> εκτιμώμενο σύνολο.';
+      'Payment is made directly to the driver — <b>' + fmtEUR(fullEur) + '</b> estimated total.';
   } else {
     document.getElementById('depositTitle').textContent = state.payFull
-      ? 'Πληρωμή ολόκληρου ποσού'
-      : 'Για την κράτηση απαιτείται προκαταβολή ' + _depositPercent + '%';
+      ? 'Full payment'
+      : 'A deposit is required for this booking ' + _depositPercent + '%';
     document.getElementById('depositAmtLine').innerHTML = state.payFull
-      ? 'Θα πληρώσετε τώρα <b id="depositAmt">' + fmtEUR(payAmt) + '</b> μέσω ασφαλούς πληρωμής (Viva) — τίποτα άλλο στον οδηγό.'
-      : 'Θα πληρώσετε τώρα <b id="depositAmt">' + fmtEUR(payAmt) + '</b> μέσω ασφαλούς πληρωμής (Viva) — το υπόλοιπο στον οδηγό.';
+      ? 'You will pay now <b id="depositAmt">' + fmtEUR(payAmt) + '</b> via secure payment (Viva) — nothing else to pay the driver.'
+      : 'You will pay now <b id="depositAmt">' + fmtEUR(payAmt) + '</b> via secure payment (Viva) — the rest to the driver.';
   }
   const depositModeBtn = document.getElementById('payModeDeposit');
   if (depositModeBtn) {
-    depositModeBtn.innerHTML = 'Προκαταβολή ' + _depositPercent + '%<span class="pm-sub">το υπόλοιπο στον οδηγό</span>';
+    depositModeBtn.innerHTML = 'Deposit ' + _depositPercent + '%<span class="pm-sub">the rest to the driver</span>';
   }
   const shuttleNeedsSlot = state.veh === 'shuttle' && state.shuttleSlotOptions && !state.selectedShuttleTime;
   btn.disabled = shuttleNeedsSlot;
   if (!btn.disabled){
     setBtn('', '<i class="fas fa-credit-card"></i> ' + (
-      state.noPaymentMode ? 'Ολοκλήρωση κράτησης' :
-      state.payFull ? 'Πληρωμή ολόκληρου ποσού &amp; αποστολή' : 'Πληρωμή προκαταβολής &amp; αποστολή'));
+      state.noPaymentMode ? 'Complete booking' :
+      state.payFull ? 'Full payment &amp; submit' : 'Pay deposit &amp; submit'));
   } else if (shuttleNeedsSlot) {
-    setBtn('', '<i class="fas fa-clock"></i> Διαλέξτε ώρα Shuttle παραπάνω');
+    setBtn('', '<i class="fas fa-clock"></i> Choose a Shuttle time above');
   }
   renderRouteMap();
 }
@@ -1296,29 +1296,29 @@ function isValidEmail(e){
 btn.addEventListener('click', async ()=>{
   if (lastEstimate.blocked){ return; }  // ασφάλεια — το UI ήδη δείχνει WhatsApp σε αυτή την περίπτωση
   if (state.veh === 'shuttle' && state.shuttleSlotOptions && !state.selectedShuttleTime){
-    flash('err','<i class="fas fa-exclamation-circle"></i> Διαλέξτε μία από τις ώρες Shuttle');
+    flash('err','<i class="fas fa-exclamation-circle"></i> Please choose one of the Shuttle times');
     return;
   }
   const data = gather();
 
   // Επικύρωση
-  if (!data.from || !data.to){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε Από και Προς'); return; }
+  if (!data.from || !data.to){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in From and To'); return; }
   if (data.wantsInvoice && !data.invoiceAfm){
-    flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε ΑΦΜ για το τιμολόγιο');
+    flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in the VAT number for the invoice');
     return;
   }
   if (data.wantsInvoice && data.invoiceAfm && !isValidGreekAfm(data.invoiceAfm)){
-    flash('err','<i class="fas fa-exclamation-circle"></i> Το ΑΦΜ δεν είναι έγκυρο — ελέγξτε το');
+    flash('err','<i class="fas fa-exclamation-circle"></i> The VAT number isn\'t valid — please check it');
     return;
   }
-  if (!data.name){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε το ονοματεπώνυμο'); return; }
-  if (!document.getElementById('phone').value.trim()){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε τηλέφωνο'); return; }
-  if (!data.date || !data.time){ flash('err','<i class="fas fa-exclamation-circle"></i> Επιλέξτε ημερομηνία και ώρα'); return; }
-  if (!isValidEmail(data.email)){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε έγκυρο email'); return; }
-  if (!data.flight){ flash('err','<i class="fas fa-exclamation-circle"></i> Συμπληρώστε πτήση/πλοίο (ή 0)'); return; }
+  if (!data.name){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in your full name'); return; }
+  if (!document.getElementById('phone').value.trim()){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in your phone number'); return; }
+  if (!data.date || !data.time){ flash('err','<i class="fas fa-exclamation-circle"></i> Please select a date and time'); return; }
+  if (!isValidEmail(data.email)){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in a valid email'); return; }
+  if (!data.flight){ flash('err','<i class="fas fa-exclamation-circle"></i> Please fill in flight/ship (or 0)'); return; }
 
   btn.disabled = true;
-  setBtn('', '<i class="fas fa-spinner fa-spin"></i> ' + (state.noPaymentMode ? 'Αποστολή κράτησης…' : 'Δημιουργία πληρωμής…'));
+  setBtn('', '<i class="fas fa-spinner fa-spin"></i> ' + (state.noPaymentMode ? 'Submit booking…' : 'Creating payment…'));
 
   try{
     if (state.noPaymentMode) {
@@ -1332,9 +1332,9 @@ btn.addEventListener('click', async ()=>{
       const j = await res.json().catch(()=>({}));
       if (!res.ok || !j.ok) throw new Error(j.error || ('HTTP '+res.status));
       showVivaModal(true,
-        '<div class="viva-modal-title">Η κράτηση καταχωρήθηκε!</div>' +
-        '<div class="viva-modal-text">Δεν χρειάζεται καμία online πληρωμή. <b>' + data.from + ' \u2192 ' + data.to + '</b><br>' +
-        'Θα είμαστε σε επικοινωνία μαζί σας μέσω WhatsApp για οποιαδήποτε ενημέρωση χρειαστεί: ' +
+        '<div class="viva-modal-title">Booking confirmed!</div>' +
+        '<div class="viva-modal-text">No online payment is required. <b>' + data.from + ' \u2192 ' + data.to + '</b><br>' +
+        'We\'ll be in touch with you via WhatsApp for any updates you may need: ' +
         '<a href="https://wa.me/306936123322" target="_blank" style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a></div>',
         () => window.location.reload());
       return;
@@ -1376,15 +1376,15 @@ btn.addEventListener('click', async ()=>{
       }));
     }catch(e){}
 
-    setBtn('ok', '<i class="fas fa-check"></i> Μεταφορά στη σελίδα πληρωμής…');
+    setBtn('ok', '<i class="fas fa-check"></i> Redirecting to payment page…');
     window.location.href = j.checkoutUrl;
   }catch(e){
     console.error(e);
     btn.disabled = false;
     if (String(e && e.message) === 'outside_booking_window'){
-      flash('err','<i class="fas fa-exclamation-circle"></i> Η κράτηση χρειάζεται προσωπική επιβεβαίωση — δείτε την επιλογή WhatsApp');
+      flash('err','<i class="fas fa-exclamation-circle"></i> This booking needs personal confirmation — see the WhatsApp option below');
     } else {
-      flash('err','<i class="fas fa-exclamation-circle"></i> Σφάλμα σύνδεσης με την πληρωμή — δοκιμάστε ξανά');
+      flash('err','<i class="fas fa-exclamation-circle"></i> Payment connection error — please try again');
     }
   }
 });
@@ -1402,8 +1402,8 @@ function showVivaModal(success, html, onClose){
     '<div class="viva-modal-box ' + (success?'ok':'fail') + '">' +
       '<div class="viva-modal-icon"><i class="fas ' + (success?'fa-check-circle':'fa-times-circle') + '"></i></div>' +
       html +
-      (success ? '<div class="viva-modal-text" style="opacity:.7;font-size:.85em;margin-top:8px;"><i class="fas fa-envelope"></i> Δεν το βλέπετε; Ελέγξτε τον φάκελο Spam/Ανεπιθύμητα.</div>' : '') +
-      '<button type="button" class="viva-modal-btn">' + (success?'Τέλεια!':'Το κατάλαβα') + '</button>' +
+      (success ? '<div class="viva-modal-text" style="opacity:.7;font-size:.85em;margin-top:8px;"><i class="fas fa-envelope"></i> Can\'t find it? Please check your Spam/Junk folder.</div>' : '') +
+      '<button type="button" class="viva-modal-btn">' + (success?'Great!':'Got it') + '</button>' +
     '</div>';
   document.body.appendChild(overlay);
   const close = ()=>{ overlay.remove(); if (onClose) onClose(); };
@@ -1442,14 +1442,14 @@ try{
 
   if (isSuccess){
     // ── ΕΠΙΤΥΧΙΑ ─────────────────────────────────────────────────────────
-    const waHtml = 'Θα είμαστε σε επικοινωνία μαζί σας μέσω WhatsApp για οποιαδήποτε ενημέρωση χρειαστεί: ' +
+    const waHtml = 'We\'ll be in touch with you via WhatsApp for any updates you may need: ' +
       '<a href="https://wa.me/306936123322" target="_blank" ' +
       'style="color:inherit;font-weight:700;text-decoration:underline;">+30 693 612 3322</a>';
     box.innerHTML =
-      '<div class="vrb-title"><i class="fas fa-check-circle"></i> Η ΚΡΑΤΗΣΗ ΕΓΙΝΕ — η προκαταβολή πληρώθηκε</div>' +
-      '<div class="vrb-row"><span class="k">Διαδρομή:</span><span>' + from + ' → ' + to + '</span></div>' +
-      '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
-      '<div class="vrb-row"><span class="k">Πληρώθηκε:</span><span>' + amt + '</span></div>' +
+      '<div class="vrb-title"><i class="fas fa-check-circle"></i> BOOKING CONFIRMED — deposit paid</div>' +
+      '<div class="vrb-row"><span class="k">Route:</span><span>' + from + ' → ' + to + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Date/time:</span><span>' + when + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Paid:</span><span>' + amt + '</span></div>' +
       '<div class="vrb-row" style="margin-top:8px;">' + waHtml + '</div>';
     const actionAreaEl = document.getElementById('actionArea');
     const depositBannerEl = document.getElementById('depositBanner');
@@ -1458,9 +1458,9 @@ try{
 
     try {
       showVivaModal(true,
-        '<div class="viva-modal-title">Η πληρωμή ολοκληρώθηκε!</div>' +
-        '<div class="viva-modal-text">Η κράτησή σας <b>' + from + ' → ' + to + '</b> επιβεβαιώθηκε.<br>' +
-        'Πληρώσατε <b>' + amt + '</b> προκαταβολή. ' + waHtml + '</div>');
+        '<div class="viva-modal-title">Payment completed!</div>' +
+        '<div class="viva-modal-text">Your booking <b>' + from + ' → ' + to + '</b> is confirmed.<br>' +
+        'You paid <b>' + amt + '</b> deposit. ' + waHtml + '</div>');
     } catch (e) { console.error('[handleVivaReturn] showVivaModal failed:', e); }
 
     try{ sessionStorage.removeItem('athenstaxi_pending_booking'); }catch(e){}
@@ -1468,16 +1468,16 @@ try{
   } else {
     // ── ΑΠΟΤΥΧΙΑ — η φόρμα ΞΑΝΑΓΕΜΙΖΕΙ αυτόματα για νέα προσπάθεια ────────
     box.innerHTML =
-      '<div class="vrb-title"><i class="fas fa-times-circle"></i> Η ΚΡΑΤΗΣΗ ΔΕΝ ΕΓΙΝΕ — η πληρωμή δεν ολοκληρώθηκε</div>' +
-      '<div class="vrb-row"><span class="k">Διαδρομή:</span><span>' + from + ' → ' + to + '</span></div>' +
-      '<div class="vrb-row"><span class="k">Ημερομηνία/ώρα:</span><span>' + when + '</span></div>' +
-      '<div class="vrb-row" style="margin-top:8px;">Η φόρμα παρακάτω ξαναγέμισε αυτόματα — πατήστε ξανά το κουμπί πληρωμής για νέα προσπάθεια.</div>';
+      '<div class="vrb-title"><i class="fas fa-times-circle"></i> BOOKING NOT CONFIRMED — payment not completed</div>' +
+      '<div class="vrb-row"><span class="k">Route:</span><span>' + from + ' → ' + to + '</span></div>' +
+      '<div class="vrb-row"><span class="k">Date/time:</span><span>' + when + '</span></div>' +
+      '<div class="vrb-row" style="margin-top:8px;">The form below was refilled automatically — please press the payment button again.</div>';
 
     try {
       showVivaModal(false,
-        '<div class="viva-modal-title">Η πληρωμή απέτυχε</div>' +
-        '<div class="viva-modal-text">Η προκαταβολή για <b>' + from + ' → ' + to + '</b> δεν ολοκληρώθηκε.<br>' +
-        'Η φόρμα παρέμεινε συμπληρωμένη — δοκιμάστε ξανά με άλλη κάρτα.</div>');
+        '<div class="viva-modal-title">Payment failed</div>' +
+        '<div class="viva-modal-text">The deposit for <b>' + from + ' → ' + to + '</b> was not completed.<br>' +
+        'The form remains filled in — please try again with another card.</div>');
     } catch (e) { console.error('[handleVivaReturn] showVivaModal failed:', e); }
 
     // ── Ξαναγέμισμα όλων των πεδίων της φόρμας από το snapshot ──
@@ -1521,7 +1521,7 @@ try{
   try {
     const fallback = document.createElement('div');
     fallback.style.cssText = 'background:#c62828;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:14px;';
-    fallback.textContent = 'Η πληρωμή πιθανώς ολοκληρώθηκε, αλλά υπήρξε τεχνικό πρόβλημα στην εμφάνιση του μηνύματος. Επικοινωνήστε μαζί μας για επιβεβαίωση.';
+    fallback.textContent = 'Your payment likely went through, but there was a technical issue displaying the confirmation message. Please contact us to confirm.';
     document.body.insertBefore(fallback, document.body.firstChild);
   } catch (e2) { /* δεν μπορούμε να κάνουμε τίποτα άλλο */ }
 }
@@ -1540,11 +1540,11 @@ function resetForm(){
   lastEstimate = { price:0, nightApplies:false, blocked:false, reasons:[],
     displayOriginal:0, discountPercent:8, minChargeApplied:false,
     distanceKm:0, durationMin:0, routePolyline:null };
-  btn.disabled=false; setBtn('', '<i class="fas fa-credit-card"></i> Πληρωμή προκαταβολής &amp; αποστολή');
+  btn.disabled=false; setBtn('', '<i class="fas fa-credit-card"></i> Оплатить депозит и отправить');
   render();
 }
 
-/* ============ ΕΝΑΛΛΑΓΗ Από ↔ Προς ============ */
+/* ============ ΕΝΑΛΛΑΓΗ From ↔ To ============ */
 document.getElementById('swapBtn').addEventListener('click', ()=>{
   const sb = document.getElementById('swapBtn');
   sb.classList.toggle('spin');
@@ -1620,7 +1620,7 @@ function onAcInput(id){
   st.timer = setTimeout(()=>fetchSuggestions(id, q), 280);
 }
 
-// Κωδικός τοποθεσίας (Plus Code) → Geocoder απευθείας (δέχεται και τη
+// Location code (Plus Code) → Geocoder απευθείας (δέχεται και τη
 // σύντομη μορφή με τοπωνύμιο μετά, π.χ. "M3W4+9W Λαύριο").
 //
 // ΣΗΜΑΝΤΙΚΟ: όταν κάποιος κάνει copy-paste μια τοποθεσία απευθείας από το
@@ -1684,7 +1684,7 @@ function renderPlusCodeResult(id, resolved){
   if (!resolved){
     list.innerHTML = '<div class="ac-item" style="opacity:.7;cursor:default">'+
       '<i class="fas fa-triangle-exclamation"></i><div><div class="ac-main">'+
-      'Δεν βρέθηκε ο κωδικός τοποθεσίας</div></div></div>';
+      'Location code not found</div></div></div>';
     list.classList.add('open');
     return;
   }
@@ -1694,7 +1694,7 @@ function renderPlusCodeResult(id, resolved){
   row.innerHTML =
     '<i class="fas fa-location-crosshairs"></i><div>' +
     '<div class="ac-main">'+escapeHtml(resolved.text)+'</div>' +
-    '<div class="ac-sub">Κωδικός τοποθεσίας (Plus Code)</div>' +
+    '<div class="ac-sub">Location code (Plus Code)</div>' +
     '</div>';
   row.addEventListener('mousedown', (e)=>{ e.preventDefault(); pickSuggestion(id, 0); });
   list.appendChild(row);
@@ -1759,11 +1759,11 @@ function renderSuggestions(id, suggestions){
     const header = document.createElement('div');
     header.className = 'ac-section-label';
     header.style.cssText = 'padding:6px 14px 2px;font-size:.72rem;font-weight:700;color:var(--primary-color);text-transform:uppercase;letter-spacing:.4px;';
-    header.innerHTML = '<i class="fas fa-star"></i> Αγαπημένοι προορισμοί';
+    header.innerHTML = '<i class="fas fa-star"></i> Favourite destinations';
     list.appendChild(header);
     const hint = document.createElement('div');
     hint.style.cssText = 'padding:0 14px 6px;font-size:.7rem;font-weight:400;color:rgba(255,255,255,.55);text-transform:none;letter-spacing:normal;';
-    hint.textContent = 'Οι συνεργάτες μας είναι ήδη στη λίστα — διαλέξτε τους για ευκολία.';
+    hint.textContent = 'Our partners are already in the list — pick them for convenience.';
     list.appendChild(hint);
   }
   st.items.forEach((s, idx)=>{
@@ -1817,7 +1817,7 @@ async function pickSuggestion(id, idx){
     return;
   }
 
-  // Κωδικός τοποθεσίας (Plus Code) — ήδη λυμένος από τον Geocoder, γέμισε
+  // Location code (Plus Code) — ήδη λυμένος από τον Geocoder, γέμισε
   // απευθείας χωρίς fetchFields (δεν υπάρχει place/placePrediction εδώ).
   if (s.plusCode){
     document.getElementById(id).value = s.plusCode.text;
@@ -1865,9 +1865,9 @@ let MapClass=null;
 async function openMap(targetId){
   mapTargetId = targetId;
   document.getElementById('mapTitle').textContent =
-    targetId==='from' ? 'Επιλογή σημείου αφετηρίας' : 'Επιλογή προορισμού';
+    targetId==='from' ? 'Choose starting point' : 'Choose destination';
   document.getElementById('mapModal').classList.add('open');
-  mapPickedAddr=''; setMapAddr('Μετακινήστε τον χάρτη…'); 
+  mapPickedAddr=''; setMapAddr('Move the map…'); 
   document.getElementById('mapConfirm').disabled=true;
 
   // Κέντρο: ό,τι υπάρχει ήδη, αλλιώς Αθήνα
@@ -1896,7 +1896,7 @@ function onMapIdle(){
   // Η πινέζα είναι σταθερή στο κέντρο· διαβάζουμε το κέντρο του χάρτη.
   const c = mapObj.getCenter();
   if (mapDebounce) clearTimeout(mapDebounce);
-  setMapAddr('Αναζήτηση διεύθυνσης…');
+  setMapAddr('Searching address…');
   document.getElementById('mapConfirm').disabled=true;
   mapDebounce = setTimeout(()=>{
     geocoder.geocode({ location:{lat:c.lat(),lng:c.lng()} }, (res,status)=>{
@@ -1905,7 +1905,7 @@ function onMapIdle(){
         setMapAddr(mapPickedAddr);
         document.getElementById('mapConfirm').disabled=false;
       } else {
-        setMapAddr('Δεν βρέθηκε διεύθυνση εδώ');
+        setMapAddr('No address found here');
       }
     });
   }, 350);
@@ -1957,7 +1957,7 @@ function getGps(onOk, onErr){
   );
 }
 
-// Κουμπιά GPS δίπλα στα πεδία (Από + Προς)
+// Κουμπιά GPS δίπλα στα πεδία (From + To)
 document.querySelectorAll('.gps-btn').forEach(b=>{
   b.addEventListener('click', ()=>{
     const id = b.dataset.target;
@@ -1998,16 +1998,16 @@ if (mapGpsBtn){
 
 function gpsError(code){
   // 1 = άρνηση άδειας, 2 = μη διαθέσιμο, 3 = timeout
-  let msg = 'Δεν ήταν δυνατός ο εντοπισμός τοποθεσίας.';
-  if (code===1) msg = 'Δώστε άδεια τοποθεσίας στον browser για να λειτουργήσει.';
+  let msg = 'Could not determine your location.';
+  if (code===1) msg = 'Please allow location access in your browser for this to work.';
   alert(msg);
 }
 
 /* ============ COUNTRY CODE PICKER ============ */
 // Δημοφιλείς χώρες (Ελλάδα πρώτη). Η σημαία βγαίνει από τον κωδικό 'c' (flagcdn).
 const COUNTRIES = [
-  {c:'GR',n:'Ελλάδα',d:'+30'},
-  {c:'CY',n:'Κύπρος',d:'+357'},
+  {c:'GR',n:'Greece',d:'+30'},
+  {c:'CY',n:'Cyprus',d:'+357'},
   {c:'AS',n:'American Samoa',d:'+1'},
   {c:'AI',n:'Anguilla',d:'+1'},
   {c:'AW',n:'Aruba',d:'+297'},
@@ -2054,200 +2054,200 @@ const COUNTRIES = [
   {c:'WF',n:'Wallis and Futuna',d:'+681'},
   {c:'EH',n:'Western Sahara',d:'+212'},
   {c:'AX',n:'Åland Islands',d:'+358'},
-  {c:'VC',n:'Άγιος Βικέντιος',d:'+1'},
-  {c:'SM',n:'Άγιος Μαρίνος',d:'+378'},
-  {c:'KN',n:'Άγιος Χριστόφορος',d:'+1'},
-  {c:'EG',n:'Αίγυπτος',d:'+20'},
-  {c:'LC',n:'Αγία Λουκία',d:'+1'},
-  {c:'AO',n:'Αγκόλα',d:'+244'},
-  {c:'AZ',n:'Αζερμπαϊτζάν',d:'+994'},
-  {c:'ET',n:'Αιθιοπία',d:'+251'},
-  {c:'CI',n:'Ακτή Ελεφαντοστού',d:'+225'},
-  {c:'AL',n:'Αλβανία',d:'+355'},
-  {c:'DZ',n:'Αλγερία',d:'+213'},
-  {c:'TL',n:'Ανατ. Τιμόρ',d:'+670'},
-  {c:'AD',n:'Ανδόρα',d:'+376'},
-  {c:'AG',n:'Αντίγκουα και Μπαρμπούντα',d:'+1'},
-  {c:'AR',n:'Αργεντινή',d:'+54'},
-  {c:'AM',n:'Αρμενία',d:'+374'},
-  {c:'AT',n:'Αυστρία',d:'+43'},
-  {c:'AU',n:'Αυστραλία',d:'+61'},
-  {c:'AF',n:'Αφγανιστάν',d:'+93'},
-  {c:'HT',n:'Αϊτή',d:'+509'},
-  {c:'BE',n:'Βέλγιο',d:'+32'},
-  {c:'VU',n:'Βανουάτου',d:'+678'},
-  {c:'VA',n:'Βατικανό',d:'+39'},
-  {c:'VE',n:'Βενεζουέλα',d:'+58'},
-  {c:'VN',n:'Βιετνάμ',d:'+84'},
-  {c:'BO',n:'Βολιβία',d:'+591'},
-  {c:'BA',n:'Βοσνία-Ερζεγοβίνη',d:'+387'},
-  {c:'BG',n:'Βουλγαρία',d:'+359'},
-  {c:'BR',n:'Βραζιλία',d:'+55'},
-  {c:'KP',n:'Βόρεια Κορέα',d:'+850'},
-  {c:'MK',n:'Βόρεια Μακεδονία',d:'+389'},
-  {c:'FR',n:'Γαλλία',d:'+33'},
-  {c:'DE',n:'Γερμανία',d:'+49'},
-  {c:'GE',n:'Γεωργία',d:'+995'},
-  {c:'GM',n:'Γκάμπια',d:'+220'},
-  {c:'GH',n:'Γκάνα',d:'+233'},
-  {c:'GA',n:'Γκαμπόν',d:'+241'},
-  {c:'GT',n:'Γουατεμάλα',d:'+502'},
-  {c:'GY',n:'Γουιάνα',d:'+592'},
-  {c:'GN',n:'Γουινέα',d:'+224'},
-  {c:'GW',n:'Γουινέα-Μπισάου',d:'+245'},
-  {c:'GD',n:'Γρενάδα',d:'+1'},
-  {c:'DK',n:'Δανία',d:'+45'},
-  {c:'DO',n:'Δομινικανή Δημ.',d:'+1'},
-  {c:'SV',n:'Ελ Σαλβαδόρ',d:'+503'},
-  {c:'CH',n:'Ελβετία',d:'+41'},
-  {c:'ER',n:'Ερυθραία',d:'+291'},
-  {c:'EE',n:'Εσθονία',d:'+372'},
-  {c:'ZM',n:'Ζάμπια',d:'+260'},
-  {c:'ZW',n:'Ζιμπάμπουε',d:'+263'},
-  {c:'US',n:'ΗΠΑ',d:'+1'},
-  {c:'AE',n:'Ηνωμ. Αραβ. Εμιράτα',d:'+971'},
-  {c:'GB',n:'Ηνωμένο Βασίλειο',d:'+44'},
-  {c:'JP',n:'Ιαπωνία',d:'+81'},
-  {c:'IN',n:'Ινδία',d:'+91'},
-  {c:'ID',n:'Ινδονησία',d:'+62'},
-  {c:'JO',n:'Ιορδανία',d:'+962'},
-  {c:'IQ',n:'Ιράκ',d:'+964'},
-  {c:'IR',n:'Ιράν',d:'+98'},
-  {c:'IE',n:'Ιρλανδία',d:'+353'},
-  {c:'GQ',n:'Ισημ. Γουινέα',d:'+240'},
-  {c:'EC',n:'Ισημερινός',d:'+593'},
-  {c:'IS',n:'Ισλανδία',d:'+354'},
-  {c:'ES',n:'Ισπανία',d:'+34'},
-  {c:'IL',n:'Ισραήλ',d:'+972'},
-  {c:'IT',n:'Ιταλία',d:'+39'},
-  {c:'KE',n:'Κένυα',d:'+254'},
-  {c:'CN',n:'Κίνα',d:'+86'},
-  {c:'KZ',n:'Καζακστάν',d:'+7'},
-  {c:'CM',n:'Καμερούν',d:'+237'},
-  {c:'KH',n:'Καμπότζη',d:'+855'},
-  {c:'CA',n:'Καναδάς',d:'+1'},
-  {c:'QA',n:'Κατάρ',d:'+974'},
-  {c:'CF',n:'Κεντροαφρικανική Δημ.',d:'+236'},
-  {c:'KG',n:'Κιργιστάν',d:'+996'},
-  {c:'KI',n:'Κιριμπάτι',d:'+686'},
-  {c:'CO',n:'Κολομβία',d:'+57'},
-  {c:'KM',n:'Κομόρες',d:'+269'},
-  {c:'CG',n:'Κονγκό',d:'+242'},
-  {c:'KW',n:'Κουβέιτ',d:'+965'},
-  {c:'CU',n:'Κούβα',d:'+53'},
-  {c:'HR',n:'Κροατία',d:'+385'},
-  {c:'CR',n:'Κόστα Ρίκα',d:'+506'},
-  {c:'CD',n:'Λ.Δ. Κονγκό',d:'+243'},
-  {c:'LA',n:'Λάος',d:'+856'},
-  {c:'LB',n:'Λίβανος',d:'+961'},
-  {c:'LS',n:'Λεσότο',d:'+266'},
-  {c:'LV',n:'Λετονία',d:'+371'},
-  {c:'BY',n:'Λευκορωσία',d:'+375'},
-  {c:'LR',n:'Λιβερία',d:'+231'},
-  {c:'LY',n:'Λιβύη',d:'+218'},
-  {c:'LT',n:'Λιθουανία',d:'+370'},
-  {c:'LI',n:'Λιχτενστάιν',d:'+423'},
-  {c:'LU',n:'Λουξεμβούργο',d:'+352'},
-  {c:'ML',n:'Μάλι',d:'+223'},
-  {c:'MT',n:'Μάλτα',d:'+356'},
-  {c:'MG',n:'Μαδαγασκάρη',d:'+261'},
-  {c:'MO',n:'Μακάο',d:'+853'},
-  {c:'MW',n:'Μαλάουι',d:'+265'},
-  {c:'MY',n:'Μαλαισία',d:'+60'},
-  {c:'MV',n:'Μαλδίβες',d:'+960'},
-  {c:'MA',n:'Μαρόκο',d:'+212'},
-  {c:'MU',n:'Μαυρίκιος',d:'+230'},
-  {c:'MR',n:'Μαυριτανία',d:'+222'},
-  {c:'ME',n:'Μαυροβούνιο',d:'+382'},
-  {c:'MX',n:'Μεξικό',d:'+52'},
-  {c:'MM',n:'Μιανμάρ',d:'+95'},
-  {c:'FM',n:'Μικρονησία',d:'+691'},
-  {c:'MN',n:'Μογγολία',d:'+976'},
-  {c:'MZ',n:'Μοζαμβίκη',d:'+258'},
-  {c:'MD',n:'Μολδαβία',d:'+373'},
-  {c:'MC',n:'Μονακό',d:'+377'},
-  {c:'BD',n:'Μπανγκλαντές',d:'+880'},
-  {c:'BB',n:'Μπαρμπάντος',d:'+1'},
-  {c:'BS',n:'Μπαχάμες',d:'+1'},
-  {c:'BH',n:'Μπαχρέιν',d:'+973'},
-  {c:'BZ',n:'Μπελίζ',d:'+501'},
-  {c:'BJ',n:'Μπενίν',d:'+229'},
-  {c:'BW',n:'Μποτσουάνα',d:'+267'},
-  {c:'BF',n:'Μπουρκίνα Φάσο',d:'+226'},
-  {c:'BI',n:'Μπουρούντι',d:'+257'},
-  {c:'BT',n:'Μπουτάν',d:'+975'},
-  {c:'BN',n:'Μπρουνέι',d:'+673'},
-  {c:'NZ',n:'Νέα Ζηλανδία',d:'+64'},
-  {c:'MH',n:'Νήσοι Μάρσαλ',d:'+692'},
-  {c:'SB',n:'Νήσοι Σολομώντος',d:'+677'},
-  {c:'NE',n:'Νίγηρας',d:'+227'},
-  {c:'NA',n:'Ναμίμπια',d:'+264'},
-  {c:'NR',n:'Ναουρού',d:'+674'},
-  {c:'NP',n:'Νεπάλ',d:'+977'},
-  {c:'NG',n:'Νιγηρία',d:'+234'},
-  {c:'NI',n:'Νικαράγουα',d:'+505'},
-  {c:'NO',n:'Νορβηγία',d:'+47'},
-  {c:'DM',n:'Ντομίνικα',d:'+1'},
-  {c:'ZA',n:'Νότια Αφρική',d:'+27'},
-  {c:'KR',n:'Νότια Κορέα',d:'+82'},
-  {c:'SS',n:'Νότιο Σουδάν',d:'+211'},
-  {c:'NL',n:'Ολλανδία',d:'+31'},
-  {c:'OM',n:'Ομάν',d:'+968'},
-  {c:'HN',n:'Ονδούρα',d:'+504'},
-  {c:'HU',n:'Ουγγαρία',d:'+36'},
-  {c:'UG',n:'Ουγκάντα',d:'+256'},
-  {c:'UZ',n:'Ουζμπεκιστάν',d:'+998'},
-  {c:'UA',n:'Ουκρανία',d:'+380'},
-  {c:'UY',n:'Ουρουγουάη',d:'+598'},
-  {c:'PK',n:'Πακιστάν',d:'+92'},
-  {c:'PW',n:'Παλάου',d:'+680'},
-  {c:'PA',n:'Παναμάς',d:'+507'},
-  {c:'PG',n:'Παπούα Ν. Γουινέα',d:'+675'},
-  {c:'PY',n:'Παραγουάη',d:'+595'},
-  {c:'PE',n:'Περού',d:'+51'},
-  {c:'PL',n:'Πολωνία',d:'+48'},
-  {c:'PT',n:'Πορτογαλία',d:'+351'},
-  {c:'CV',n:'Πράσινο Ακρωτήριο',d:'+238'},
-  {c:'RW',n:'Ρουάντα',d:'+250'},
-  {c:'RO',n:'Ρουμανία',d:'+40'},
-  {c:'RU',n:'Ρωσία',d:'+7'},
-  {c:'ST',n:'Σάο Τομέ',d:'+239'},
-  {c:'WS',n:'Σαμόα',d:'+685'},
-  {c:'SA',n:'Σαουδική Αραβία',d:'+966'},
-  {c:'SN',n:'Σενεγάλη',d:'+221'},
-  {c:'RS',n:'Σερβία',d:'+381'},
-  {c:'SC',n:'Σεϋχέλλες',d:'+248'},
-  {c:'SL',n:'Σιέρα Λεόνε',d:'+232'},
-  {c:'SG',n:'Σιγκαπούρη',d:'+65'},
-  {c:'SK',n:'Σλοβακία',d:'+421'},
-  {c:'SI',n:'Σλοβενία',d:'+386'},
-  {c:'SO',n:'Σομαλία',d:'+252'},
-  {c:'SD',n:'Σουδάν',d:'+249'},
-  {c:'SE',n:'Σουηδία',d:'+46'},
-  {c:'SR',n:'Σουρινάμ',d:'+597'},
-  {c:'LK',n:'Σρι Λάνκα',d:'+94'},
-  {c:'SY',n:'Συρία',d:'+963'},
-  {c:'TZ',n:'Τανζανία',d:'+255'},
-  {c:'TJ',n:'Τατζικιστάν',d:'+992'},
-  {c:'TW',n:'Ταϊβάν',d:'+886'},
-  {c:'TH',n:'Ταϊλάνδη',d:'+66'},
-  {c:'JM',n:'Τζαμάικα',d:'+1'},
-  {c:'DJ',n:'Τζιμπουτί',d:'+253'},
-  {c:'TV',n:'Τουβαλού',d:'+688'},
-  {c:'TR',n:'Τουρκία',d:'+90'},
-  {c:'TM',n:'Τουρκμενιστάν',d:'+993'},
-  {c:'TT',n:'Τρινιντάντ',d:'+1'},
-  {c:'TD',n:'Τσαντ',d:'+235'},
-  {c:'CZ',n:'Τσεχία',d:'+420'},
-  {c:'TN',n:'Τυνησία',d:'+216'},
-  {c:'TG',n:'Τόγκο',d:'+228'},
-  {c:'TO',n:'Τόνγκα',d:'+676'},
-  {c:'YE',n:'Υεμένη',d:'+967'},
-  {c:'FJ',n:'Φίτζι',d:'+679'},
-  {c:'PH',n:'Φιλιππίνες',d:'+63'},
-  {c:'FI',n:'Φινλανδία',d:'+358'},
-  {c:'CL',n:'Χιλή',d:'+56'},
-  {c:'HK',n:'Χονγκ Κονγκ',d:'+852'},
+  {c:'VC',n:'Saint Vincent',d:'+1'},
+  {c:'SM',n:'San Marino',d:'+378'},
+  {c:'KN',n:'Saint Kitts',d:'+1'},
+  {c:'EG',n:'Egypt',d:'+20'},
+  {c:'LC',n:'Saint Lucia',d:'+1'},
+  {c:'AO',n:'Angola',d:'+244'},
+  {c:'AZ',n:'Azerbaijan',d:'+994'},
+  {c:'ET',n:'Ethiopia',d:'+251'},
+  {c:'CI',n:'Ivory Coast',d:'+225'},
+  {c:'AL',n:'Albania',d:'+355'},
+  {c:'DZ',n:'Algeria',d:'+213'},
+  {c:'TL',n:'East Timor',d:'+670'},
+  {c:'AD',n:'Andorra',d:'+376'},
+  {c:'AG',n:'Antigua and Barbuda',d:'+1'},
+  {c:'AR',n:'Argentina',d:'+54'},
+  {c:'AM',n:'Armenia',d:'+374'},
+  {c:'AT',n:'Austria',d:'+43'},
+  {c:'AU',n:'Australia',d:'+61'},
+  {c:'AF',n:'Afghanistan',d:'+93'},
+  {c:'HT',n:'Haiti',d:'+509'},
+  {c:'BE',n:'Belgium',d:'+32'},
+  {c:'VU',n:'Vanuatu',d:'+678'},
+  {c:'VA',n:'Vatican City',d:'+39'},
+  {c:'VE',n:'Venezuela',d:'+58'},
+  {c:'VN',n:'Vietnam',d:'+84'},
+  {c:'BO',n:'Bolivia',d:'+591'},
+  {c:'BA',n:'Bosnia and Herzegovina',d:'+387'},
+  {c:'BG',n:'Bulgaria',d:'+359'},
+  {c:'BR',n:'Brazil',d:'+55'},
+  {c:'KP',n:'North Korea',d:'+850'},
+  {c:'MK',n:'North Macedonia',d:'+389'},
+  {c:'FR',n:'France',d:'+33'},
+  {c:'DE',n:'Germany',d:'+49'},
+  {c:'GE',n:'Georgia',d:'+995'},
+  {c:'GM',n:'Gambia',d:'+220'},
+  {c:'GH',n:'Ghana',d:'+233'},
+  {c:'GA',n:'Gabon',d:'+241'},
+  {c:'GT',n:'Guatemala',d:'+502'},
+  {c:'GY',n:'Guyana',d:'+592'},
+  {c:'GN',n:'Guinea',d:'+224'},
+  {c:'GW',n:'Guinea-Bissau',d:'+245'},
+  {c:'GD',n:'Grenada',d:'+1'},
+  {c:'DK',n:'Denmark',d:'+45'},
+  {c:'DO',n:'Dominican Republic',d:'+1'},
+  {c:'SV',n:'El Salvador',d:'+503'},
+  {c:'CH',n:'Switzerland',d:'+41'},
+  {c:'ER',n:'Eritrea',d:'+291'},
+  {c:'EE',n:'Estonia',d:'+372'},
+  {c:'ZM',n:'Zambia',d:'+260'},
+  {c:'ZW',n:'Zimbabwe',d:'+263'},
+  {c:'US',n:'USA',d:'+1'},
+  {c:'AE',n:'United Arab Emirates',d:'+971'},
+  {c:'GB',n:'United Kingdom',d:'+44'},
+  {c:'JP',n:'Japan',d:'+81'},
+  {c:'IN',n:'India',d:'+91'},
+  {c:'ID',n:'Indonesia',d:'+62'},
+  {c:'JO',n:'Jordan',d:'+962'},
+  {c:'IQ',n:'Iraq',d:'+964'},
+  {c:'IR',n:'Iran',d:'+98'},
+  {c:'IE',n:'Ireland',d:'+353'},
+  {c:'GQ',n:'Equatorial Guinea',d:'+240'},
+  {c:'EC',n:'Ecuador',d:'+593'},
+  {c:'IS',n:'Iceland',d:'+354'},
+  {c:'ES',n:'Spain',d:'+34'},
+  {c:'IL',n:'Israel',d:'+972'},
+  {c:'IT',n:'Italy',d:'+39'},
+  {c:'KE',n:'Kenya',d:'+254'},
+  {c:'CN',n:'China',d:'+86'},
+  {c:'KZ',n:'Kazakhstan',d:'+7'},
+  {c:'CM',n:'Cameroon',d:'+237'},
+  {c:'KH',n:'Cambodia',d:'+855'},
+  {c:'CA',n:'Canada',d:'+1'},
+  {c:'QA',n:'Qatar',d:'+974'},
+  {c:'CF',n:'Central African Republic',d:'+236'},
+  {c:'KG',n:'Kyrgyzstan',d:'+996'},
+  {c:'KI',n:'Kiribati',d:'+686'},
+  {c:'CO',n:'Colombia',d:'+57'},
+  {c:'KM',n:'Comoros',d:'+269'},
+  {c:'CG',n:'Congo',d:'+242'},
+  {c:'KW',n:'Kuwait',d:'+965'},
+  {c:'CU',n:'Cuba',d:'+53'},
+  {c:'HR',n:'Croatia',d:'+385'},
+  {c:'CR',n:'Costa Rica',d:'+506'},
+  {c:'CD',n:'DR Congo',d:'+243'},
+  {c:'LA',n:'Laos',d:'+856'},
+  {c:'LB',n:'Lebanon',d:'+961'},
+  {c:'LS',n:'Lesotho',d:'+266'},
+  {c:'LV',n:'Latvia',d:'+371'},
+  {c:'BY',n:'Belarus',d:'+375'},
+  {c:'LR',n:'Liberia',d:'+231'},
+  {c:'LY',n:'Libya',d:'+218'},
+  {c:'LT',n:'Lithuania',d:'+370'},
+  {c:'LI',n:'Liechtenstein',d:'+423'},
+  {c:'LU',n:'Luxembourg',d:'+352'},
+  {c:'ML',n:'Mali',d:'+223'},
+  {c:'MT',n:'Malta',d:'+356'},
+  {c:'MG',n:'Madagascar',d:'+261'},
+  {c:'MO',n:'Macau',d:'+853'},
+  {c:'MW',n:'Malawi',d:'+265'},
+  {c:'MY',n:'Malaysia',d:'+60'},
+  {c:'MV',n:'Maldives',d:'+960'},
+  {c:'MA',n:'Morocco',d:'+212'},
+  {c:'MU',n:'Mauritius',d:'+230'},
+  {c:'MR',n:'Mauritania',d:'+222'},
+  {c:'ME',n:'Montenegro',d:'+382'},
+  {c:'MX',n:'Mexico',d:'+52'},
+  {c:'MM',n:'Myanmar',d:'+95'},
+  {c:'FM',n:'Micronesia',d:'+691'},
+  {c:'MN',n:'Mongolia',d:'+976'},
+  {c:'MZ',n:'Mozambique',d:'+258'},
+  {c:'MD',n:'Moldova',d:'+373'},
+  {c:'MC',n:'Monaco',d:'+377'},
+  {c:'BD',n:'Bangladesh',d:'+880'},
+  {c:'BB',n:'Barbados',d:'+1'},
+  {c:'BS',n:'Bahamas',d:'+1'},
+  {c:'BH',n:'Bahrain',d:'+973'},
+  {c:'BZ',n:'Belize',d:'+501'},
+  {c:'BJ',n:'Benin',d:'+229'},
+  {c:'BW',n:'Botswana',d:'+267'},
+  {c:'BF',n:'Burkina Faso',d:'+226'},
+  {c:'BI',n:'Burundi',d:'+257'},
+  {c:'BT',n:'Bhutan',d:'+975'},
+  {c:'BN',n:'Brunei',d:'+673'},
+  {c:'NZ',n:'New Zealand',d:'+64'},
+  {c:'MH',n:'Marshall Islands',d:'+692'},
+  {c:'SB',n:'Solomon Islands',d:'+677'},
+  {c:'NE',n:'Niger',d:'+227'},
+  {c:'NA',n:'Namibia',d:'+264'},
+  {c:'NR',n:'Nauru',d:'+674'},
+  {c:'NP',n:'Nepal',d:'+977'},
+  {c:'NG',n:'Nigeria',d:'+234'},
+  {c:'NI',n:'Nicaragua',d:'+505'},
+  {c:'NO',n:'Norway',d:'+47'},
+  {c:'DM',n:'Dominica',d:'+1'},
+  {c:'ZA',n:'South Africa',d:'+27'},
+  {c:'KR',n:'South Korea',d:'+82'},
+  {c:'SS',n:'South Sudan',d:'+211'},
+  {c:'NL',n:'Netherlands',d:'+31'},
+  {c:'OM',n:'Oman',d:'+968'},
+  {c:'HN',n:'Honduras',d:'+504'},
+  {c:'HU',n:'Hungary',d:'+36'},
+  {c:'UG',n:'Uganda',d:'+256'},
+  {c:'UZ',n:'Uzbekistan',d:'+998'},
+  {c:'UA',n:'Ukraine',d:'+380'},
+  {c:'UY',n:'Uruguay',d:'+598'},
+  {c:'PK',n:'Pakistan',d:'+92'},
+  {c:'PW',n:'Palau',d:'+680'},
+  {c:'PA',n:'Panama',d:'+507'},
+  {c:'PG',n:'Papua New Guinea',d:'+675'},
+  {c:'PY',n:'Paraguay',d:'+595'},
+  {c:'PE',n:'Peru',d:'+51'},
+  {c:'PL',n:'Poland',d:'+48'},
+  {c:'PT',n:'Portugal',d:'+351'},
+  {c:'CV',n:'Cape Verde',d:'+238'},
+  {c:'RW',n:'Rwanda',d:'+250'},
+  {c:'RO',n:'Romania',d:'+40'},
+  {c:'RU',n:'Russia',d:'+7'},
+  {c:'ST',n:'Sao Tome',d:'+239'},
+  {c:'WS',n:'Samoa',d:'+685'},
+  {c:'SA',n:'Saudi Arabia',d:'+966'},
+  {c:'SN',n:'Senegal',d:'+221'},
+  {c:'RS',n:'Serbia',d:'+381'},
+  {c:'SC',n:'Seychelles',d:'+248'},
+  {c:'SL',n:'Sierra Leone',d:'+232'},
+  {c:'SG',n:'Singapore',d:'+65'},
+  {c:'SK',n:'Slovakia',d:'+421'},
+  {c:'SI',n:'Slovenia',d:'+386'},
+  {c:'SO',n:'Somalia',d:'+252'},
+  {c:'SD',n:'Sudan',d:'+249'},
+  {c:'SE',n:'Sweden',d:'+46'},
+  {c:'SR',n:'Suriname',d:'+597'},
+  {c:'LK',n:'Sri Lanka',d:'+94'},
+  {c:'SY',n:'Syria',d:'+963'},
+  {c:'TZ',n:'Tanzania',d:'+255'},
+  {c:'TJ',n:'Tajikistan',d:'+992'},
+  {c:'TW',n:'Taiwan',d:'+886'},
+  {c:'TH',n:'Thailand',d:'+66'},
+  {c:'JM',n:'Jamaica',d:'+1'},
+  {c:'DJ',n:'Djibouti',d:'+253'},
+  {c:'TV',n:'Tuvalu',d:'+688'},
+  {c:'TR',n:'Turkey',d:'+90'},
+  {c:'TM',n:'Turkmenistan',d:'+993'},
+  {c:'TT',n:'Trinidad',d:'+1'},
+  {c:'TD',n:'Chad',d:'+235'},
+  {c:'CZ',n:'Czechia',d:'+420'},
+  {c:'TN',n:'Tunisia',d:'+216'},
+  {c:'TG',n:'Togo',d:'+228'},
+  {c:'TO',n:'Tonga',d:'+676'},
+  {c:'YE',n:'Yemen',d:'+967'},
+  {c:'FJ',n:'Fiji',d:'+679'},
+  {c:'PH',n:'Philippines',d:'+63'},
+  {c:'FI',n:'Finland',d:'+358'},
+  {c:'CL',n:'Chile',d:'+56'},
+  {c:'HK',n:'Hong Kong',d:'+852'},
 ];
 
 function flagUrl(code){ return 'https://flagcdn.com/w40/' + code.toLowerCase() + '.png'; }
@@ -2323,7 +2323,7 @@ document.addEventListener('click', (e)=>{
     '<div class="clkBox">' +
       '<div class="clkHead"><span id="clkH" class="on">--</span><span>:</span><span id="clkM">--</span></div>' +
       '<div class="clkDial" id="clkDial"><div class="clkDot"></div><div class="clkHand" id="clkHand" style="display:none"></div></div>' +
-      '<div class="clkBtns"><button type="button" id="clkCancel">Άκυρο</button><button type="button" id="clkOk">OK</button></div>' +
+      '<div class="clkBtns"><button type="button" id="clkCancel">Cancel</button><button type="button" id="clkOk">OK</button></div>' +
     '</div>';
   document.body.appendChild(ov);
 
@@ -2423,7 +2423,7 @@ function buildLocationOptions(){
       }
     });
   });
-  // Πρώτα οι ΠΕΛΑΤΕΣ, μετά τα ΣΗΜΕΙΑ/ΔΙΑΔΡΟΜΕΣ — ίδια εμφάνιση με το
+  // Πρώτα οι PARTNERS, μετά τα ΣΗΜΕΙΑ/ΔΙΑΔΡΟΜΕΣ — ίδια εμφάνιση με το
   // booking2 template (ξεχωριστές επικεφαλίδες ομάδων στο dropdown).
   opts.sort((a, b) => (a.isRoutePoint === b.isRoutePoint) ? 0 : (a.isRoutePoint ? 1 : -1));
   return opts;
@@ -2509,7 +2509,7 @@ async function loadFrequentClients(){
   }catch(e){ console.error('loadFrequentClients error:', e); }
 }
 
-// ── Places απενεργοποιημένο — μετατρέπουμε τα πεδία «Από»/«Προς» από
+// ── Places απενεργοποιημένο — μετατρέπουμε τα πεδία «From»/«To» από
 // ελεύθερο κείμενο σε dropdown ΜΟΝΟ με πελάτες. Καμία ελεύθερη εισαγωγή
 // κειμένου, καμία πραγματική αναζήτηση Google.
 /* ---- Custom "Επιλογή πελάτη" dropdown (αντί για native <select>) ----
@@ -2603,10 +2603,10 @@ function activateClientsOnlyMode(){
     if (oldAcList) oldAcList.style.display = 'none';
     const dd = buildPartnerDropdown(wrap, {
       id,
-      placeholder: '— Διαθέσιμοι προορισμοί —',
+      placeholder: '— Available destinations —',
       options: _locationOptions,
       getLabel: (c) => ({ main: c.name, sub: c.fromName || '' }),
-      getGroupLabel: (c) => c.isRoutePoint ? 'Σημεία / Διαδρομές' : 'Πελάτες',
+      getGroupLabel: (c) => c.isRoutePoint ? 'Points / Routes' : 'Partners',
       isDisabled: (c, i) => {
         const otherIdx = id === 'from' ? _toSelectedIdx : _fromSelectedIdx;
         return otherIdx === i;
@@ -2624,7 +2624,7 @@ function activateClientsOnlyMode(){
         const c = _locationOptions[Number(value)];
         // ⚠️ Γράφουμε ΚΑΙ το όνομα στο (κρυμμένο) input — το gather()/fieldText()
         // διαβάζει από εκεί όταν placesEnabled=true· χωρίς αυτό το κουμπί
-        // έβγαζε «Συμπληρώστε Από και Προς» παρότι είχαν επιλεγεί.
+        // έβγαζε «Please fill in From and To» παρότι είχαν επιλεγεί.
         document.getElementById(id).value = c.name || '';
         if (id==='from'){ state.fromLat=c.fromLat; state.fromLng=c.fromLng; state.fromClientShuttle=!!c.hasShuttleBus; _fromSelectedIdx=Number(value); }
         else { state.toLat=c.fromLat; state.toLng=c.fromLng; state.toClientShuttle=!!c.hasShuttleBus; _toSelectedIdx=Number(value); }
@@ -2653,11 +2653,11 @@ function activateCatalogMode(){
     const mapBtn = wrap.parentElement.querySelector('.map-btn[data-target="'+id+'"]');
     const dd = buildPartnerDropdown(wrap, {
       id,
-      placeholder: '— Διαθέσιμοι προορισμοί —',
+      placeholder: '— Available destinations —',
       options: _locationOptions,
       getLabel: (c) => ({ main: c.name, sub: c.fromName || '' }),
-      getGroupLabel: (c) => c.isRoutePoint ? 'Σημεία / Διαδρομές' : 'Πελάτες',
-      extraOption: { label: 'Διαφορετική διεύθυνση…', value: 'other' },
+      getGroupLabel: (c) => c.isRoutePoint ? 'Points / Routes' : 'Partners',
+      extraOption: { label: 'Different address…', value: 'other' },
       isDisabled: (c, i) => {
         const otherIdx = id === 'from' ? _toSelectedIdx : _fromSelectedIdx;
         return otherIdx === i;
@@ -2690,7 +2690,7 @@ function activateCatalogMode(){
         const c = _locationOptions[Number(value)];
         // ⚠️ Γράφουμε ΚΑΙ το όνομα στο (κρυμμένο) input — το gather()/fieldText()
         // διαβάζει από εκεί όταν placesEnabled=true· χωρίς αυτό το κουμπί
-        // έβγαζε «Συμπληρώστε Από και Προς» παρότι είχαν επιλεγεί.
+        // έβγαζε «Please fill in From and To» παρότι είχαν επιλεγεί.
         document.getElementById(id).value = c.name || '';
         if (id==='from'){ state.fromLat=c.fromLat; state.fromLng=c.fromLng; state.fromClientShuttle=!!c.hasShuttleBus; _fromSelectedIdx=Number(value); }
         else { state.toLat=c.fromLat; state.toLng=c.fromLng; state.toClientShuttle=!!c.hasShuttleBus; _toSelectedIdx=Number(value); }
@@ -2740,9 +2740,9 @@ render();
 
 <footer style="max-width:760px;margin:30px auto 0;padding:16px 18px calc(16px + env(safe-area-inset-bottom));text-align:center;font-size:.78rem;color:var(--text-muted);border-top:1px solid var(--field-border);">
   <div style="margin-bottom:8px;">
-    <a href="index.html" style="color:inherit;text-decoration:none;margin:0 8px;">Αρχική</a> ·
-    <a href="terms.html" style="color:inherit;text-decoration:none;margin:0 8px;">Όροι &amp; Προϋποθέσεις</a> ·
-    <a href="privacy-policy.html" style="color:inherit;text-decoration:none;margin:0 8px;">Πολιτική Απορρήτου</a>
+    <a href="index.html" style="color:inherit;text-decoration:none;margin:0 8px;">Home</a> ·
+    <a href="terms.html" style="color:inherit;text-decoration:none;margin:0 8px;">Условия использования</a> ·
+    <a href="privacy-policy.html" style="color:inherit;text-decoration:none;margin:0 8px;">Политику конфиденциальности</a>
   </div>
   <div>
     <i class="fas fa-phone"></i> <a href="tel:+306936123322" style="color:inherit;text-decoration:none;">+30 6936123322</a>
